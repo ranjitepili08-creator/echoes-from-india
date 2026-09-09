@@ -1,7 +1,13 @@
 #!/bin/bash
 
-# Echoes of India - Full-Stack Local Launcher
+# If running on Railway/Render/Cloud with a dynamic PORT, run FastAPI backend directly
+if [ -n "$PORT" ] || [ -n "$RAILWAY_ENVIRONMENT" ]; then
+    echo "Starting Echoes of India FastAPI Backend on port ${PORT:-8000}..."
+    cd backend
+    exec uvicorn app.main:app --host 0.0.0.0 --port "${PORT:-8000}"
+fi
 
+# Otherwise, Local Full-Stack Development Launcher
 echo "=========================================================="
 echo "  ECHOES OF INDIA: AI Historical Instrument Revival"
 echo "  AI/ML Program — Masai School × IIT Patna"
