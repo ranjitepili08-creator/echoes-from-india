@@ -1,0 +1,29 @@
+{
+  "name": "echoes-from-india-main",
+  "version": "1.0.0",
+  "description": "An AI-powered platform and digital museum that brings the sound of India's historical, near-extinct, and rare musical instruments back to life.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "npm --prefix frontend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:backend": "cd backend && source venv/bin/activate && uvicorn app.main:app --reload --port 8000",
+    "build": "npm --prefix frontend run build",
+    "preview": "npm --prefix frontend run preview",
+    "test": "cd backend && ./venv/bin/pytest tests/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ranjitepili08-creator/echoes-from-india.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ranjitepili08-creator/echoes-from-india/issues"
+  },
+  "homepage": "https://github.com/ranjitepili08-creator/echoes-from-india#readme"
+}
