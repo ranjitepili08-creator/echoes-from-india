@@ -49,12 +49,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onSelectSa
       {/* Central Maestro Cutout (Rudra Veena / Classical Musician) */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[760px] h-[70%] sm:h-[80%] z-10 flex justify-center items-end pointer-events-none">
         <img 
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Rudra_Vina_MIM_Brussels.jpg/800px-Rudra_Vina_MIM_Brussels.jpg" 
+          src="/musician.png" 
           alt="Classical Indian Musician playing Rudra Veena"
           className="max-h-full max-w-full object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.95)] transition-transform duration-700 hover:scale-105"
           style={{
             maskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)',
             WebkitMaskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)'
+          }}
+          onError={(e) => {
+            // Graceful fallback
+            (e.target as HTMLImageElement).src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Rudra_Vina_MIM_Brussels.jpg/800px-Rudra_Vina_MIM_Brussels.jpg';
           }}
         />
       </div>
@@ -69,9 +73,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onSelectSa
             className="w-full h-52 rounded-md overflow-hidden border border-white/15 shadow-[0_15px_30px_rgba(0,0,0,0.7)] group cursor-pointer relative"
           >
             <img 
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Mayuri_vina_or_Taus_MIM_1947.jpg/800px-Mayuri_vina_or_Taus_MIM_1947.jpg" 
+              src="/hero1.jpeg" 
               alt="Royal ensemble of musicians" 
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Mayuri_vina_or_Taus_MIM_1947.jpg/800px-Mayuri_vina_or_Taus_MIM_1947.jpg';
+              }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-2.5">
               <span className="text-[11px] font-mono text-saffron-300 font-semibold">Audition Mayuri Veena →</span>
@@ -105,9 +112,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onSelectSa
             className="w-full h-48 rounded-md overflow-hidden border border-white/15 shadow-[0_15px_30px_rgba(0,0,0,0.7)] group cursor-pointer relative"
           >
             <img 
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Amaravati_harp_relief_detail.jpg/800px-Amaravati_harp_relief_detail.jpg" 
+              src="/hero2.jpeg" 
               alt="Ancient Indian Yazh and harp players sketch" 
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Amaravati_harp_relief_detail.jpg/800px-Amaravati_harp_relief_detail.jpg';
+              }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-2.5 justify-end">
               <span className="text-[11px] font-mono text-saffron-300 font-semibold">Audition Ancient Yazh →</span>
