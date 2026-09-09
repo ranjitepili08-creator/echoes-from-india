@@ -151,6 +151,8 @@ export const RhythmGame: React.FC<RhythmGameProps> = ({
   };
 
   const handleTileHit = (lane: number) => {
+    soundEngine.init();
+
     if (gameState !== 'playing') {
       if (gameState === 'idle' || gameState === 'gameover') {
         startGame();
@@ -210,9 +212,9 @@ export const RhythmGame: React.FC<RhythmGameProps> = ({
         setLastJudgement({ text: 'GREAT', color: 'text-emerald-300' });
       }
     } else {
-      // Empty lane tap gives slight feedback
+      // Empty lane tap gives rich audible feedback
       const defaultPitches = ['C4', 'D4', 'E4', 'G4'];
-      soundEngine.playNote(getFrequencyForPitch(defaultPitches[lane]), currentInstrument, 0.3, 0.3);
+      soundEngine.playNote(getFrequencyForPitch(defaultPitches[lane]), currentInstrument, 0.5, 0.85);
     }
   };
 
@@ -406,26 +408,40 @@ export const RhythmGame: React.FC<RhythmGameProps> = ({
             </p>
           </div>
 
-          {/* Scanned Instrument Soundfont Tone Picker */}
-          <div className="flex items-center gap-2.5 bg-indigoHeritage-950/80 p-3 rounded-2xl border border-saffron-500/40 w-full md:w-auto shadow-md">
-            <Radio className="w-4 h-4 text-saffron-400 animate-pulse" />
-            <div className="text-xs flex-1 md:flex-none">
-              <span className="text-[9px] uppercase font-bold text-parchment-400 block">Active Instrument Soundfont:</span>
-              <select
-                value={currentInstrument.id}
-                onChange={(e) => {
-                  const inst = HISTORICAL_INSTRUMENTS.find((i) => i.id === e.target.value);
-                  if (inst) onSelectInstrument(inst);
-                }}
-                className="w-full bg-transparent text-saffron-300 font-bold text-xs outline-none cursor-pointer"
-              >
-                {HISTORICAL_INSTRUMENTS.map((inst) => (
-                  <option key={inst.id} value={inst.id} className="bg-indigoHeritage-950 text-parchment-100">
-                    {inst.name} ({inst.status})
-                  </option>
-                ))}
-              </select>
+          {/* Scanned Instrument Soundfont Tone Picker & Audio Test */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto">
+            <div className="flex items-center gap-2.5 bg-indigoHeritage-950/80 p-3 rounded-2xl border border-saffron-500/40 w-full md:w-auto shadow-md">
+              <Radio className="w-4 h-4 text-saffron-400 animate-pulse" />
+              <div className="text-xs flex-1 md:flex-none">
+                <span className="text-[9px] uppercase font-bold text-parchment-400 block">Active Instrument Soundfont:</span>
+                <select
+                  value={currentInstrument.id}
+                  onChange={(e) => {
+                    const inst = HISTORICAL_INSTRUMENTS.find((i) => i.id === e.target.value);
+                    if (inst) onSelectInstrument(inst);
+                  }}
+                  className="w-full bg-transparent text-saffron-300 font-bold text-xs outline-none cursor-pointer"
+                >
+                  {HISTORICAL_INSTRUMENTS.map((inst) => (
+                    <option key={inst.id} value={inst.id} className="bg-indigoHeritage-950 text-parchment-100">
+                      {inst.name} ({inst.status})
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
+
+            <button
+              onClick={() => {
+                soundEngine.init();
+                soundEngine.playNote(392.00, currentInstrument, 1.2, 1.0); // Play Pa (G4) loud chime
+              }}
+              title="Click to test and unlock browser audio"
+              className="px-3.5 py-3 rounded-2xl bg-saffron-500/15 hover:bg-saffron-500/25 border border-saffron-500/40 text-saffron-300 font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-md active:scale-95 touch-manipulation"
+            >
+              <Volume2 className="w-3.5 h-3.5" />
+              <span>Test Audio 🔊</span>
+            </button>
           </div>
         </div>
       </div>
