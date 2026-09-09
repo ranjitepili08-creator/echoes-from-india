@@ -64,6 +64,9 @@ export const RhythmGame: React.FC<RhythmGameProps> = ({
     previewTimersRef.current.forEach((t) => clearTimeout(t));
     previewTimersRef.current = [];
     setIsPreviewPlaying(false);
+    if (gameState === 'playing') {
+      setGameState('idle');
+    }
   };
 
   // Auto-play song melody demo with scanned instrument
@@ -71,27 +74,18 @@ export const RhythmGame: React.FC<RhythmGameProps> = ({
     stopPreview();
     soundEngine.init();
     setIsPreviewPlaying(true);
+    setScore(0);
+    setCombo(0);
+    setMaxCombo(0);
+    setPerfectHits(0);
+    setGreatHits(0);
+    setMisses(0);
+    setLastJudgement({ text: 'DEMO MODE', color: 'text-emerald-300' });
 
-    selectedSong.notes.forEach((note) => {
-      const timerId = window.setTimeout(() => {
-        const freq = getFrequencyForPitch(note.pitch);
-        soundEngine.playNote(freq, currentInstrument, note.duration, 0.95);
-        
-        // Visual touch indication
-        setActiveLaneTouch((prev) => ({ ...prev, [note.lane]: true }));
-        setTimeout(() => {
-          setActiveLaneTouch((prev) => ({ ...prev, [note.lane]: false }));
-        }, Math.min(250, note.duration * 600));
-      }, note.time * 1000);
-
-      previewTimersRef.current.push(timerId);
-    });
-
-    // Cleanup timer at end of song
-    const endTimerId = window.setTimeout(() => {
-      setIsPreviewPlaying(false);
-    }, (selectedSong.duration + 1) * 1000);
-    previewTimersRef.current.push(endTimerId);
+    noteIndexRef.current = 0;
+    activeTilesRef.current = [];
+    startTimeRef.current = performance.now();
+    setGameState('playing');
   };
 
   // Toggle Tabla/Pakhawaj rhythm beat accompaniment
@@ -138,6 +132,10 @@ export const RhythmGame: React.FC<RhythmGameProps> = ({
     noteIndexRef.current = 0;
     activeTilesRef.current = [];
     
+    if (isRhythmBeatActive) {
+      soundEngine.startRhythmBeat(selectedSong.bpm);
+    }
+
     startTimeRef.current = performance.now();
     setGameState('playing');
   };
@@ -153,8 +151,8 @@ export const RhythmGame: React.FC<RhythmGameProps> = ({
   const handleTileHit = (lane: number) => {
     soundEngine.init();
 
-    if (gameState !== 'playing') {
-      if (gameState === 'idle' || gameState === 'gameover') {
+    if (gameState !== 'playing' || isPreviewPlaying) {
+      if (gameState === 'idle' || gameState === 'gameover' || isPreviewPlaying) {
         startGame();
       }
       return;
@@ -168,7 +166,7 @@ export const RhythmGame: React.FC<RhythmGameProps> = ({
 
     // Find the closest unhit tile in this lane near the hit target line (y = 0.85)
     const targetY = 0.85;
-    const hitWindow = 0.24; // tolerance
+    const hitWindow = 0.22; // tolerance window
 
     let closestTile: ActiveTile | null = null;
     let minDistance = 999;
@@ -190,7 +188,7 @@ export const RhythmGame: React.FC<RhythmGameProps> = ({
       // Play note through the active scanned instrument soundfont!
       soundEngine.playNote(freq, currentInstrument, closestTile.note.duration, 0.95);
 
-      if (minDistance < 0.09) {
+      if (minDistance <= 0.08) {
         // Perfect Hit
         setScore((s) => s + 100 * (1 + Math.min(4, Math.floor(combo / 10)) * 0.5));
         setCombo((c) => {
@@ -214,7 +212,7 @@ export const RhythmGame: React.FC<RhythmGameProps> = ({
     } else {
       // Empty lane tap gives rich audible feedback
       const defaultPitches = ['C4', 'D4', 'E4', 'G4'];
-      soundEngine.playNote(getFrequencyForPitch(defaultPitches[lane]), currentInstrument, 0.5, 0.85);
+      soundEngine.playNote(getFrequencyForPitch(defaultPitches[lane]), currentInstrument, 0.4, 0.75);
     }
   };
 
@@ -236,14 +234,14 @@ export const RhythmGame: React.FC<RhythmGameProps> = ({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [gameState, currentInstrument, combo]);
+  }, [gameState, currentInstrument, combo, isPreviewPlaying]);
 
   // Main 60fps Game Loop
   useEffect(() => {
     if (gameState !== 'playing') return;
 
     let tileIdCounter = 0;
-    const fallDuration = 2.2 / tileSpeedMultiplier; // seconds for a tile to travel top to bottom
+    const fallDuration = 2.0 / tileSpeedMultiplier; // seconds for a tile to travel top to bottom
     const targetY = 0.85;
 
     const gameLoop = (timestamp: number) => {
@@ -266,13 +264,25 @@ export const RhythmGame: React.FC<RhythmGameProps> = ({
         noteIndexRef.current++;
       }
 
-      // 2. Update tile positions & check for misses
+      // 2. Update tile positions & check for hits/misses
       for (const tile of activeTilesRef.current) {
         const timeSinceSpawn = elapsedSeconds - (tile.note.time - fallDuration * targetY);
         tile.y = (timeSinceSpawn / fallDuration);
 
-        // Check if tile fell past target line without hit
-        if (!tile.hit && !tile.missed && tile.y > targetY + 0.14) {
+        // In Demo / Preview Mode: Auto-play notes precisely when centered at target line
+        if (isPreviewPlaying && !tile.hit && tile.y >= targetY) {
+          tile.hit = true;
+          const freq = getFrequencyForPitch(tile.note.pitch);
+          soundEngine.playNote(freq, currentInstrument, tile.note.duration, 0.95);
+          
+          setActiveLaneTouch((prev) => ({ ...prev, [tile.note.lane]: true }));
+          setTimeout(() => {
+            setActiveLaneTouch((prev) => ({ ...prev, [tile.note.lane]: false }));
+          }, Math.min(180, tile.note.duration * 400));
+        }
+
+        // In Manual Play: Check if tile fell past target line without hit
+        if (!isPreviewPlaying && !tile.hit && !tile.missed && tile.y > targetY + 0.16) {
           tile.missed = true;
           setCombo(0);
           setMisses((m) => m + 1);
@@ -281,15 +291,20 @@ export const RhythmGame: React.FC<RhythmGameProps> = ({
       }
 
       // 3. Remove out-of-screen tiles
-      activeTilesRef.current = activeTilesRef.current.filter((t) => t.y <= 1.15);
+      activeTilesRef.current = activeTilesRef.current.filter((t) => t.y <= 1.2);
 
       // 4. Render Game Canvas
       renderCanvas();
 
       // 5. Check if Song Complete
       if (elapsedSeconds >= selectedSong.duration + 1.2) {
-        setGameState('gameover');
-        confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+        if (isPreviewPlaying) {
+          setIsPreviewPlaying(false);
+          setGameState('idle');
+        } else {
+          setGameState('gameover');
+          confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+        }
         return;
       }
 
@@ -326,10 +341,10 @@ export const RhythmGame: React.FC<RhythmGameProps> = ({
       }
 
       // Target Hit Line at Y = 0.85
-      const hitY = h * 0.85;
+      const hitY = h * targetY;
       ctx.strokeStyle = 'rgba(245, 158, 11, 0.85)';
       ctx.lineWidth = 3;
-      ctx.shadowBlur = 12;
+      ctx.shadowBlur = 14;
       ctx.shadowColor = 'rgba(245, 158, 11, 1)';
       ctx.beginPath();
       ctx.moveTo(0, hitY);
@@ -337,20 +352,23 @@ export const RhythmGame: React.FC<RhythmGameProps> = ({
       ctx.stroke();
       ctx.shadowBlur = 0;
 
-      // Draw Falling Tiles
+      // Draw Falling Tiles (Centered precisely over tile.y)
       for (const tile of activeTilesRef.current) {
-        if (tile.hit) continue;
+        if (tile.hit && !isPreviewPlaying) continue;
 
         const x = tile.note.lane * laneWidth + 4;
-        const tileY = tile.y * h;
         const tileWidth = laneWidth - 8;
-        const tileHeight = Math.max(34, tile.note.duration * 42);
+        const tileHeight = Math.max(34, tile.note.duration * 44);
+        const tileY = tile.y * h - tileHeight / 2;
 
         // Gradient for falling tile
         const grad = ctx.createLinearGradient(x, tileY, x, tileY + tileHeight);
         if (tile.missed) {
-          grad.addColorStop(0, 'rgba(239, 68, 68, 0.4)');
-          grad.addColorStop(1, 'rgba(185, 28, 28, 0.2)');
+          grad.addColorStop(0, 'rgba(239, 68, 68, 0.5)');
+          grad.addColorStop(1, 'rgba(185, 28, 28, 0.25)');
+        } else if (tile.hit) {
+          grad.addColorStop(0, '#10b981');
+          grad.addColorStop(1, '#059669');
         } else {
           grad.addColorStop(0, '#f59e0b');
           grad.addColorStop(0.5, '#d97706');
@@ -363,15 +381,19 @@ export const RhythmGame: React.FC<RhythmGameProps> = ({
         ctx.fill();
 
         // Tile glow border
-        ctx.strokeStyle = tile.missed ? 'rgba(239, 68, 68, 0.8)' : 'rgba(254, 243, 199, 0.95)';
+        ctx.strokeStyle = tile.missed 
+          ? 'rgba(239, 68, 68, 0.8)' 
+          : tile.hit 
+          ? 'rgba(52, 211, 153, 0.95)' 
+          : 'rgba(254, 243, 199, 0.95)';
         ctx.lineWidth = 1.5;
         ctx.stroke();
 
         // Tile Syllable / Sargam Label (e.g. Dheem, Ta, Dare, Dani)
         ctx.fillStyle = '#0a0a14';
-        ctx.font = 'bold 13px Cinzel, serif';
+        ctx.font = 'bold 12px Cinzel, serif';
         ctx.textAlign = 'center';
-        ctx.fillText(tile.note.sargam, x + tileWidth / 2, tileY + tileHeight / 2 + 5);
+        ctx.fillText(tile.note.sargam, x + tileWidth / 2, tileY + tileHeight / 2 + 4);
       }
     };
 
@@ -380,7 +402,7 @@ export const RhythmGame: React.FC<RhythmGameProps> = ({
     return () => {
       cancelAnimationFrame(animationFrameRef.current);
     };
-  }, [gameState, selectedSong, tileSpeedMultiplier, currentInstrument]);
+  }, [gameState, selectedSong, tileSpeedMultiplier, currentInstrument, isPreviewPlaying]);
 
   const accuracy = Math.round(
     (perfectHits + greatHits + misses > 0)

@@ -391,12 +391,16 @@ class SoundEngine {
   }
 
   // 🥁 Background Rhythmic Tabla/Pakhawaj Percussion Engine
-  public startRhythmBeat(bpm: number = 130) {
+  public startRhythmBeat(bpm: number = 120) {
     this.stopRhythmBeat();
     const intervalMs = (60 / Math.max(40, bpm)) * 500;
-    let step = 0;
-
     const pattern = ['Dha', 'Ta', 'Dhin', 'Ta', 'Ge', 'Tit', 'Dha', 'Dhin'];
+
+    // Play first beat immediately without waiting for first interval
+    const firstBol = pattern[0];
+    const isFirstBass = firstBol === 'Dha' || firstBol === 'Ge';
+    this.playBol(firstBol, isFirstBass ? 85 : 220, 0.45, isFirstBass ? 'both' : 'right_treble');
+    let step = 1;
 
     this.rhythmInterval = window.setInterval(() => {
       const bol = pattern[step % pattern.length];
