@@ -69,13 +69,31 @@ class AttributeClassificationService:
         img_small = img.resize((64, 64))
         arr = np.array(img_small, dtype=np.float32) / 255.0
 
-        r_mean = float(np.mean(arr[:, :, 0]))
-        g_mean = float(np.mean(arr[:, :, 1]))
-        b_mean = float(np.mean(arr[:, :, 2]))
+        # Segment foreground by inspecting corner pixels (to avoid white studio background bias)
+        corners = [arr[0, 0], arr[0, -1], arr[-1, 0], arr[-1, -1]]
+        bg_rgb = np.mean(corners, axis=0)
+        has_light_bg = float(np.mean(bg_rgb)) > 0.70
+
+        if has_light_bg:
+            diffs = np.sum(np.abs(arr - bg_rgb), axis=2)
+            fg_mask = diffs > 0.15
+        else:
+            fg_mask = np.ones((64, 64), dtype=bool)
+
+        if np.sum(fg_mask) > 10:
+            fg_arr = arr[fg_mask]
+            r_mean = float(np.mean(fg_arr[:, 0]))
+            g_mean = float(np.mean(fg_arr[:, 1]))
+            b_mean = float(np.mean(fg_arr[:, 2]))
+        else:
+            r_mean = float(np.mean(arr[:, :, 0]))
+            g_mean = float(np.mean(arr[:, :, 1]))
+            b_mean = float(np.mean(arr[:, :, 2]))
+
         brightness = (r_mean + g_mean + b_mean) / 3.0
-        warmth = (r_mean * 1.2 + g_mean * 0.9) - b_mean
+        warmth = (r_mean * 1.3 + g_mean * 0.9) - b_mean
         gold_brass = (r_mean + g_mean) * 0.5 - b_mean * 0.8
-        white_score = brightness if (abs(r_mean - g_mean) < 0.12 and abs(g_mean - b_mean) < 0.12 and brightness > 0.6) else 0.0
+        white_score = brightness if (abs(r_mean - g_mean) < 0.08 and abs(g_mean - b_mean) < 0.08 and brightness > 0.75) else 0.0
         blue_green = (g_mean + b_mean) * 0.5 - r_mean
 
         # Determine visual attribute profile
@@ -88,7 +106,16 @@ class AttributeClassificationService:
         posture = "seated on floor held across lap"
         color_palette = "warm wood tones"
 
-        if white_score > 0.4:
+        if gold_brass > 0.15 or (gold_brass > 0.05 and aspect_ratio < 0.95):
+            family = "wind_aerophone"
+            res_shape = "serpentine S-shaped curved tubing with expanded serpent hood bell"
+            res_material = "sheet brass / bronze with scale chasing"
+            neck_cat = "coiled S-curved body tubing"
+            strings_desc = "none"
+            features = ["flared cobra snake hood bell", "coiled serpentine brass tube", "cupped mouthpiece"]
+            posture = "held vertically blown with vibrating lips"
+            color_palette = "golden brass / antique bronze"
+        elif white_score > 0.6 and 0.75 <= aspect_ratio <= 1.35:
             family = "wind_aerophone"
             res_shape = "natural logarithmic spiral conical shell"
             res_material = "white calcium carbonate sea shell"

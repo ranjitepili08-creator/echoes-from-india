@@ -162,13 +162,31 @@ class ClipClassificationService:
         img_64 = img_rgb.resize((64, 64))
         arr = np.array(img_64, dtype=np.float32) / 255.0
 
-        r_mean = float(np.mean(arr[:, :, 0]))
-        g_mean = float(np.mean(arr[:, :, 1]))
-        b_mean = float(np.mean(arr[:, :, 2]))
+        # Estimate background color from 4 corners to separate object from museum background
+        corners = [arr[0, 0], arr[0, -1], arr[-1, 0], arr[-1, -1]]
+        bg_rgb = np.mean(corners, axis=0)
+        has_light_bg = float(np.mean(bg_rgb)) > 0.70
+
+        if has_light_bg:
+            diffs = np.sum(np.abs(arr - bg_rgb), axis=2)
+            fg_mask = diffs > 0.15
+        else:
+            fg_mask = np.ones((64, 64), dtype=bool)
+
+        if np.sum(fg_mask) > 10:
+            fg_arr = arr[fg_mask]
+            r_mean = float(np.mean(fg_arr[:, 0]))
+            g_mean = float(np.mean(fg_arr[:, 1]))
+            b_mean = float(np.mean(fg_arr[:, 2]))
+        else:
+            r_mean = float(np.mean(arr[:, :, 0]))
+            g_mean = float(np.mean(arr[:, :, 1]))
+            b_mean = float(np.mean(arr[:, :, 2]))
+
         brightness = (r_mean + g_mean + b_mean) / 3.0
-        warmth = (r_mean * 1.2 + g_mean * 0.9) - b_mean
+        warmth = (r_mean * 1.3 + g_mean * 0.9) - b_mean
         gold_brass = (r_mean + g_mean) * 0.5 - b_mean * 0.8
-        white_score = brightness if (abs(r_mean - g_mean) < 0.12 and abs(g_mean - b_mean) < 0.12 and brightness > 0.6) else 0.0
+        white_score = brightness if (abs(r_mean - g_mean) < 0.08 and abs(g_mean - b_mean) < 0.08 and brightness > 0.75) else 0.0
         blue_green = (g_mean + b_mean) * 0.5 - r_mean
 
         vec = np.zeros(self.embedding_dim, dtype=np.float32)
