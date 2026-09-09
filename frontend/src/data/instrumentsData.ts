@@ -1,0 +1,1663 @@
+import { Instrument } from '../types';
+
+export const HISTORICAL_INSTRUMENTS: Instrument[] = [
+  {
+    "id": "yazh",
+    "name": "Yazh",
+    "sanskritName": "याऴ् / Vina (Harp type)",
+    "regionalNames": [
+      "யாழ் (Tamil)",
+      "Villu Yazh",
+      "Makara Yazh",
+      "Peri Yazh",
+      "Sakota Yazh"
+    ],
+    "family": "tata",
+    "categoryLabel": "Tata Vadya (Chordophone / Ancient Open Harp)",
+    "era": "Sangam Period (c. 3rd Century BCE – 6th Century CE)",
+    "period": "sangam",
+    "century": "3rd c. BCE - 5th c. CE",
+    "region": "Ancient Tamilakam (Southern India / Tamil Nadu)",
+    "coordinates": [
+      10.787,
+      79.1378
+    ],
+    "status": "extinct",
+    "image": "https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=1200&q=80",
+    "carvingImage": "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?auto=format&fit=crop&w=800&q=80",
+    "shortDescription": "Ancient Tamil bow-harp with silk strings and hollow wood boat-shaped resonator, praised in classical Sangam poetry as the pinnacle of sweet acoustic purity.",
+    "historicalContext": "The Yazh was the principal stringed instrument of ancient Tamil civilization, played by the wandering bardic clan known as the \"Panars\". Detailed descriptions appear across Tamil Sangam literature including the Silappadikaram, Manimekalai, and Pathupattu. As fretted lutes and veenas gained prominence in the medieval era (7th–9th century CE), the Yazh gradually became extinct, surviving only in temple sculptures at Pudukkottai, Thanjavur, and Amaravati.",
+    "constructionMaterials": [
+      {
+        "name": "Resonator (Pattar)",
+        "description": "Boat-shaped or aquatic beast (Makara) body scooped out of seasoned Jackfruit (Palā) or Red Sandalwood.",
+        "acousticRole": "Warm low-mid resonance with hollow body damping"
+      },
+      {
+        "name": "Soundboard Skin (Porvai)",
+        "description": "Thinly tanned deer skin or calf parchment stretched across the open sound box.",
+        "acousticRole": "Fast transient attack with organic acoustic decay"
+      },
+      {
+        "name": "Strings (Narambu)",
+        "description": "7 to 21 twisted raw silk or sterilized gut strings tuned to ancient Tamil panns (modal scales).",
+        "acousticRole": "Soft, mellow fundamental tone with gentle upper harmonic rolloff"
+      },
+      {
+        "name": "Stem (Thandu) & Pegs",
+        "description": "Curved wooden arm with leather tuning rings (Thimar) or wooden pegs (Aani).",
+        "acousticRole": "Structural tension maintenance for pure intonation"
+      }
+    ],
+    "playingTechnique": "Held horizontally or diagonally against the torso, plucked delicately with bare fingertips and thumbnail plucking (palingu) without a plectrum. Played in modal Pan patterns (Sevvazhi, Padumalai, Kurinji).",
+    "culturalSignificance": "Emblem of divine music, associated with goddess Saraswati and heavenly celestial musicians. In Silappadikaram, the chapter \"Kanal Vari\" details the rigorous 14-string tuning ritual performed by Kovalan and Madhavi on the seaside shores of Poompuhar.",
+    "treatiseCitations": [
+      {
+        "treatise": "Silappadikaram (by Ilango Adigal)",
+        "chapter": "Kanal Vari, Verse 18-22",
+        "quote": "வார் உறு கோலும் வரியுறு நரம்பும் ஏறுபெறத் தொடுத்து...",
+        "translation": "Plucking the pure silk strings resting upon the curved bow-arm, sweet notes of the Sevvazhi pann echoed like the murmur of ancient waters."
+      }
+    ],
+    "acousticProfile": {
+      "resonatorType": "Parchment-covered boat-shaped jackfruit resonator",
+      "bodyResonanceFreq": 185.0,
+      "jawariBuzz": 0.05,
+      "decayTime": 3.4,
+      "harmonicRichness": 0.65,
+      "sympatheticTarab": false,
+      "timbreType": "plucked_silk",
+      "frequencyRange": "65 Hz - 1200 Hz (C2 - E5)",
+      "soundReconstructionNotes": "Acoustic modeling approximates silk-string tension over parchment soundboard: fast initial transient impulse, warm fundamental warmth, subtle skin envelope, minimal metallic jivari."
+    },
+    "playInterface": {
+      "type": "strings",
+      "stringCount": 7,
+      "notes": [
+        {
+          "sargam": "Kural (Sa)",
+          "western": "C4",
+          "frequency": 261.63,
+          "keyboardKey": "A"
+        },
+        {
+          "sargam": "Thuttam (Re)",
+          "western": "D4",
+          "frequency": 293.66,
+          "keyboardKey": "S"
+        },
+        {
+          "sargam": "Kaikkilai (Ga)",
+          "western": "E4",
+          "frequency": 329.63,
+          "keyboardKey": "D"
+        },
+        {
+          "sargam": "Uzhai (Ma)",
+          "western": "F4",
+          "frequency": 349.23,
+          "keyboardKey": "F"
+        },
+        {
+          "sargam": "Ili (Pa)",
+          "western": "G4",
+          "frequency": 392.0,
+          "keyboardKey": "J"
+        },
+        {
+          "sargam": "Vilari (Dha)",
+          "western": "A4",
+          "frequency": 440.0,
+          "keyboardKey": "K"
+        },
+        {
+          "sargam": "Tharam (Ni)",
+          "western": "B4",
+          "frequency": 493.88,
+          "keyboardKey": "L"
+        }
+      ],
+      "droneNotes": [
+        {
+          "sargam": "Kural Mandram",
+          "western": "C3",
+          "frequency": 130.81,
+          "keyboardKey": "Z"
+        },
+        {
+          "sargam": "Ili Mandram",
+          "western": "G3",
+          "frequency": 196.0,
+          "keyboardKey": "X"
+        }
+      ]
+    },
+    "detectionCues": {
+      "shapePattern": "Arched bow / boat shape with upward curved wooden mast",
+      "resonators": "Elongated hollow body covered with membrane cover",
+      "stringsOrPipes": "Parallel open strings running from bridge skin to curved arm",
+      "bridgeType": "No movable frets; direct skin-mounted string termination"
+    }
+  },
+  {
+    "id": "pinaka-veena",
+    "name": "Pinaka Veena",
+    "sanskritName": "पिनाक वीणा / Pinākī Vīṇā",
+    "regionalNames": [
+      "Pinaki Veena",
+      "Bowed Stick Veena",
+      "Shivapriya Vina"
+    ],
+    "family": "tata",
+    "categoryLabel": "Tata Vadya (Chordophone / Bowed Stick Zither)",
+    "era": "Vedic & Epic Era (c. 1500 BCE – 12th Century CE)",
+    "period": "vedic",
+    "century": "10th c. BCE - 13th c. CE",
+    "region": "Northern & Central India (Gangetic Plains / Himalayas)",
+    "coordinates": [
+      29.9457,
+      78.1642
+    ],
+    "status": "extinct",
+    "image": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80",
+    "carvingImage": "https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?auto=format&fit=crop&w=800&q=80",
+    "shortDescription": "Sacred bowed monochord shaped like Shiva’s divine bow Pinaka, producing haunting, sustained continuous tones through horsehair friction.",
+    "historicalContext": "Described extensively by musicologist Sharngadeva in the 13th-century magnum opus \"Sangita Ratnakara\", the Pinaka Veena is considered one of the earliest bowed stringed instruments in world organology.",
+    "constructionMaterials": [
+      {
+        "name": "Bow Staff (Danda)",
+        "description": "Curved bamboo or Khadira hardwood stem shaped like an archer’s bow.",
+        "acousticRole": "Elastic flexure providing structural counter-tension"
+      },
+      {
+        "name": "Resonator Gourd (Kumbha)",
+        "description": "Dried hollow bottle gourd mounted at the lower extremity.",
+        "acousticRole": "Deep cavity resonance amplifying bowed friction"
+      },
+      {
+        "name": "Chord (Tantu)",
+        "description": "Heavy gut or animal sinew string rubbed with resin.",
+        "acousticRole": "Rich sub-harmonics with sustained friction buzz"
+      },
+      {
+        "name": "Bow (Kona)",
+        "description": "Slender cane strung with coarse horsehair.",
+        "acousticRole": "Friction excitation producing sustained singing envelope"
+      }
+    ],
+    "playingTechnique": "Held vertically, bowed with a secondary bow (Kona) while stopping the string with a smooth rod for continuous glissando.",
+    "culturalSignificance": "Mythologically connected to Lord Shiva’s cosmic bow Pinaka. Capable of evoking Anahata Nada.",
+    "treatiseCitations": [
+      {
+        "treatise": "Sangita Ratnakara (by Sharngadeva)",
+        "chapter": "Vadyadhyaya",
+        "quote": "धनुराकारदण्डा स्यात् पिनाकी तन्तुसंयुता...",
+        "translation": "The Pinaki has a staff shaped like an archer bow, strung with a single sacred chord; played with a bow, it pleases Shiva."
+      }
+    ],
+    "acousticProfile": {
+      "resonatorType": "Single bottom gourd resonator with curved bamboo staff",
+      "bodyResonanceFreq": 145.0,
+      "jawariBuzz": 0.15,
+      "decayTime": 4.8,
+      "harmonicRichness": 0.82,
+      "sympatheticTarab": false,
+      "timbreType": "bowed_folk",
+      "frequencyRange": "80 Hz - 900 Hz (E2 - A4)",
+      "soundReconstructionNotes": "Bowed string excitation physics: continuous saw-tooth friction waveform, low-pass body filter at 750 Hz, high friction grit."
+    },
+    "playInterface": {
+      "type": "strings",
+      "stringCount": 5,
+      "notes": [
+        {
+          "sargam": "Mandra Sa",
+          "western": "C3",
+          "frequency": 130.81,
+          "keyboardKey": "A"
+        },
+        {
+          "sargam": "Mandra Pa",
+          "western": "G3",
+          "frequency": 196.0,
+          "keyboardKey": "S"
+        },
+        {
+          "sargam": "Madhya Sa",
+          "western": "C4",
+          "frequency": 261.63,
+          "keyboardKey": "D"
+        },
+        {
+          "sargam": "Madhya Ga",
+          "western": "E4",
+          "frequency": 329.63,
+          "keyboardKey": "F"
+        },
+        {
+          "sargam": "Madhya Pa",
+          "western": "G4",
+          "frequency": 392.0,
+          "keyboardKey": "J"
+        }
+      ],
+      "droneNotes": [
+        {
+          "sargam": "Mandra Drone",
+          "western": "C3",
+          "frequency": 130.81,
+          "keyboardKey": "Z"
+        }
+      ]
+    },
+    "detectionCues": {
+      "shapePattern": "Pronounced bow arch contour with single prominent string",
+      "resonators": "Single spherical gourd attached at base",
+      "stringsOrPipes": "Single bowed gut string",
+      "bridgeType": "Curved wooden post bridge with friction bow mechanism"
+    }
+  },
+  {
+    "id": "rudra-veena",
+    "name": "Rudra Veena",
+    "sanskritName": "रुद्र वीणा / Rudra Vīṇā (Bīn)",
+    "regionalNames": [
+      "Been",
+      "Khandavina",
+      "Mahati Vina"
+    ],
+    "family": "tata",
+    "categoryLabel": "Tata Vadya (Chordophone / Tubular Stick Zither with Twin Gourd Resonators)",
+    "era": "Classical to Medieval (c. 6th Century – Present Living Heritage)",
+    "period": "medieval",
+    "century": "6th c. CE - 18th c. CE (Peak Dhrupad)",
+    "region": "North & Central India / Varanasi & Gwalior Courts",
+    "coordinates": [
+      25.3176,
+      82.9739
+    ],
+    "status": "rare",
+    "image": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80",
+    "carvingImage": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80",
+    "shortDescription": "The sovereign master instrument of classical Dhrupad music, featuring twin giant bottle gourds (tumbas) and 24 raised brass frets fixed with beeswax.",
+    "historicalContext": "Regarded as the most venerable instrument in Indian classical music. Two giant dried bottle gourds mounted on a hollow teak tube with flat Jivari horn bridge.",
+    "constructionMaterials": [
+      {
+        "name": "Twin Tumbas",
+        "description": "Two giant matched dried bottle gourds.",
+        "acousticRole": "Deep bass air cavity resonance"
+      },
+      {
+        "name": "Dandi",
+        "description": "Hollow seasoned Teak tube, 54 inches.",
+        "acousticRole": "Rigid acoustic waveguide"
+      },
+      {
+        "name": "Frets (Parda)",
+        "description": "24 raised high brass frets on beeswax.",
+        "acousticRole": "Allows extreme Meend deflections"
+      },
+      {
+        "name": "Jivari Bridge",
+        "description": "Curved bone flat bridge.",
+        "acousticRole": "Buzzing harmonic overtone dispersion"
+      }
+    ],
+    "playingTechnique": "Played in Vajrasana posture with wire mizrab plectrums, executing deep 5-microtone Meend glides.",
+    "culturalSignificance": "Dedicated to Lord Shiva (Rudra). Essential core of the Dagarvani Dhrupad tradition.",
+    "treatiseCitations": [
+      {
+        "treatise": "Sangita Ratnakara",
+        "chapter": "Instrumental Treatises",
+        "quote": "वीणा वादन तत्त्वज्ञः श्रुतिजाति विशारदः...",
+        "translation": "One who knows the true mystery of Veena playing effortlessly attains liberation."
+      }
+    ],
+    "acousticProfile": {
+      "resonatorType": "Dual giant bottle gourd resonators with hollow tubular wood beam",
+      "bodyResonanceFreq": 95.0,
+      "jawariBuzz": 0.85,
+      "decayTime": 6.2,
+      "harmonicRichness": 0.95,
+      "sympatheticTarab": false,
+      "timbreType": "plucked_wire",
+      "frequencyRange": "55 Hz - 880 Hz (A1 - A5)",
+      "soundReconstructionNotes": "Deep foundational sub-bass drone with pronounced flat-bridge Jivari overtone dispersion and long sustain."
+    },
+    "playInterface": {
+      "type": "strings",
+      "stringCount": 7,
+      "notes": [
+        {
+          "sargam": "Kharaj Sa",
+          "western": "C3",
+          "frequency": 130.81,
+          "keyboardKey": "A"
+        },
+        {
+          "sargam": "Komal Re",
+          "western": "Db3",
+          "frequency": 138.59,
+          "keyboardKey": "S"
+        },
+        {
+          "sargam": "Shuddha Ga",
+          "western": "E3",
+          "frequency": 164.81,
+          "keyboardKey": "D"
+        },
+        {
+          "sargam": "Teevra Ma",
+          "western": "F#3",
+          "frequency": 185.0,
+          "keyboardKey": "F"
+        },
+        {
+          "sargam": "Pancham (Pa)",
+          "western": "G3",
+          "frequency": 196.0,
+          "keyboardKey": "J"
+        },
+        {
+          "sargam": "Komal Dha",
+          "western": "Ab3",
+          "frequency": 207.65,
+          "keyboardKey": "K"
+        },
+        {
+          "sargam": "Shuddha Ni",
+          "western": "B3",
+          "frequency": 246.94,
+          "keyboardKey": "L"
+        }
+      ],
+      "droneNotes": [
+        {
+          "sargam": "Chikari Sa",
+          "western": "C4",
+          "frequency": 261.63,
+          "keyboardKey": "Z"
+        },
+        {
+          "sargam": "Chikari Pa",
+          "western": "G3",
+          "frequency": 196.0,
+          "keyboardKey": "X"
+        },
+        {
+          "sargam": "Laraj Sa",
+          "western": "C2",
+          "frequency": 65.41,
+          "keyboardKey": "C"
+        }
+      ]
+    },
+    "detectionCues": {
+      "shapePattern": "Long straight cylindrical tube mounted between two huge spherical gourds",
+      "resonators": "Dual large spherical hollow tumbas at opposite ends",
+      "stringsOrPipes": "Heavy steel and bronze strings resting over high raised frets",
+      "bridgeType": "Broad wide Jivari flat bridge with fine thread adjusters"
+    }
+  },
+  {
+    "id": "mayuri-veena",
+    "name": "Mayuri (Taus)",
+    "sanskritName": "मयूरी वीणा / Mayūrī Vīṇā (Taus)",
+    "regionalNames": [
+      "Taus",
+      "Peacock Lute",
+      "Mayuri Vina",
+      "Gurmat Taus"
+    ],
+    "family": "tata",
+    "categoryLabel": "Tata Vadya (Chordophone / Bowed Peacock Lute with Sympathetic Strings)",
+    "era": "16th – 19th Century (Sikh Tradition & Mughal Courts)",
+    "period": "mughal",
+    "century": "16th c. - 19th c. CE",
+    "region": "Punjab, Kashmir & Northern Bharat",
+    "coordinates": [
+      31.634,
+      74.8723
+    ],
+    "status": "rare",
+    "image": "https://images.unsplash.com/photo-1520523839898-5071282543e1?auto=format&fit=crop&w=1200&q=80",
+    "carvingImage": "https://images.unsplash.com/photo-1584679109597-c656b19974c9?auto=format&fit=crop&w=800&q=80",
+    "shortDescription": "Splendid bowed instrument sculpted realistically in the shape of a peacock (Mayura), featuring heavy brass frets, parchment soundboard, and 30 sympathetic tarab strings.",
+    "historicalContext": "Created in the historical traditions of Punjab (attributed to Guru Hargobind Ji and Guru Gobind Singh Ji), the Taus was designed to produce a deep, lion-hearted yet sweetly singing peacock timbre capable of filling congregational Gurmat Sangeet spaces.",
+    "constructionMaterials": [
+      {
+        "name": "Peacock Resonator Body",
+        "description": "Hand-carved solid Tun wood sculpted into a peacock with feathers and feet.",
+        "acousticRole": "Warm rounded acoustic body cavity"
+      },
+      {
+        "name": "Parchment Skin (Chhamri)",
+        "description": "Stretched goat skin covering the hollow peacock chest.",
+        "acousticRole": "Lustrous bowed resonance and wide dynamic response"
+      },
+      {
+        "name": "Movable Brass Frets",
+        "description": "Curved brass frets tied onto the neck with silk cords.",
+        "acousticRole": "Allows microtonal bending while maintaining bowed clarity"
+      },
+      {
+        "name": "Tarab Strings",
+        "description": "Up to 30 sympathetic steel strings aligned diagonally.",
+        "acousticRole": "Creates an enchanting celestial reverb halo"
+      }
+    ],
+    "playingTechnique": "Held vertically, bowed with a heavy curved horsehair bow across the 4 main strings while stopping behind curved frets with sweeping Meend.",
+    "culturalSignificance": "Sacred vehicle of devotional singing in Gurmat Sangeet and royal courtly darbars.",
+    "treatiseCitations": [
+      {
+        "treatise": "Historical Gurmat Sangeet Treatises & Organology Records",
+        "chapter": "Taus Vadan Vidhi",
+        "quote": "मयूर-रूपिणि वीणा नाद-ब्रह्म-प्रकाशिनी...",
+        "translation": "In the form of a dancing peacock, this veena reveals the luminous glory of divine sound across all hearts."
+      }
+    ],
+    "acousticProfile": {
+      "resonatorType": "Carved wooden peacock soundbox with parchment chest",
+      "bodyResonanceFreq": 220.0,
+      "jawariBuzz": 0.45,
+      "decayTime": 3.8,
+      "harmonicRichness": 0.88,
+      "sympatheticTarab": true,
+      "timbreType": "bowed_folk",
+      "frequencyRange": "130 Hz - 1400 Hz (C3 - F6)",
+      "soundReconstructionNotes": "Lush bowed string tone with deep sympathetic shimmer, warm wood-cavity formant, and sweet vocal-like pitch bending."
+    },
+    "playInterface": {
+      "type": "strings",
+      "stringCount": 6,
+      "notes": [
+        {
+          "sargam": "Mandra Pa",
+          "western": "G3",
+          "frequency": 196.0,
+          "keyboardKey": "A"
+        },
+        {
+          "sargam": "Madhya Sa",
+          "western": "C4",
+          "frequency": 261.63,
+          "keyboardKey": "S"
+        },
+        {
+          "sargam": "Komal Ga",
+          "western": "Eb4",
+          "frequency": 311.13,
+          "keyboardKey": "D"
+        },
+        {
+          "sargam": "Shuddha Ma",
+          "western": "F4",
+          "frequency": 349.23,
+          "keyboardKey": "F"
+        },
+        {
+          "sargam": "Pancham (Pa)",
+          "western": "G4",
+          "frequency": 392.0,
+          "keyboardKey": "J"
+        },
+        {
+          "sargam": "Komal Ni",
+          "western": "Bb4",
+          "frequency": 466.16,
+          "keyboardKey": "K"
+        }
+      ],
+      "droneNotes": [
+        {
+          "sargam": "Sa Kharaj",
+          "western": "C3",
+          "frequency": 130.81,
+          "keyboardKey": "Z"
+        },
+        {
+          "sargam": "Pa Kharaj",
+          "western": "G3",
+          "frequency": 196.0,
+          "keyboardKey": "X"
+        }
+      ]
+    },
+    "detectionCues": {
+      "shapePattern": "Distinctive sculpted peacock bird body, neck, painted feathers, and feet",
+      "resonators": "Skin-covered chest soundbox forming the bird torso",
+      "stringsOrPipes": "Fretted long neck with dense cluster of side sympathetic tuning pegs",
+      "bridgeType": "High bone bridge resting upon parchment with heavy bow"
+    }
+  },
+  {
+    "id": "kinnera",
+    "name": "Kinnera",
+    "sanskritName": "किन्नरी वीणा / Kinnarī Vīṇā",
+    "regionalNames": [
+      "12-Fret Kinnera",
+      "Dakkali Kinnera",
+      "Chenchu Kinnera",
+      "Tribal Veena"
+    ],
+    "family": "tata",
+    "categoryLabel": "Tata Vadya (Chordophone / Indigenous 3-Gourd Fretted Stick Zither)",
+    "era": "Ancient Tribal & Medieval (c. 11th Century – Endangered Living Folk)",
+    "period": "medieval",
+    "century": "11th c. CE - Living Endangered",
+    "region": "Telangana & Andhra Pradesh (Deccan Plateau / Nallamala Forests)",
+    "coordinates": [
+      17.385,
+      78.4867
+    ],
+    "status": "endangered",
+    "image": "https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=1200&q=80",
+    "carvingImage": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80",
+    "shortDescription": "Rare indigenous 3-gourd fretted chordophone played by Dakkali and Chenchu nomadic bards of Telangana, documented in Sharngadeva’s Sangita Ratnakara as the Kinnari Veena.",
+    "historicalContext": "Documented in medieval musicological texts including Sangita Ratnakara and Sangita Makaranda, the Kinnera is a direct surviving link to medieval Indian stick zithers. Constructed with three graduated dried bottle gourds fastened under a bamboo staff with 12 movable frets mounted with honey-bee wax, it is preserved today by master artists like Padma Shri Darshanam Mogilaiah.",
+    "constructionMaterials": [
+      {
+        "name": "Three Resonator Gourds",
+        "description": "Three graduated hollow dried bottle gourds attached beneath the neck.",
+        "acousticRole": "Tri-cavity formant acoustic amplification"
+      },
+      {
+        "name": "Bamboo Staff (Danda)",
+        "description": "Seasoned native bamboo or cane stalk.",
+        "acousticRole": "Flexible acoustic transmission waveguide"
+      },
+      {
+        "name": "12 Frets on Beeswax",
+        "description": "12 frets made of pangolin scales, bone, or wood fixed with wild honey wax.",
+        "acousticRole": "Intonation control for ancient Telugu folk ballad scales"
+      },
+      {
+        "name": "Strings",
+        "description": "Three steel/brass strings tuned to fundamental drone and melody.",
+        "acousticRole": "Bright resonant pluck with buzzing fret overtone"
+      }
+    ],
+    "playingTechnique": "Held horizontally across the lap, plucked with wire plectrums on the right index finger while the left fingers stop the strings over the 12 wax-mounted frets to narrate ballads of Panduga Sayanna.",
+    "culturalSignificance": "Living symbol of Telangana’s indigenous bardic culture. Used to chant oral epic genealogies and heroic ballads.",
+    "treatiseCitations": [
+      {
+        "treatise": "Sangita Ratnakara (by Sharngadeva)",
+        "chapter": "Vadyadhyaya - Kinnari Lakshana",
+        "quote": "किन्नरी तु त्रिभिः कुम्भैः सारिकाभिर्विभूषिता...",
+        "translation": "The Kinnari veena is adorned with three resonant gourds and movable frets, singing the sweet melodies of celestial beings."
+      }
+    ],
+    "acousticProfile": {
+      "resonatorType": "Triple graduated bottle gourd resonators mounted under bamboo stem",
+      "bodyResonanceFreq": 160.0,
+      "jawariBuzz": 0.65,
+      "decayTime": 3.2,
+      "harmonicRichness": 0.82,
+      "sympatheticTarab": false,
+      "timbreType": "plucked_wire",
+      "frequencyRange": "110 Hz - 980 Hz",
+      "soundReconstructionNotes": "Tri-cavity acoustic resonance: high transient pluck impulse, pronounced fret buzz from beeswax-mounted frets, warm woody decay."
+    },
+    "playInterface": {
+      "type": "strings",
+      "stringCount": 3,
+      "notes": [
+        {
+          "sargam": "Sa",
+          "western": "C4",
+          "frequency": 261.63,
+          "keyboardKey": "A"
+        },
+        {
+          "sargam": "Komal Re",
+          "western": "Db4",
+          "frequency": 277.18,
+          "keyboardKey": "S"
+        },
+        {
+          "sargam": "Shuddha Ga",
+          "western": "E4",
+          "frequency": 329.63,
+          "keyboardKey": "D"
+        },
+        {
+          "sargam": "Shuddha Ma",
+          "western": "F4",
+          "frequency": 349.23,
+          "keyboardKey": "F"
+        },
+        {
+          "sargam": "Pancham (Pa)",
+          "western": "G4",
+          "frequency": 392.0,
+          "keyboardKey": "J"
+        },
+        {
+          "sargam": "Komal Dha",
+          "western": "Ab4",
+          "frequency": 415.3,
+          "keyboardKey": "K"
+        },
+        {
+          "sargam": "Komal Ni",
+          "western": "Bb4",
+          "frequency": 466.16,
+          "keyboardKey": "L"
+        }
+      ],
+      "droneNotes": [
+        {
+          "sargam": "Kinnera Sa Drone",
+          "western": "C3",
+          "frequency": 130.81,
+          "keyboardKey": "Z"
+        },
+        {
+          "sargam": "Kinnera Pa Drone",
+          "western": "G3",
+          "frequency": 196.0,
+          "keyboardKey": "X"
+        }
+      ]
+    },
+    "detectionCues": {
+      "shapePattern": "Long straight bamboo stem with 3 graduated gourds underneath and 12 frets",
+      "resonators": "Three distinct bottle gourds tied sequentially along the staff",
+      "stringsOrPipes": "Three primary metal strings over wax frets",
+      "bridgeType": "Beeswax-fixed fret course with tail bone bridge"
+    }
+  },
+  {
+    "id": "pena",
+    "name": "Pena",
+    "sanskritName": "पेना / Tingte (Meitei Lute)",
+    "regionalNames": [
+      "Bana",
+      "Pena Chei",
+      "Meitei Fiddle",
+      "Yongkham"
+    ],
+    "family": "tata",
+    "categoryLabel": "Tata Vadya (Chordophone / Ancient Meitei Bowed Coconut Spike Fiddle)",
+    "era": "Ancient Antiquity (c. 1000 BCE – Living Heritage)",
+    "period": "vedic",
+    "century": "Antiquity - Present",
+    "region": "Manipur & Northeast Bharat (Kangleipak / Imphal Valley)",
+    "coordinates": [
+      24.817,
+      93.9368
+    ],
+    "status": "rare",
+    "image": "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80",
+    "carvingImage": "https://images.unsplash.com/photo-1599707307221-50e583e7428f?auto=format&fit=crop&w=800&q=80",
+    "shortDescription": "Sacred single-string bowed lute of Manipur, featuring a coconut soundbox covered with membrane, slender bamboo neck, and a curved friction bow adorned with jingling bells.",
+    "historicalContext": "The Pena is the soul of Manipuri culture, central to the sacred festival of Lai Haraoba (the merrymaking of the gods). The musician, known as the Pena Asheiba, is revered as a ritual priest-singer who invokes the creation of the universe through the bowed voice of the Pena.",
+    "constructionMaterials": [
+      {
+        "name": "Body (Korou)",
+        "description": "Polished half coconut shell with acoustic soundholes.",
+        "acousticRole": "High-mid resonant nasal projection"
+      },
+      {
+        "name": "Membrane Skin",
+        "description": "Thinly scraped iguana, goat, or calf skin parchment.",
+        "acousticRole": "Fast acoustic transient response"
+      },
+      {
+        "name": "Stem (Maru)",
+        "description": "Slender bamboo cylinder fitted through the coconut shell.",
+        "acousticRole": "Structural spine and finger-stop guide"
+      },
+      {
+        "name": "Bow (Pena Chei)",
+        "description": "Curved iron/cane bow with horsehair and small bronze bells (Zor).",
+        "acousticRole": "Continuous friction with rhythmic bell accents"
+      }
+    ],
+    "playingTechnique": "Held against the left breast or collarbone, the single horsehair string is stopped laterally by the fingertips without pressing against the stem, while the right hand sweeps the bell-adorned bow.",
+    "culturalSignificance": "Considered a divine instrument given by the gods in Meitei mythology. It is believed to represent the human body, with the stem as the spine and the coconut as the heart.",
+    "treatiseCitations": [
+      {
+        "treatise": "Meitei PuYa (Ancient Manipuri Chronicles & Treatises)",
+        "chapter": "Lai Haraoba Sangeet",
+        "quote": "पेना-नादः सृष्टि-स्थिति-प्रलय-सूचकः...",
+        "translation": "The sacred sound of Pena awakens the cosmic dance of creation and the divine harmony of the ancestors."
+      }
+    ],
+    "acousticProfile": {
+      "resonatorType": "Parchment-covered coconut shell with slender bamboo spike",
+      "bodyResonanceFreq": 340.0,
+      "jawariBuzz": 0.25,
+      "decayTime": 2.5,
+      "harmonicRichness": 0.85,
+      "sympatheticTarab": false,
+      "timbreType": "bowed_folk",
+      "frequencyRange": "196 Hz - 1200 Hz",
+      "soundReconstructionNotes": "High nasal bowed friction timbre with rhythmic bell chimes on downstrokes, rapid microtonal trills, and organic parchment resonance."
+    },
+    "playInterface": {
+      "type": "strings",
+      "stringCount": 4,
+      "notes": [
+        {
+          "sargam": "Sa",
+          "western": "C4",
+          "frequency": 261.63,
+          "keyboardKey": "A"
+        },
+        {
+          "sargam": "Re",
+          "western": "D4",
+          "frequency": 293.66,
+          "keyboardKey": "S"
+        },
+        {
+          "sargam": "Ga",
+          "western": "E4",
+          "frequency": 329.63,
+          "keyboardKey": "D"
+        },
+        {
+          "sargam": "Pa",
+          "western": "G4",
+          "frequency": 392.0,
+          "keyboardKey": "F"
+        },
+        {
+          "sargam": "Dha",
+          "western": "A4",
+          "frequency": 440.0,
+          "keyboardKey": "J"
+        }
+      ],
+      "droneNotes": [
+        {
+          "sargam": "Pena Kharaj Drone",
+          "western": "C3",
+          "frequency": 130.81,
+          "keyboardKey": "Z"
+        }
+      ]
+    },
+    "detectionCues": {
+      "shapePattern": "Slender curved bamboo rod penetrating a small hemispherical coconut soundbox",
+      "resonators": "Small circular coconut parchment head with scroll terminal",
+      "stringsOrPipes": "Single bowed horsehair string",
+      "bridgeType": "High bridge with curved bell-laden friction bow (Pena Chei)"
+    }
+  },
+  {
+    "id": "morchang",
+    "name": "Morchang",
+    "sanskritName": "मूर्छङ्ग / Mūrchaṅga (Morsing)",
+    "regionalNames": [
+      "Morsing",
+      "Mukharshanku",
+      "Jaw Harp of Rajasthan",
+      "Indian Jew’s Harp"
+    ],
+    "family": "ghana",
+    "categoryLabel": "Ghana Vadya (Idiophone / Plucked Lamellophone with Oral Cavity Modulation)",
+    "era": "Ancient Bharat (c. 5th Century BCE – Living Heritage)",
+    "period": "maurya_gupta",
+    "century": "5th c. BCE - Present",
+    "region": "Rajasthan & Carnatic South India (Tamil Nadu, Karnataka)",
+    "coordinates": [
+      26.9124,
+      75.7873
+    ],
+    "status": "living",
+    "image": "https://images.unsplash.com/photo-1519744346361-8935c18e15c3?auto=format&fit=crop&w=1200&q=80",
+    "carvingImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    "shortDescription": "Ancient iron lamellophone held firmly between the teeth; the flexible steel tongue is plucked while the performer changes oral cavity volume to isolate brilliant harmonic overtones.",
+    "historicalContext": "Mentioned in ancient Indian literature and folk epics, the Morchang holds a vital place in both Rajasthani Langa-Manganiyar desert music and Carnatic classical concert percussion ensembles (Tani Avartanam alongside Mridangam and Ghatam).",
+    "constructionMaterials": [
+      {
+        "name": "Horseshoe Frame (Kathi)",
+        "description": "Hand-forged iron or bell-metal horseshoe with parallel prongs.",
+        "acousticRole": "Rigid boundary for vibrating tongue"
+      },
+      {
+        "name": "Flexible Steel Tongue (Jibh)",
+        "description": "Tempered high-carbon steel spring blade with an upturned trigger hook.",
+        "acousticRole": "Primary fundamental vibration source"
+      },
+      {
+        "name": "Musician’s Oral Cavity",
+        "description": "The performer’s mouth, throat, and nasal passage acts as the dynamic acoustic resonator.",
+        "acousticRole": "Selects and amplifies specific harmonic formant poles"
+      }
+    ],
+    "playingTechnique": "The frame is held against the front teeth, the steel trigger is plucked vigorously with the right index finger, while the throat and tongue shape vowels (A, E, I, O, U) and breath pulses create syncopated rhythmic bols (Ta, Dhin, Ki, Te).",
+    "culturalSignificance": "Celebrated for its hypnotic, twanging timbre that mimics galloping desert horses and complex classical Solkattu rhythms.",
+    "treatiseCitations": [
+      {
+        "treatise": "Medieval Sangeet Treatises & Folk Monograph Records",
+        "chapter": "Ghana Vadya Prakarana",
+        "quote": "दन्तरन्ध्रे धृत्वा जिह्वया वाद्यते मुदा...",
+        "translation": "Held firmly between the teeth and sounded through the breath of the tongue, it creates mesmerizing waves of harmonic resonance."
+      }
+    ],
+    "acousticProfile": {
+      "resonatorType": "Human oral cavity filter coupled to steel lamella reed",
+      "bodyResonanceFreq": 440.0,
+      "jawariBuzz": 0.9,
+      "decayTime": 1.4,
+      "harmonicRichness": 0.96,
+      "sympatheticTarab": false,
+      "timbreType": "plucked_wire",
+      "frequencyRange": "130 Hz - 3200 Hz",
+      "soundReconstructionNotes": "Physical modeling of mouth-modulated lamellophone: sharp metallic trigger transient, sweeping formant vocal bandpass filter (300 Hz - 2800 Hz), and intense overtone ring."
+    },
+    "playInterface": {
+      "type": "strings",
+      "stringCount": 5,
+      "notes": [
+        {
+          "sargam": "Ta (Low)",
+          "western": "C4",
+          "frequency": 261.63,
+          "keyboardKey": "A"
+        },
+        {
+          "sargam": "Dhin (Formant 1)",
+          "western": "E4",
+          "frequency": 329.63,
+          "keyboardKey": "S"
+        },
+        {
+          "sargam": "Ki (Formant 2)",
+          "western": "G4",
+          "frequency": 392.0,
+          "keyboardKey": "D"
+        },
+        {
+          "sargam": "Te (Formant 3)",
+          "western": "C5",
+          "frequency": 523.25,
+          "keyboardKey": "F"
+        },
+        {
+          "sargam": "Dha (Harmonic)",
+          "western": "E5",
+          "frequency": 659.25,
+          "keyboardKey": "J"
+        }
+      ],
+      "droneNotes": [
+        {
+          "sargam": "Morchang Base Tone",
+          "western": "C3",
+          "frequency": 130.81,
+          "keyboardKey": "Z"
+        }
+      ]
+    },
+    "detectionCues": {
+      "shapePattern": "Horseshoe-shaped metal frame with long central flexible steel tongue and curved tip",
+      "resonators": "No built-in soundbox; oral resonator mechanism",
+      "stringsOrPipes": "Single center steel vibrating blade",
+      "bridgeType": "Direct prong mounting"
+    }
+  },
+  {
+    "id": "nagfani",
+    "name": "Nagfani",
+    "sanskritName": "नागफणी / Nāgaphaṇī (Serpent Horn)",
+    "regionalNames": [
+      "Nagpheni",
+      "Serpent Trumpet",
+      "Naga Horn",
+      "Turiya"
+    ],
+    "family": "sushira",
+    "categoryLabel": "Sushira Vadya (Aerophone / Serpentine Brass Ritual Horn)",
+    "era": "Medieval to Royal Temple Era (c. 12th – 18th Century CE)",
+    "period": "medieval",
+    "century": "12th c. - 18th c. CE",
+    "region": "Rajasthan, Gujarat & Maharashtra",
+    "coordinates": [
+      24.5854,
+      73.7125
+    ],
+    "status": "rare",
+    "image": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80",
+    "carvingImage": "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?auto=format&fit=crop&w=800&q=80",
+    "shortDescription": "Spectacular serpentine brass horn shaped realistically as an open-mouthed cobra (Naga), blown during royal court processions and Shaivite tantric rituals.",
+    "historicalContext": "The Nagfani is a masterpiece of Indian metallurgical and acoustic art. Crafted from forged brass or copper tubes coiled in the shape of a serpent with an expanded cobra hood as the bell, it produces thunderous, brassy ceremonial drones that echoed across Rajput hill forts during battles and temple rituals.",
+    "constructionMaterials": [
+      {
+        "name": "Serpent Bell (Phan)",
+        "description": "Hand-hammered brass or copper flared bell sculpted with realistic snake eyes, scales, and tongue.",
+        "acousticRole": "Exponential horn acoustic impedance matching"
+      },
+      {
+        "name": "Coiled Tubing",
+        "description": "Three to four graceful serpentine coils of cylindrical brass tubing.",
+        "acousticRole": "Long standing acoustic air column (~6 feet uncoiled)"
+      },
+      {
+        "name": "Cup Mouthpiece",
+        "description": "Shallow hemispherical brass cup mouthpiece.",
+        "acousticRole": "Excites strong odd and even brass harmonic series"
+      }
+    ],
+    "playingTechnique": "Blown with high lip tension (lip reed buzz) through the mouthpiece. Modulating breath velocity and embouchure pressure allows jumping across the natural harmonic overtone series.",
+    "culturalSignificance": "Dedicated to Lord Shiva and the serpent energy (Kundalini). Symbolizes royal power and spiritual invocation.",
+    "treatiseCitations": [
+      {
+        "treatise": "Medieval Vadya Granthas & Rajput Court Records",
+        "chapter": "Sushira Prakarana",
+        "quote": "नागाकारं महावाद्यं कांस्य-निर्मितमुत्तमम्...",
+        "translation": "Fashioned from resonant bell-brass in the glorious shape of a serpent, its thunderous roar shakes the battlefield."
+      }
+    ],
+    "acousticProfile": {
+      "resonatorType": "Coiled serpentine brass horn with flared cobra bell",
+      "bodyResonanceFreq": 175.0,
+      "jawariBuzz": 0.0,
+      "decayTime": 3.6,
+      "harmonicRichness": 0.94,
+      "sympatheticTarab": false,
+      "timbreType": "conch_horn",
+      "frequencyRange": "110 Hz - 780 Hz",
+      "soundReconstructionNotes": "Natural brass harmonic series synthesis: powerful fundamental drone, rich upper brass overtones, lip buzz transients, and exponential horn projection."
+    },
+    "playInterface": {
+      "type": "wind",
+      "notes": [
+        {
+          "sargam": "Mandra Nada",
+          "western": "F3",
+          "frequency": 174.61,
+          "keyboardKey": "A"
+        },
+        {
+          "sargam": "Naga Sa",
+          "western": "C4",
+          "frequency": 261.63,
+          "keyboardKey": "S"
+        },
+        {
+          "sargam": "Pancham (Pa)",
+          "western": "G4",
+          "frequency": 392.0,
+          "keyboardKey": "D"
+        },
+        {
+          "sargam": "Tar Sa",
+          "western": "C5",
+          "frequency": 523.25,
+          "keyboardKey": "F"
+        },
+        {
+          "sargam": "Tar Ga",
+          "western": "E5",
+          "frequency": 659.25,
+          "keyboardKey": "J"
+        }
+      ],
+      "droneNotes": [
+        {
+          "sargam": "Nagfani Pranava Drone",
+          "western": "C3",
+          "frequency": 130.81,
+          "keyboardKey": "Z"
+        }
+      ]
+    },
+    "detectionCues": {
+      "shapePattern": "Serpentine coiled metal tube ending in a wide flared open-mouthed cobra head bell",
+      "resonators": "Curved brass/copper acoustic horn tubing",
+      "stringsOrPipes": "No strings or fingerholes; lip-blown brass horn",
+      "bridgeType": "Direct cup mouthpiece"
+    }
+  },
+  {
+    "id": "jal-tarang",
+    "name": "Jal Tarang",
+    "sanskritName": "जल तरङ्ग / Jala-Taraṅga",
+    "regionalNames": [
+      "Jaltarang",
+      "Water Waves Chime",
+      "Udaka Vadya"
+    ],
+    "family": "ghana",
+    "categoryLabel": "Ghana Vadya (Idiophone / Water-Tuned Melodic Porcelain Bowls)",
+    "era": "Ancient Bharat (c. 4th Century BCE – Living Heritage)",
+    "period": "maurya_gupta",
+    "century": "4th c. BCE - Present",
+    "region": "Pan-Indian / Mithila, Varanasi, Ujjain",
+    "coordinates": [
+      23.1765,
+      75.7885
+    ],
+    "status": "rare",
+    "image": "https://images.unsplash.com/photo-1519744346361-8935c18e15c3?auto=format&fit=crop&w=1200&q=80",
+    "carvingImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    "shortDescription": "Mesmerizing melodic percussion of 16 to 22 porcelain bowls filled with graduated water levels to tune exact microtonal shrutis, struck with slender bamboo mallets.",
+    "historicalContext": "Mentioned in Vatsyayana’s Kama Sutra as Udaka Vadya (one of the 64 classical arts). Struck porcelain bowls filled with water.",
+    "constructionMaterials": [
+      {
+        "name": "Porcelain Bowls",
+        "description": "16 to 22 graduated porcelain bowls.",
+        "acousticRole": "Pure bell chime"
+      },
+      {
+        "name": "Water",
+        "description": "Measured water levels to damp pitch.",
+        "acousticRole": "Microtonal frequency tuning"
+      },
+      {
+        "name": "Mallets",
+        "description": "Slender bamboo striking sticks.",
+        "acousticRole": "Sharp transient strike"
+      }
+    ],
+    "playingTechnique": "Struck delicately on porcelain rims with bamboo mallets.",
+    "culturalSignificance": "Ancient courtly chamber art of acoustic refinement.",
+    "treatiseCitations": [
+      {
+        "treatise": "Kama Sutra (by Vatsyayana)",
+        "chapter": "Chatusashti Kala",
+        "quote": "उदकवाद्यं जलतरङ्गम् च कलासु गण्यते...",
+        "translation": "Playing upon vessels of water (Udaka Vadya) is enumerated among the noble arts."
+      }
+    ],
+    "acousticProfile": {
+      "resonatorType": "Water-damped porcelain ceramic open bowls",
+      "bodyResonanceFreq": 520.0,
+      "jawariBuzz": 0.0,
+      "decayTime": 2.2,
+      "harmonicRichness": 0.7,
+      "sympatheticTarab": false,
+      "timbreType": "percussive_ceramic",
+      "frequencyRange": "260 Hz - 2100 Hz (C4 - C7)",
+      "soundReconstructionNotes": "Physical simulation of water-coupled ceramic vibration: crystal clear sinusoidal fundamental with fluid damping."
+    },
+    "playInterface": {
+      "type": "jaltarang",
+      "notes": [
+        {
+          "sargam": "Sa",
+          "western": "C4",
+          "frequency": 261.63,
+          "keyboardKey": "1"
+        },
+        {
+          "sargam": "Re",
+          "western": "D4",
+          "frequency": 293.66,
+          "keyboardKey": "2"
+        },
+        {
+          "sargam": "Ga",
+          "western": "E4",
+          "frequency": 329.63,
+          "keyboardKey": "3"
+        },
+        {
+          "sargam": "Ma",
+          "western": "F4",
+          "frequency": 349.23,
+          "keyboardKey": "4"
+        },
+        {
+          "sargam": "Pa",
+          "western": "G4",
+          "frequency": 392.0,
+          "keyboardKey": "5"
+        },
+        {
+          "sargam": "Dha",
+          "western": "A4",
+          "frequency": 440.0,
+          "keyboardKey": "6"
+        },
+        {
+          "sargam": "Ni",
+          "western": "B4",
+          "frequency": 493.88,
+          "keyboardKey": "7"
+        },
+        {
+          "sargam": "Tar Sa",
+          "western": "C5",
+          "frequency": 523.25,
+          "keyboardKey": "8"
+        }
+      ],
+      "waterLevels": [
+        85,
+        72,
+        60,
+        52,
+        40,
+        28,
+        16,
+        5
+      ]
+    },
+    "detectionCues": {
+      "shapePattern": "Semicircular array of graduated circular cups / bowls",
+      "resonators": "Porcelain vessels partially filled with liquid",
+      "stringsOrPipes": "Struck idiophone percussion",
+      "bridgeType": "Bamboo mallets held in hands"
+    }
+  },
+  {
+    "id": "ravanahatha",
+    "name": "Ravanahatha",
+    "sanskritName": "रावणहस्त / Rāvaṇahasta",
+    "regionalNames": [
+      "Ravanhatta",
+      "Ravanstron",
+      "Bhaironji ka Hatha"
+    ],
+    "family": "tata",
+    "categoryLabel": "Tata Vadya (Chordophone / Ancient Bowed Spike Fiddle)",
+    "era": "Pre-Classical to Medieval (c. 2500 BCE – Present Folklore)",
+    "period": "maurya_gupta",
+    "century": "Ancient origin - Surviving in Rajasthani folk",
+    "region": "Rajasthan, Gujarat, and Ancient Western Bharat",
+    "coordinates": [
+      26.9124,
+      75.7873
+    ],
+    "status": "rare",
+    "image": "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80",
+    "carvingImage": "https://images.unsplash.com/photo-1599707307221-50e583e7428f?auto=format&fit=crop&w=800&q=80",
+    "shortDescription": "Ancient bowed spike fiddle featuring a coconut soundbox covered with goat hide, bamboo neck, and ghungroo-adorned curved horsehair bow.",
+    "historicalContext": "Associated with King Ravana. Nomadic bards of Rajasthan preserve it to narrate the epic of Pabuji.",
+    "constructionMaterials": [
+      {
+        "name": "Coconut Soundbox",
+        "description": "Half coconut shell covered with parchment.",
+        "acousticRole": "Bright acoustic cavity"
+      },
+      {
+        "name": "Bamboo Neck",
+        "description": "Bamboo dandi with lateral pegs.",
+        "acousticRole": "Warm structural sustain"
+      },
+      {
+        "name": "Ghungroo Bow",
+        "description": "Horsehair bow with bronze bells.",
+        "acousticRole": "Rhythmic percussive accents"
+      }
+    ],
+    "playingTechnique": "Bowed with sideways fingertip stopping on strings while bells jingle on each downstroke.",
+    "culturalSignificance": "Sacred narrative instrument of Rajasthani folk balladry.",
+    "treatiseCitations": [
+      {
+        "treatise": "Medieval Sangeet Granthas",
+        "chapter": "Tantu Vadya",
+        "quote": "नारिकेले कृते पात्रे त्वक्-बद्धे...",
+        "translation": "Formed from a coconut vessel bound with parchment, its bowed strings enchant the soul."
+      }
+    ],
+    "acousticProfile": {
+      "resonatorType": "Goat-skin stretched over halved coconut shell resonator",
+      "bodyResonanceFreq": 310.0,
+      "jawariBuzz": 0.35,
+      "decayTime": 2.8,
+      "harmonicRichness": 0.9,
+      "sympatheticTarab": true,
+      "timbreType": "bowed_folk",
+      "frequencyRange": "196 Hz - 1800 Hz (G3 - A6)",
+      "soundReconstructionNotes": "Rich bowed nasal character with sympathetic string ring, snappy goat-skin attack transients, and rhythmic bell chime undertones."
+    },
+    "playInterface": {
+      "type": "strings",
+      "stringCount": 6,
+      "notes": [
+        {
+          "sargam": "Sa",
+          "western": "C4",
+          "frequency": 261.63,
+          "keyboardKey": "A"
+        },
+        {
+          "sargam": "Re (Komal)",
+          "western": "Db4",
+          "frequency": 277.18,
+          "keyboardKey": "S"
+        },
+        {
+          "sargam": "Ga (Shuddha)",
+          "western": "E4",
+          "frequency": 329.63,
+          "keyboardKey": "D"
+        },
+        {
+          "sargam": "Ma (Teevra)",
+          "western": "F#4",
+          "frequency": 369.99,
+          "keyboardKey": "F"
+        },
+        {
+          "sargam": "Pa",
+          "western": "G4",
+          "frequency": 392.0,
+          "keyboardKey": "J"
+        },
+        {
+          "sargam": "Dha (Komal)",
+          "western": "Ab4",
+          "frequency": 415.3,
+          "keyboardKey": "K"
+        }
+      ],
+      "droneNotes": [
+        {
+          "sargam": "Sa Kharaj",
+          "western": "C3",
+          "frequency": 130.81,
+          "keyboardKey": "Z"
+        },
+        {
+          "sargam": "Pa Kharaj",
+          "western": "G3",
+          "frequency": 196.0,
+          "keyboardKey": "X"
+        }
+      ]
+    },
+    "detectionCues": {
+      "shapePattern": "Long bamboo spike neck intersecting circular hemispherical bowl",
+      "resonators": "Small coconut shell membrane head with lateral pegs",
+      "stringsOrPipes": "2 primary bowed strings + cluster of sympathetic wires",
+      "bridgeType": "High wooden bone bridge with curved ghungroo bow"
+    }
+  },
+  {
+    "id": "pakhawaj",
+    "name": "Pakhawaj",
+    "sanskritName": "पखावज / Mṛdaṅga (Pakṣavādya)",
+    "regionalNames": [
+      "Mardala",
+      "Mridang",
+      "Dhrupad Drum"
+    ],
+    "family": "avanaddha",
+    "categoryLabel": "Avanaddha Vadya (Membranophone / Classical Barrel Drum)",
+    "era": "Vedic to Classical (c. 1000 BCE – Living Heritage)",
+    "period": "vedic",
+    "century": "Ancient Vedic - Living Dhrupad",
+    "region": "North & Central Bharat / Braj, Nathdwara, Varanasi",
+    "coordinates": [
+      27.5037,
+      77.6745
+    ],
+    "status": "living",
+    "image": "https://images.unsplash.com/photo-1543791107-f3769cb3f736?auto=format&fit=crop&w=1200&q=80",
+    "carvingImage": "https://images.unsplash.com/photo-1590059390047-92044e05b9b9?auto=format&fit=crop&w=800&q=80",
+    "shortDescription": "The primordial barrel-drum of ancient India, producing thunderous bass resonances from fresh wheat dough on the bass head and metallic harmonics on the treble head.",
+    "historicalContext": "Documented in Natya Shastra Chapter 33. Rhythmic backbone of Dhrupad music.",
+    "constructionMaterials": [
+      {
+        "name": "Barrel (Khol)",
+        "description": "Solid rosewood barrel.",
+        "acousticRole": "Internal air chamber"
+      },
+      {
+        "name": "Treble Head (Dayan)",
+        "description": "Permanent black iron-ore syahi paste.",
+        "acousticRole": "Harmonic bell resonance"
+      },
+      {
+        "name": "Bass Head (Bayan)",
+        "description": "Wet wheat flour dough.",
+        "acousticRole": "Pitch-bending boom"
+      }
+    ],
+    "playingTechnique": "Played with full palms and fingers striking horizontally.",
+    "culturalSignificance": "Associated with Lord Ganesha and Nandi.",
+    "treatiseCitations": [
+      {
+        "treatise": "Natya Shastra (by Bharata Muni)",
+        "chapter": "Chapter 33: Avanaddha Vidhi",
+        "quote": "मृदङ्गानां प्रवक्ष्यामि लक्षणं विधिमेव च...",
+        "translation": "I shall now declare the sacred characteristics of the Mridanga."
+      }
+    ],
+    "acousticProfile": {
+      "resonatorType": "Solid asymmetrical rosewood barrel with dual tuned leather membranes",
+      "bodyResonanceFreq": 82.0,
+      "jawariBuzz": 0.1,
+      "decayTime": 2.6,
+      "harmonicRichness": 0.92,
+      "sympatheticTarab": false,
+      "timbreType": "percussive_membrane",
+      "frequencyRange": "45 Hz - 1200 Hz",
+      "soundReconstructionNotes": "Dual membrane synthesis: deep wheat-dough sub-bass acoustic displacement coupled with iron-paste harmonic ring."
+    },
+    "playInterface": {
+      "type": "pakhawaj",
+      "notes": [],
+      "bols": [
+        {
+          "name": "Dha",
+          "westernEquivalent": "Bass + Rim Strike",
+          "key": "Q",
+          "description": "Thunderous open bass with crisp treble rim",
+          "pitch": 110.0,
+          "decay": 1.8,
+          "harmonicNoise": 0.2,
+          "head": "both"
+        },
+        {
+          "name": "Dhin",
+          "westernEquivalent": "Open Syahi Resonant",
+          "key": "W",
+          "description": "Deep singing resonance on syahi",
+          "pitch": 146.0,
+          "decay": 1.6,
+          "harmonicNoise": 0.1,
+          "head": "right_treble"
+        },
+        {
+          "name": "Ta",
+          "westernEquivalent": "Crisp Treble Chanti",
+          "key": "E",
+          "description": "Sharp crisp strike on perimeter ring",
+          "pitch": 293.0,
+          "decay": 0.6,
+          "harmonicNoise": 0.05,
+          "head": "right_treble"
+        },
+        {
+          "name": "Na",
+          "westernEquivalent": "Open Treble Harmonic",
+          "key": "R",
+          "description": "Bright ringing open fundamental",
+          "pitch": 261.0,
+          "decay": 1.2,
+          "harmonicNoise": 0.08,
+          "head": "right_treble"
+        },
+        {
+          "name": "Ge",
+          "westernEquivalent": "Deep Bass Dough Slide",
+          "key": "A",
+          "description": "Moist wheat dough bass slide",
+          "pitch": 75.0,
+          "decay": 2.2,
+          "harmonicNoise": 0.15,
+          "head": "left_bass"
+        },
+        {
+          "name": "Ka",
+          "westernEquivalent": "Muffled Bass Slap",
+          "key": "S",
+          "description": "Muffled flat palm slap without ring",
+          "pitch": 90.0,
+          "decay": 0.3,
+          "harmonicNoise": 0.4,
+          "head": "left_bass"
+        },
+        {
+          "name": "Tit",
+          "westernEquivalent": "Center Damp Strike",
+          "key": "D",
+          "description": "Fast muted stroke with 3 fingers on syahi",
+          "pitch": 220.0,
+          "decay": 0.2,
+          "harmonicNoise": 0.25,
+          "head": "right_treble"
+        }
+      ]
+    },
+    "detectionCues": {
+      "shapePattern": "Horizontal barrel drum with bulging middle and narrow ends",
+      "resonators": "Wood barrel with leather thongs",
+      "stringsOrPipes": "Dual lateral skin heads",
+      "bridgeType": "Syahi on one head, dough on other"
+    }
+  },
+  {
+    "id": "algoza",
+    "name": "Algoza",
+    "sanskritName": "अल्गोज़ा / Dviveni (Double Flute)",
+    "regionalNames": [
+      "Alghoza",
+      "Jorhi",
+      "Mattiyan",
+      "Do Nali"
+    ],
+    "family": "sushira",
+    "categoryLabel": "Sushira Vadya (Aerophone / Twin Drone & Melody Flutes)",
+    "era": "Medieval to Folk Heritage (c. 10th Century – Present)",
+    "period": "medieval",
+    "century": "10th c. CE - Living Folk",
+    "region": "Rajasthan, Punjab, Sindh, Kutch",
+    "coordinates": [
+      26.2389,
+      73.0243
+    ],
+    "status": "rare",
+    "image": "https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=1200&q=80",
+    "carvingImage": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80",
+    "shortDescription": "Pair of matched wooden beak flutes blown simultaneously using continuous circular breathing: one pipe sustains an unbroken drone while the other weaves rapid melodies.",
+    "historicalContext": "Mastery of continuous circular breathing (Dam Pukht) across Thar desert pastoral traditions.",
+    "constructionMaterials": [
+      {
+        "name": "Twin Wood Pipes",
+        "description": "Matched bamboo or Sheesham tubes.",
+        "acousticRole": "Dual air columns"
+      },
+      {
+        "name": "Beak Fipple",
+        "description": "Wooden mouthpiece block.",
+        "acousticRole": "Turbulence excitation"
+      }
+    ],
+    "playingTechnique": "Both flutes held in mouth, blowing continuously while inhaling through nose.",
+    "culturalSignificance": "Heart of Rajasthani folk lore and Sufi shrines.",
+    "treatiseCitations": [
+      {
+        "treatise": "Sangita Makaranda",
+        "chapter": "Sushira Prakarana",
+        "quote": "द्विवंशी मिलिता वाद्या...",
+        "translation": "Twin flutes sounded together weave the ecstasy of pastoral melody."
+      }
+    ],
+    "acousticProfile": {
+      "resonatorType": "Dual wooden fipple pipe cylindrical air columns",
+      "bodyResonanceFreq": 440.0,
+      "jawariBuzz": 0.0,
+      "decayTime": 0.8,
+      "harmonicRichness": 0.78,
+      "sympatheticTarab": false,
+      "timbreType": "blown_reed",
+      "frequencyRange": "293 Hz - 1760 Hz",
+      "soundReconstructionNotes": "Steady harmonic drone pipe combined with reactive melody pipe featuring breath flutter and turbulence."
+    },
+    "playInterface": {
+      "type": "wind",
+      "notes": [
+        {
+          "sargam": "Sa",
+          "western": "D4",
+          "frequency": 293.66,
+          "keyboardKey": "A"
+        },
+        {
+          "sargam": "Re",
+          "western": "E4",
+          "frequency": 329.63,
+          "keyboardKey": "S"
+        },
+        {
+          "sargam": "Ga",
+          "western": "F#4",
+          "frequency": 369.99,
+          "keyboardKey": "D"
+        },
+        {
+          "sargam": "Ma",
+          "western": "G4",
+          "frequency": 392.0,
+          "keyboardKey": "F"
+        },
+        {
+          "sargam": "Pa",
+          "western": "A4",
+          "frequency": 440.0,
+          "keyboardKey": "J"
+        },
+        {
+          "sargam": "Dha",
+          "western": "B4",
+          "frequency": 493.88,
+          "keyboardKey": "K"
+        },
+        {
+          "sargam": "Ni",
+          "western": "C#5",
+          "frequency": 554.37,
+          "keyboardKey": "L"
+        }
+      ],
+      "droneNotes": [
+        {
+          "sargam": "Drone Sa",
+          "western": "D4",
+          "frequency": 293.66,
+          "keyboardKey": "Z"
+        },
+        {
+          "sargam": "Drone Pa",
+          "western": "A3",
+          "frequency": 220.0,
+          "keyboardKey": "X"
+        }
+      ]
+    },
+    "detectionCues": {
+      "shapePattern": "Twin parallel slender wooden pipes held together at mouth",
+      "resonators": "Dual cylindrical wood flutes with fipple beaks",
+      "stringsOrPipes": "Two pipes with circular finger holes",
+      "bridgeType": "Direct mouth fipple block mechanism"
+    }
+  },
+  {
+    "id": "shankha",
+    "name": "Shankha",
+    "sanskritName": "शङ्ख / Śaṅkha (Divine Conch Horn)",
+    "regionalNames": [
+      "Conch Shell",
+      "Sangu (Tamil)",
+      "Panchajanya"
+    ],
+    "family": "sushira",
+    "categoryLabel": "Sushira Vadya (Aerophone / Sacred Conch Horn)",
+    "era": "Vedic & Prehistoric Antiquity (c. 3000 BCE – Present)",
+    "period": "vedic",
+    "century": "3000+ BCE - Present",
+    "region": "Pan-Indian Coastal / Rameshwaram, Dwarka, Puri",
+    "coordinates": [
+      9.2876,
+      79.3129
+    ],
+    "status": "living",
+    "image": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80",
+    "carvingImage": "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?auto=format&fit=crop&w=800&q=80",
+    "shortDescription": "The sacred natural shell of Turbinella pyrum blown during auspicious rituals and ancient battlefields, producing pure harmonic overtones and profound acoustic purification.",
+    "historicalContext": "Mentioned in Bhagavad Gita (Panchajanya, Devadatta). Logarithmic spiral horn acoustics.",
+    "constructionMaterials": [
+      {
+        "name": "Natural Conch Shell",
+        "description": "Shell of Turbinella pyrum with ground apex embouchure.",
+        "acousticRole": "Exponential spiral horn impedance match"
+      }
+    ],
+    "playingTechnique": "Blown with high lip tension through apex hole.",
+    "culturalSignificance": "Emblem of auspicious beginnings (Mangala Vadya) and Omkara vibration.",
+    "treatiseCitations": [
+      {
+        "treatise": "Bhagavad Gita",
+        "chapter": "Chapter 1, Verse 15",
+        "quote": "पाञ्चजन्यं हृषीकेशो देवदत्तं धनञ्जयः...",
+        "translation": "Hrishikesha blew His conch Panchajanya; Dhananjaya blew Devadatta."
+      }
+    ],
+    "acousticProfile": {
+      "resonatorType": "Natural logarithmic spiral calcium carbonate shell",
+      "bodyResonanceFreq": 220.0,
+      "jawariBuzz": 0.0,
+      "decayTime": 3.5,
+      "harmonicRichness": 0.85,
+      "sympatheticTarab": false,
+      "timbreType": "conch_horn",
+      "frequencyRange": "165 Hz - 660 Hz",
+      "soundReconstructionNotes": "Physical simulation of lip-reed excitation coupled with logarithmic spiral cavity."
+    },
+    "playInterface": {
+      "type": "wind",
+      "notes": [
+        {
+          "sargam": "Mandra Nada",
+          "western": "E3",
+          "frequency": 164.81,
+          "keyboardKey": "A"
+        },
+        {
+          "sargam": "Muladhara Sa",
+          "western": "A3",
+          "frequency": 220.0,
+          "keyboardKey": "S"
+        },
+        {
+          "sargam": "Hridayam Pa",
+          "western": "E4",
+          "frequency": 329.63,
+          "keyboardKey": "D"
+        },
+        {
+          "sargam": "Ajna Tar Sa",
+          "western": "A4",
+          "frequency": 440.0,
+          "keyboardKey": "F"
+        },
+        {
+          "sargam": "Brahmanda Ga",
+          "western": "C#5",
+          "frequency": 554.37,
+          "keyboardKey": "J"
+        }
+      ],
+      "droneNotes": [
+        {
+          "sargam": "Pranava Om",
+          "western": "A3",
+          "frequency": 220.0,
+          "keyboardKey": "Z"
+        }
+      ]
+    },
+    "detectionCues": {
+      "shapePattern": "Distinctive spiral conical sea conch shell with apex tip",
+      "resonators": "Spiral calcareous chamber with carved mouth hole",
+      "stringsOrPipes": "Lip-blown acoustic horn",
+      "bridgeType": "Direct apex embouchure"
+    }
+  }
+];
+
+export const INSTRUMENT_CATEGORIES = [
+  { id: 'all', label: 'All Instruments', count: HISTORICAL_INSTRUMENTS.length },
+  { id: 'tata', label: 'Tata Vadya (Chordophones / Strings)', count: HISTORICAL_INSTRUMENTS.filter(i => i.family === 'tata').length },
+  { id: 'sushira', label: 'Sushira Vadya (Aerophones / Wind)', count: HISTORICAL_INSTRUMENTS.filter(i => i.family === 'sushira').length },
+  { id: 'avanaddha', label: 'Avanaddha Vadya (Membranophones / Drums)', count: HISTORICAL_INSTRUMENTS.filter(i => i.family === 'avanaddha').length },
+  { id: 'ghana', label: 'Ghana Vadya (Idiophones / Struck Solids)', count: HISTORICAL_INSTRUMENTS.filter(i => i.family === 'ghana').length },
+];
+
+export const HISTORICAL_ERAS = [
+  { id: 'all', label: 'All Eras' },
+  { id: 'vedic', label: 'Vedic & Antiquity (1500–500 BCE)' },
+  { id: 'sangam', label: 'Sangam Tamil Era (300 BCE–500 CE)' },
+  { id: 'maurya_gupta', label: 'Classical Maurya & Gupta (300 BCE–600 CE)' },
+  { id: 'medieval', label: 'Medieval & Chola/Vijayanagara (600–1500 CE)' },
+  { id: 'mughal', label: 'Mughal & Courtly Eras (1500–1850 CE)' },
+];

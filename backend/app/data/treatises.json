@@ -1,0 +1,69 @@
+[
+  {
+    "id": "natya-shastra",
+    "name": "Natya Shastra (\u0928\u093e\u091f\u094d\u092f\u0936\u093e\u0938\u094d\u0924\u094d\u0930)",
+    "author": "Bharata Muni",
+    "century": "c. 200 BCE \u2013 200 CE",
+    "description": "The foundational Sanskrit encyclopedic treatise on performing arts, dramaturgy, musicology, and instrument classification (Vadya Vinyasa).",
+    "categories": [
+      {
+        "name": "Tata Vadya",
+        "translation": "Chordophones (Strings)",
+        "description": "Vibrating strings over hollow resonators"
+      },
+      {
+        "name": "Sushira Vadya",
+        "translation": "Aerophones (Wind)",
+        "description": "Breath-excited cylindrical air columns"
+      },
+      {
+        "name": "Avanaddha Vadya",
+        "translation": "Membranophones (Drums)",
+        "description": "Tuned animal skin membrane percussion"
+      },
+      {
+        "name": "Ghana Vadya",
+        "translation": "Idiophones (Solid)",
+        "description": "Resonant solid materials (metal, porcelain, bronze)"
+      }
+    ],
+    "citations": [
+      {
+        "treatise": "Natya Shastra (by Bharata Muni)",
+        "chapter": "Chapter 28: Vadya Vinyasa",
+        "quote": "\u0924\u0924\u0902 \u091a\u0948\u0935\u093e\u0935\u0928\u0926\u094d\u0927\u0902 \u091a \u0918\u0928\u0902 \u0938\u0941\u0937\u093f\u0930\u092e\u0947\u0935 \u091a\u0964 \u091a\u0924\u0941\u0930\u094d\u0935\u093f\u0927\u0902 \u0924\u0941 \u0935\u093f\u091c\u094d\u091e\u0947\u092f\u0902 \u0935\u093e\u0926\u094d\u092f\u0902 \u0932\u0915\u094d\u0937\u0923\u0938\u0902\u092f\u0941\u0924\u092e\u094d\u0965",
+        "translation": "Musical instruments are known to be of fourfold classification: Tata (stringed), Avanaddha (percussion/covered), Ghana (solid/idiophones), and Sushira (wind)."
+      }
+    ]
+  },
+  {
+    "id": "sangita-ratnakara",
+    "name": "Sangita Ratnakara (\u0938\u0919\u094d\u0917\u0940\u0924\u0930\u0924\u094d\u0928\u093e\u0915\u0930)",
+    "author": "Sharngadeva",
+    "century": "13th Century CE",
+    "description": "The definitive medieval musicological text describing 22 Shrutis, Raga taxonomy, and medieval veenas.",
+    "citations": [
+      {
+        "treatise": "Sangita Ratnakara",
+        "chapter": "Vadyadhyaya",
+        "quote": "\u0927\u0928\u0941\u0930\u093e\u0915\u093e\u0930\u0926\u0923\u094d\u0921\u093e \u0938\u094d\u092f\u093e\u0924\u094d \u092a\u093f\u0928\u093e\u0915\u0940 \u0924\u0928\u094d\u0924\u0941\u0938\u0902\u092f\u0941\u0924\u093e...",
+        "translation": "The Pinaki has a staff shaped like an archer bow, strung with a single sacred chord."
+      }
+    ]
+  },
+  {
+    "id": "silappadikaram",
+    "name": "Silappadikaram (\u0b9a\u0bbf\u0bb2\u0baa\u0bcd\u0baa\u0ba4\u0bbf\u0b95\u0bbe\u0bb0\u0bae\u0bcd)",
+    "author": "Ilango Adigal",
+    "century": "c. 2nd \u2013 5th Century CE",
+    "description": "The ancient Sangam Tamil epic chronicling the courtly culture and 14-string silk Yazh harps.",
+    "citations": [
+      {
+        "treatise": "Silappadikaram (by Ilango Adigal)",
+        "chapter": "Kanal Vari",
+        "quote": "\u0bb5\u0bbe\u0bb0\u0bcd \u0b89\u0bb1\u0bc1 \u0b95\u0bcb\u0bb2\u0bc1\u0bae\u0bcd \u0bb5\u0bb0\u0bbf\u0baf\u0bc1\u0bb1\u0bc1 \u0ba8\u0bb0\u0bae\u0bcd\u0baa\u0bc1\u0bae\u0bcd \u0b8f\u0bb1\u0bc1\u0baa\u0bc6\u0bb1\u0ba4\u0bcd \u0ba4\u0bca\u0b9f\u0bc1\u0ba4\u0bcd\u0ba4\u0bc1...",
+        "translation": "Plucking the pure silk strings resting upon the curved bow-arm, sweet notes of the Sevvazhi pann echoed."
+      }
+    ]
+  }
+]

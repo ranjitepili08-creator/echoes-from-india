@@ -1,0 +1,103 @@
+[
+  {
+    "id": "bhupali",
+    "title": "Raga Bhupali Theme",
+    "ragaOrOrigin": "Raga Bhupali / Mohanam",
+    "description": "Ancient pentatonic melody embodying serenity and morning dawn.",
+    "era": "Classical Antiquity",
+    "bpm": 100,
+    "duration": 32.0,
+    "difficulty": "Beginner",
+    "notes": [
+      {
+        "pitch": "C4",
+        "sargam": "Sa",
+        "time": 1.0,
+        "duration": 0.8,
+        "lane": 0
+      },
+      {
+        "pitch": "D4",
+        "sargam": "Re",
+        "time": 2.0,
+        "duration": 0.8,
+        "lane": 1
+      },
+      {
+        "pitch": "E4",
+        "sargam": "Ga",
+        "time": 3.0,
+        "duration": 1.2,
+        "lane": 2
+      },
+      {
+        "pitch": "G4",
+        "sargam": "Pa",
+        "time": 4.5,
+        "duration": 0.8,
+        "lane": 3
+      },
+      {
+        "pitch": "A4",
+        "sargam": "Dha",
+        "time": 5.5,
+        "duration": 0.8,
+        "lane": 2
+      },
+      {
+        "pitch": "C5",
+        "sargam": "Tar Sa",
+        "time": 6.5,
+        "duration": 1.5,
+        "lane": 3
+      }
+    ]
+  },
+  {
+    "id": "vande-mataram",
+    "title": "Vande Mataram Melody",
+    "ragaOrOrigin": "Raga Desh",
+    "description": "Iconic national melody immortalized in classical Desh.",
+    "era": "19th Century",
+    "bpm": 110,
+    "duration": 36.0,
+    "difficulty": "Intermediate",
+    "notes": [
+      {
+        "pitch": "E4",
+        "sargam": "Ga",
+        "time": 1.0,
+        "duration": 0.8,
+        "lane": 1
+      },
+      {
+        "pitch": "G4",
+        "sargam": "Pa",
+        "time": 2.0,
+        "duration": 0.8,
+        "lane": 2
+      },
+      {
+        "pitch": "G4",
+        "sargam": "Pa",
+        "time": 3.0,
+        "duration": 0.8,
+        "lane": 2
+      },
+      {
+        "pitch": "A4",
+        "sargam": "Dha",
+        "time": 4.0,
+        "duration": 1.2,
+        "lane": 3
+      },
+      {
+        "pitch": "G4",
+        "sargam": "Pa",
+        "time": 5.5,
+        "duration": 2.0,
+        "lane": 2
+      }
+    ]
+  }
+]
