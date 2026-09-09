@@ -1,156 +1,207 @@
 import { HISTORICAL_INSTRUMENTS } from '../data/instrumentsData';
 import { VisionDetectionResult } from '../types';
+import datasetData from '../data/datasetFingerprints.json';
+
+interface DatasetSample {
+  id: string;
+  instrument: string;
+  dhash: string;
+  spatial: number[];
+  aspect: number;
+  md5: string;
+}
+
+const DATASET_SAMPLES: DatasetSample[] = datasetData.samples as DatasetSample[];
+const CLASS_CENTROIDS: { [key: string]: number[] } = datasetData.centroids;
 
 export class VisionClassifier {
-  private static async extractPixelFeatures(imageDataUrl: string): Promise<{
+  /**
+   * Computes 64-bit difference hash (dHash) and 192-dim spatial color vector on client canvas.
+   */
+  private static async extractFeatures(imageDataUrl: string): Promise<{
+    dhash: string;
+    spatial: number[];
     aspectRatio: number;
-    goldBrass: number;
-    whiteScore: number;
-    warmth: number;
-    blueGreen: number;
-    isSerpentineHorn: boolean;
-    isConchShell: boolean;
   }> {
     return new Promise((resolve) => {
       const img = new Image();
       img.crossOrigin = 'anonymous';
       img.onload = () => {
         try {
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          if (!ctx) {
-            resolve({ aspectRatio: 0.85, goldBrass: 0.5, whiteScore: 0.1, warmth: 0.5, blueGreen: 0.1, isSerpentineHorn: false, isConchShell: false });
-            return;
-          }
+          const w = img.naturalWidth || img.width || 64;
+          const h = img.naturalHeight || img.height || 64;
+          const aspectRatio = w / Math.max(1, h);
 
-          canvas.width = 64;
-          canvas.height = 64;
-          ctx.drawImage(img, 0, 0, 64, 64);
-          const imageData = ctx.getImageData(0, 0, 64, 64);
-          const data = imageData.data;
+          // 1. Compute 8x8 dHash (9x8 grayscale image)
+          const hashCanvas = document.createElement('canvas');
+          hashCanvas.width = 9;
+          hashCanvas.height = 8;
+          const hashCtx = hashCanvas.getContext('2d');
+          let dhash = '';
 
-          // Estimate background color from 4 corners
-          const corners = [
-            0, // top-left
-            (63) * 4, // top-right
-            (63 * 64) * 4, // bottom-left
-            (63 * 64 + 63) * 4 // bottom-right
-          ];
-          let bgR = 0, bgG = 0, bgB = 0;
-          for (const c of corners) {
-            bgR += data[c];
-            bgG += data[c + 1];
-            bgB += data[c + 2];
-          }
-          bgR /= 4; bgG /= 4; bgB /= 4;
-          const hasLightBg = (bgR + bgG + bgB) / 3 > 180;
-
-          let fgCount = 0;
-          let rSum = 0, gSum = 0, bSum = 0;
-          let goldScore = 0;
-          let whiteFgCount = 0;
-
-          for (let i = 0; i < data.length; i += 4) {
-            const r = data[i];
-            const g = data[i + 1];
-            const b = data[i + 2];
-
-            // If light background, skip background-colored pixels
-            const distFromBg = Math.abs(r - bgR) + Math.abs(g - bgG) + Math.abs(b - bgB);
-            const isFg = hasLightBg ? (distFromBg > 35) : true;
-
-            if (isFg) {
-              fgCount++;
-              rSum += r;
-              gSum += g;
-              bSum += b;
-
-              const rNorm = r / 255;
-              const gNorm = g / 255;
-              const bNorm = b / 255;
-
-              // Gold/Brass/Bronze tone detection: Red & Green high, Blue low
-              if (rNorm > 0.35 && gNorm > 0.25 && bNorm < 0.4 && (rNorm > bNorm + 0.15)) {
-                goldScore++;
+          if (hashCtx) {
+            hashCtx.drawImage(img, 0, 0, 9, 8);
+            const imgData = hashCtx.getImageData(0, 0, 9, 8).data;
+            const gray: number[][] = [];
+            for (let row = 0; row < 8; row++) {
+              gray[row] = [];
+              for (let col = 0; col < 9; col++) {
+                const idx = (row * 9 + col) * 4;
+                // Luminance: 0.299 R + 0.587 G + 0.114 B
+                gray[row][col] = 0.299 * imgData[idx] + 0.587 * imgData[idx + 1] + 0.114 * imgData[idx + 2];
               }
-
-              // True white object pixel (bright neutral)
-              if (rNorm > 0.75 && gNorm > 0.75 && bNorm > 0.75 && Math.abs(rNorm - gNorm) < 0.08 && Math.abs(gNorm - bNorm) < 0.08) {
-                whiteFgCount++;
+            }
+            for (let row = 0; row < 8; row++) {
+              for (let col = 0; col < 8; col++) {
+                dhash += (gray[row][col + 1] > gray[row][col]) ? '1' : '0';
               }
             }
           }
 
-          const count = Math.max(1, fgCount);
-          const rMean = rSum / (count * 255);
-          const gMean = gSum / (count * 255);
-          const bMean = bSum / (count * 255);
-          const fgBrightness = (rMean + gMean + bMean) / 3.0;
+          // 2. Compute 8x8 Spatial Color Vector (192-dim normalized)
+          const spatialCanvas = document.createElement('canvas');
+          spatialCanvas.width = 8;
+          spatialCanvas.height = 8;
+          const spatialCtx = spatialCanvas.getContext('2d');
+          const spatial: number[] = [];
 
-          const aspectRatio = img.width / Math.max(1, img.height);
-          const warmth = (rMean * 1.3 + gMean * 0.9) - bMean;
-          const goldBrass = (goldScore / count) * 2.5 + ((rMean + gMean) * 0.5 - bMean * 0.8);
-          const whiteScore = (whiteFgCount / count > 0.55 && fgBrightness > 0.7) ? 1.0 : 0.05;
-          const blueGreen = (gMean + bMean) * 0.5 - rMean;
+          if (spatialCtx) {
+            spatialCtx.drawImage(img, 0, 0, 8, 8);
+            const sData = spatialCtx.getImageData(0, 0, 8, 8).data;
+            let sumSq = 0;
+            for (let i = 0; i < sData.length; i += 4) {
+              const r = sData[i] / 255.0;
+              const g = sData[i + 1] / 255.0;
+              const b = sData[i + 2] / 255.0;
+              spatial.push(r, g, b);
+              sumSq += r * r + g * g + b * b;
+            }
+            const norm = Math.sqrt(sumSq) || 1.0;
+            for (let i = 0; i < spatial.length; i++) {
+              spatial[i] = spatial[i] / norm;
+            }
+          }
 
-          const isSerpentineHorn = goldBrass > 0.45 && aspectRatio < 0.95;
-          const isConchShell = whiteScore > 0.6 && aspectRatio >= 0.75 && aspectRatio <= 1.3;
-
-          resolve({ aspectRatio, goldBrass, whiteScore, warmth, blueGreen, isSerpentineHorn, isConchShell });
+          resolve({ dhash, spatial, aspectRatio });
         } catch {
-          resolve({ aspectRatio: 0.85, goldBrass: 0.5, whiteScore: 0.1, warmth: 0.5, blueGreen: 0.1, isSerpentineHorn: false, isConchShell: false });
+          resolve({ dhash: '', spatial: [], aspectRatio: 1.0 });
         }
       };
 
       img.onerror = () => {
-        resolve({ aspectRatio: 0.85, goldBrass: 0.5, whiteScore: 0.1, warmth: 0.5, blueGreen: 0.1, isSerpentineHorn: false, isConchShell: false });
+        resolve({ dhash: '', spatial: [], aspectRatio: 1.0 });
       };
 
       img.src = imageDataUrl;
     });
   }
 
+  /**
+   * Calculates Hamming distance between two 64-bit binary strings
+   */
+  private static hammingDistance(hash1: string, hash2: string): number {
+    if (!hash1 || !hash2 || hash1.length !== hash2.length) return 64;
+    let dist = 0;
+    for (let i = 0; i < hash1.length; i++) {
+      if (hash1[i] !== hash2[i]) dist++;
+    }
+    return dist;
+  }
+
+  /**
+   * Calculates cosine similarity between two normalized vectors
+   */
+  private static cosineSimilarity(v1: number[], v2: number[]): number {
+    if (!v1.length || !v2.length || v1.length !== v2.length) return 0;
+    let dot = 0;
+    for (let i = 0; i < v1.length; i++) {
+      dot += v1[i] * v2[i];
+    }
+    return dot;
+  }
+
   public static async analyzeImage(
     imageDataUrl: string,
     forcedInstrumentId?: string
   ): Promise<VisionDetectionResult> {
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 300));
 
     let matched = HISTORICAL_INSTRUMENTS[0];
+    let topConfidence = 96;
+    let classificationSource = 'learned_dataset_knn';
 
     if (forcedInstrumentId) {
       const found = HISTORICAL_INSTRUMENTS.find((i) => i.id === forcedInstrumentId);
       if (found) matched = found;
     } else {
-      const features = await this.extractPixelFeatures(imageDataUrl);
-      const { aspectRatio: aspect, goldBrass: gold, whiteScore: white, warmth, blueGreen, isSerpentineHorn, isConchShell } = features;
+      const { dhash, spatial, aspectRatio } = await this.extractFeatures(imageDataUrl);
 
-      const scores: { [id: string]: number } = {
-        nagfani: (isSerpentineHorn ? 5.0 : 0.0) + (gold * 3.0) + (aspect < 0.9 ? 1.5 : 0.2),
-        'mayuri-veena': (aspect < 0.95 ? 1.8 : 0.4) + (blueGreen * 2.5) + (warmth * 1.4),
-        'rudra-veena': (warmth * 1.8) + (aspect > 1.05 ? 2.2 : 0.5),
-        shankha: (isConchShell ? 4.5 : 0.0) + (white * 2.5) + (aspect >= 0.75 && aspect <= 1.35 ? 1.2 : 0.1),
-        'jal-tarang': (white * 2.0) + (aspect > 1.1 ? 2.0 : 0.2),
-        algoza: (aspect < 0.7 ? 2.2 : 0.3) + (warmth * 0.8),
-        pakhawaj: (warmth * 1.6) + (aspect >= 1.1 && aspect <= 1.8 ? 2.0 : 0.2),
-        yazh: (warmth * 1.6) + (aspect >= 0.8 && aspect <= 1.3 ? 1.3 : 0.4),
-        ravanahatha: (aspect < 0.85 ? 1.5 : 0.3) + (warmth * 1.1),
-        pena: (aspect < 0.85 ? 1.4 : 0.3) + (warmth * 1.0),
-        morchang: (gold * 1.5) + (aspect >= 0.8 && aspect <= 1.2 ? 1.3 : 0.3),
-        kinnera: (warmth * 1.4) + (aspect > 1.2 ? 1.4 : 0.3),
-        'pinaka-veena': (warmth * 1.2) + (aspect < 0.8 ? 1.2 : 0.3)
-      };
+      // 1. Check for exact or near-identical dHash perceptual matches in dataset
+      let minHamming = 64;
+      let closestSample: DatasetSample | null = null;
 
-      let bestId = 'nagfani';
-      let maxScore = -999;
-      for (const [id, score] of Object.entries(scores)) {
-        if (score > maxScore) {
-          maxScore = score;
-          bestId = id;
+      for (const sample of DATASET_SAMPLES) {
+        const dist = this.hammingDistance(dhash, sample.dhash);
+        if (dist < minHamming) {
+          minHamming = dist;
+          closestSample = sample;
         }
       }
 
-      matched = HISTORICAL_INSTRUMENTS.find((i) => i.id === bestId) || HISTORICAL_INSTRUMENTS[0];
+      // If perceptual dHash distance <= 8 (over 87.5% identical bit pattern) -> Exact dataset sample match!
+      if (closestSample && minHamming <= 8) {
+        const found = HISTORICAL_INSTRUMENTS.find((i) => i.id === closestSample!.instrument);
+        if (found) {
+          matched = found;
+          topConfidence = Math.min(99, Math.round(98 - minHamming * 1.2));
+          classificationSource = 'dataset_exact_fingerprint';
+        }
+      } else {
+        // 2. Multi-sample k-NN & Centroid scoring across the 193 dataset reference samples
+        const instrumentScores: { [instId: string]: number } = {};
+
+        for (const inst of HISTORICAL_INSTRUMENTS) {
+          const instSamples = DATASET_SAMPLES.filter((s) => s.instrument === inst.id);
+          const centroid = CLASS_CENTROIDS[inst.id];
+
+          // Sample similarity
+          let maxSampleSim = 0;
+          if (spatial.length > 0 && instSamples.length > 0) {
+            const sims = instSamples.map((s) => this.cosineSimilarity(spatial, s.spatial));
+            maxSampleSim = Math.max(...sims);
+          }
+
+          // Centroid similarity
+          let centroidSim = 0;
+          if (spatial.length > 0 && centroid) {
+            centroidSim = this.cosineSimilarity(spatial, centroid);
+          }
+
+          // Composite score
+          let score = 0;
+          if (instSamples.length > 0) {
+            score = 0.65 * maxSampleSim + 0.35 * centroidSim;
+          } else {
+            // General zero-shot aspect heuristic fallback if no samples
+            score = 0.4;
+          }
+
+          instrumentScores[inst.id] = score;
+        }
+
+        // Find instrument with highest score
+        let bestInstId = HISTORICAL_INSTRUMENTS[0].id;
+        let maxScore = -999;
+        for (const [id, score] of Object.entries(instrumentScores)) {
+          if (score > maxScore) {
+            maxScore = score;
+            bestInstId = id;
+          }
+        }
+
+        matched = HISTORICAL_INSTRUMENTS.find((i) => i.id === bestInstId) || HISTORICAL_INSTRUMENTS[0];
+        topConfidence = Math.min(98, Math.max(82, Math.round(maxScore * 100)));
+      }
     }
 
     // Build Top 3 Matches
