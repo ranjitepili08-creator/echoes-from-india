@@ -15,6 +15,6 @@ class Settings(BaseModel):
         "http://127.0.0.1:5173",
         "*"
     ]
-    DATA_DIR: Path = BASE_DIR / "app" / "data"
+    DATA_DIR: Path = Path(__file__).resolve().parent / "data"
 
 settings = Settings()
