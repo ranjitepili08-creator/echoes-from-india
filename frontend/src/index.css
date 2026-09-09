@@ -3,26 +3,44 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --bg-dark: #0a0b0e;
+    --card-bg: #12141a;
+    --card-border: rgba(255, 255, 255, 0.08);
+    --text-primary: #ffffff;
+    --text-secondary: #9da4b0;
+    --text-muted: #646c7c;
+  }
+
   body {
-    @apply bg-indigoHeritage-950 text-parchment-100 antialiased selection:bg-saffron-500/30 selection:text-saffron-200;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    background-color: #0a0b0e;
+    color: #f0f2f5;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-serif {
+    font-family: 'Cinzel', 'Cormorant Garamond', Georgia, serif;
+    letter-spacing: 0.04em;
   }
 }
 
-/* Custom Heritage Scrollbar */
+/* Minimalist Dark Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0a14;
+  background: #0a0b0e;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(245, 158, 11, 0.25);
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(245, 158, 11, 0.5);
+  background: rgba(255, 255, 255, 0.25);
 }
 
 @keyframes fadeIn {

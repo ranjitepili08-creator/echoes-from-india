@@ -10,7 +10,6 @@ import { MuseumKiosk } from './components/KioskMode/MuseumKiosk';
 import { HISTORICAL_INSTRUMENTS } from './data/instrumentsData';
 import { Instrument } from './types';
 import { soundEngine } from './services/soundEngine';
-import { Sparkles, Heart, Landmark, Code, BookOpen } from 'lucide-react';
 
 export function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('scanner');
@@ -32,8 +31,9 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-indigoHeritage-950 text-parchment-100 flex flex-col font-sans">
-      {/* Minimalist Floating Luxury Navbar */}
+    <div className="min-h-screen bg-[#0a0b0e] text-[#f0f2f5] flex flex-col font-sans selection:bg-white/20 selection:text-white pb-20">
+      
+      {/* Sleek Floating Luxury Navigation Dock */}
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -43,7 +43,7 @@ export function App() {
         onVolumeChange={setMasterVolume}
       />
 
-      {/* Hero Section (Visible on Scanner Tab) */}
+      {/* Full-Screen Hero Section (Only on Scanner/Home view) */}
       {activeTab === 'scanner' && (
         <HeroSection
           onNavigate={setActiveTab}
@@ -51,8 +51,8 @@ export function App() {
         />
       )}
 
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-8">
+      {/* Main Feature Content Container */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {activeTab === 'scanner' && (
           <VisionScanner
             onInstrumentIdentified={setCurrentInstrument}
@@ -104,33 +104,37 @@ export function App() {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-saffron-500/15 bg-indigoHeritage-950/90 py-8 px-4 lg:px-8 text-xs text-parchment-400 mt-12">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-lg bg-saffron-500/20 text-saffron-300 flex items-center justify-center font-serif font-bold text-xs">
+      {/* Minimalist Editorial Footer */}
+      <footer className="border-t border-white/10 bg-[#0a0b0e] py-10 px-6 sm:px-12 text-xs text-[#8e95a5]">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-3">
+            <div className="w-7 h-7 rounded-lg bg-white/10 text-white flex items-center justify-center font-serif font-bold text-xs">
               ॐ
             </div>
             <div>
-              <span className="font-serif font-bold text-parchment-200">ECHOES OF INDIA</span>
-              <span className="text-[11px] text-parchment-500 block">
-                Reviving the Sound of Historical Indian Instruments through AI
+              <span className="font-serif font-bold text-white tracking-wider block text-sm" style={{ fontFamily: "'Cinzel', serif" }}>
+                ECHOES OF INDIA
+              </span>
+              <span className="text-[11px] text-[#646c7c] block">
+                Reviving Ancient Indian Instruments through AI &amp; Organological Timbre Synthesis
               </span>
             </div>
           </div>
 
-          <div className="flex items-center flex-wrap justify-center gap-4 text-center">
-            <span>Project Concept: <strong>Ranjeet</strong></span>
+          <div className="flex items-center flex-wrap justify-center gap-4 text-center text-[12px]">
+            <span>Concept: <strong>Ranjeet</strong></span>
             <span>•</span>
+            <span>Treatises: <em>Natya Shastra &amp; Sangita Ratnakara</em></span>
             <span>•</span>
-            <span>Grounding: <em>Natya Shastra & Sangita Ratnakara</em></span>
+            <span>Research Prototype</span>
           </div>
 
-          <div className="text-[11px] text-parchment-500">
-            Researched Organological Sound Reconstruction
+          <div className="text-[11px] text-[#646c7c]">
+            Digital Museum &amp; Acoustic Archive
           </div>
         </div>
       </footer>
+
     </div>
   );
 }

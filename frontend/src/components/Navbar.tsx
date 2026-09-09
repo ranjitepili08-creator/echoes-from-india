@@ -41,76 +41,64 @@ export const Navbar: React.FC<NavbarProps> = ({
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#0a0b0e]/85 backdrop-blur-xl border-b border-white/10 px-4 sm:px-8 py-3 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 max-w-[95vw] pointer-events-auto">
+      <nav className="flex items-center gap-1.5 sm:gap-2 bg-[#12141a]/92 backdrop-blur-2xl border border-white/10 p-1.5 sm:p-2 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.95)]">
         
-        {/* Brand & Project Logo */}
-        <div 
-          onClick={() => setActiveTab('scanner')}
-          className="flex items-center gap-3 cursor-pointer group select-none"
-        >
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-400 via-amber-600 to-amber-800 flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.25)] group-hover:scale-105 transition-transform duration-300">
-            <span className="font-serif text-black font-extrabold text-sm">ॐ</span>
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-serif text-sm sm:text-base font-bold tracking-[0.14em] text-white uppercase group-hover:text-amber-200 transition-colors" style={{ fontFamily: "'Cinzel', serif" }}>
-                Echoes of India
-              </span>
-              <span className="text-[9px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded-full bg-white/10 text-amber-300 border border-amber-400/30">
-                AI
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Minimalist Centered Navigation Dock */}
-        <nav className="flex items-center gap-1 bg-[#12141a]/90 p-1 rounded-xl border border-white/10 shadow-inner overflow-x-auto max-w-full scrollbar-none">
+        {/* Navigation Tab Pills */}
+        <div className="flex items-center gap-1">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
             return (
               <button
                 key={item.id}
-                onClick={() => setActiveTab(item.id)}
-                className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
+                onClick={() => {
+                  setActiveTab(item.id);
+                  if (item.id !== 'scanner') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }
+                }}
+                className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                   isActive
-                    ? 'bg-white text-black shadow-md font-bold scale-[1.02]'
+                    ? 'bg-white text-black font-bold shadow-md'
                     : 'text-[#8e95a5] hover:text-white hover:bg-white/5'
                 }`}
               >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-black' : 'text-amber-400/80'}`} />
-                <span>{item.label}</span>
+                <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-black' : 'text-[#8e95a5]'}`} />
+                <span className="hidden md:inline">{item.label}</span>
               </button>
             );
           })}
-        </nav>
+        </div>
 
-        {/* Desktop Audio Controls (Tanpura Drone & Volume) */}
-        <div className="flex items-center gap-2.5">
+        {/* Divider */}
+        <div className="h-6 w-[1px] bg-white/10 mx-1 hidden sm:block" />
+
+        {/* Audio Engine Quick Controls */}
+        <div className="hidden sm:flex items-center gap-2 pr-1">
           <button
             onClick={onToggleDrone}
-            title={isDroneActive ? 'Stop Tanpura Drone' : 'Start Tanpura Drone Sound'}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${
+            title={isDroneActive ? 'Stop Tanpura Drone' : 'Start Tanpura Drone Accompaniment'}
+            className={`flex items-center gap-1.5 px-2.5 py-2 rounded-xl text-xs font-medium border transition-all cursor-pointer ${
               isDroneActive
-                ? 'bg-amber-400/20 text-amber-300 border-amber-400/50 shadow-[0_0_15px_rgba(245,158,11,0.3)] animate-pulse'
+                ? 'bg-white/20 text-white border-white/40 shadow-sm'
                 : 'bg-white/5 text-[#8e95a5] border-white/10 hover:text-white hover:bg-white/10'
             }`}
           >
             <Radio className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Tanpura Drone</span>
+            <span className="hidden lg:inline">Tanpura</span>
           </button>
 
-          <div className="flex items-center gap-2 bg-white/5 px-2.5 py-1.5 rounded-lg border border-white/10">
+          <div className="flex items-center gap-1.5 bg-white/5 px-2 py-2 rounded-xl border border-white/10">
             <button 
               onClick={() => {
                 const newVol = masterVolume > 0 ? 0 : 0.85;
                 onVolumeChange(newVol);
                 soundEngine.setMasterVolume(newVol);
               }}
-              className="text-[#8e95a5] hover:text-white transition-colors"
+              className="text-[#8e95a5] hover:text-white transition-colors cursor-pointer"
             >
-              {masterVolume > 0 ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4 text-red-400" />}
+              {masterVolume > 0 ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5 text-red-400" />}
             </button>
             <input
               type="range"
@@ -123,12 +111,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onVolumeChange(val);
                 soundEngine.setMasterVolume(val);
               }}
-              className="w-14 sm:w-16 h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-amber-400"
+              className="w-12 h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-white hidden lg:block"
             />
           </div>
         </div>
 
-      </div>
-    </header>
+      </nav>
+    </div>
   );
 };
