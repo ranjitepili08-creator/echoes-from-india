@@ -33,15 +33,17 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-indigoHeritage-950 text-parchment-100 flex flex-col font-sans">
-      {/* Navigation Header */}
-      <Navbar
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        isDroneActive={isDroneActive}
-        onToggleDrone={handleToggleDrone}
-        masterVolume={masterVolume}
-        onVolumeChange={setMasterVolume}
-      />
+      {/* Navigation Header (Hidden on Hero Home screen as requested) */}
+      {activeTab !== 'scanner' && (
+        <Navbar
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          isDroneActive={isDroneActive}
+          onToggleDrone={handleToggleDrone}
+          masterVolume={masterVolume}
+          onVolumeChange={setMasterVolume}
+        />
+      )}
 
       {/* Hero Section (Visible on Scanner Tab) */}
       {activeTab === 'scanner' && (
