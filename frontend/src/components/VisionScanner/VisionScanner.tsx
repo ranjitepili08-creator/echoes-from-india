@@ -313,13 +313,13 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
         
         {/* Left Column: Image Viewfinder & Curated Samples */}
         <div className="lg:col-span-7 space-y-4">
-          <div className="relative aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden bg-indigoHeritage-900/80 border-2 border-dashed border-saffron-500/40 flex items-center justify-center group shadow-2xl">
+          <div className="relative aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#0c0e14] border-2 border-dashed border-saffron-500/40 flex items-center justify-center group shadow-2xl">
             {selectedImage ? (
-              <div className="relative w-full h-full flex items-center justify-center bg-black/50">
+              <div className="relative w-full h-full flex items-center justify-center bg-[#07080b]">
                 <img
                   src={selectedImage}
                   alt="Scanned Instrument"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain p-2"
                 />
 
                 {/* Scanning Animation Overlay */}
