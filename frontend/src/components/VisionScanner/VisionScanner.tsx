@@ -53,49 +53,49 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
       id: 'yazh',
       title: 'Amaravati Yazh Carving',
       subtitle: '2nd c. BCE Ancient Harp',
-      image: 'https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=600&q=80',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/b/bf/2024-03-22_Burmis_Swam%2C_Villadi_Yaaz%2C_Villadi_Naadmandal_in_Raja_Dinkar_Kelkar_Museum%2C_Pune.jpg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original',
     },
     {
       id: 'rudra-veena',
       title: 'Dhrupad Rudra Veena',
       subtitle: 'Twin Gourd Zither',
-      image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSpRIEkS_ugARFZyXCFujnfBMe65Z3PnSZOw32XhJxOO4JGJFgqkAqa2OA&s=10',
     },
     {
       id: 'pinaka-veena',
       title: 'Shaivite Pinaka Veena',
       subtitle: 'Bowed Vedic Monochord',
-      image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-PAddSJ3aRnE8Ume5AKIAVE6nRaAKYnOAZLUOjPgJ3HC3XOsI-Dw8Wto&s=10',
     },
     {
       id: 'jal-tarang',
       title: 'Jal Tarang Porcelain',
       subtitle: 'Kama Sutra Udaka Vadya',
-      image: 'https://images.unsplash.com/photo-1519744346361-8935c18e15c3?auto=format&fit=crop&w=600&q=80',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyIAl8GI5L00iqnptmaG-ZpfG9CDukWAEmHIT22RyMgZygpL-gtDrfPIN8&s=10',
     },
     {
       id: 'ravanahatha',
       title: 'Bhopa Ravanahatha',
       subtitle: 'Coconut Soundbox Fiddle',
-      image: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=600&q=80',
+      image: 'https://images.indianexpress.com/2026/07/Ravanhatha.png?w=350',
     },
     {
       id: 'pakhawaj',
       title: 'Temple Pakhawaj Drum',
       subtitle: 'Wheat Dough & Syahi Head',
-      image: 'https://images.unsplash.com/photo-1543791107-f3769cb3f736?auto=format&fit=crop&w=600&q=80',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ68oNewxC2jAsS3QeTcHfkEU0Jx4ugx2x-4Pq5NEpTY2bumpKDQI4rhqT&s=10',
     },
     {
       id: 'mayuri-veena',
       title: 'Taus Peacock Lute',
       subtitle: '30 Sympathetic Tarab',
-      image: 'https://images.unsplash.com/photo-1520523839898-5071282543e1?auto=format&fit=crop&w=600&q=80',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3iFSb3cMOTSksXC1idZCP2adq70Uym1X7rVW8Ck_eR9CCQYSRsHfiyo8&s=10',
     },
     {
       id: 'algoza',
       title: 'Thar Desert Algoza',
       subtitle: 'Circular Breathing Twin Flute',
-      image: 'https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=600&q=80',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzx-GrEjkprxTyy-zoOg_sFju5wMQkt1NBJR980qmWF0xj8Ap-0CnDAsUo&s=10',
     }
   ];
 
