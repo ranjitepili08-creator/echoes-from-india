@@ -2,10 +2,15 @@ import base64
 import io
 import re
 from typing import Optional, List, Tuple
-from ..models.vision import VisionDetectionResponse, DetectedFeatureBox, MatchCandidate
+from ..models.vision import (
+    VisionDetectionResponse, 
+    DetectedFeatureBox, 
+    MatchCandidate,
+    ExtractedAttributesResponse
+)
 from ..models.instrument import Instrument
 from .database_service import db_service
-from .clip_service import clip_service
+from .attribute_service import attribute_service
 
 class VisionService:
     @classmethod
@@ -14,33 +19,18 @@ class VisionService:
         if not instruments:
             raise ValueError("No instruments available in database")
 
-        # 1. Clean and decode Base64 image payload
-        clean_base64 = re.sub(r"^data:image/[a-zA-Z]+;base64,", "", image_data)
-        try:
-            image_bytes = base64.b64decode(clean_base64)
-        except Exception:
-            image_bytes = b""
-
-        # 2. Run Zero-Shot CLIP & Hybrid Classification
-        if image_bytes:
-            clip_res = clip_service.classify_image_bytes(image_bytes, forced_id=forced_id)
-            matched_id = clip_res["top_instrument_id"]
-            similarity_score = clip_res["similarity_score"]
-            confidence_percent = clip_res["confidence_percent"]
-            confidence_gate_triggered = clip_res["confidence_gate_triggered"]
-            classification_source = clip_res["classification_source"]
-            raw_top_matches = clip_res["top_matches"]
-        else:
-            matched_id = forced_id or "mayuri-veena"
-            similarity_score = 0.85
-            confidence_percent = 92
-            confidence_gate_triggered = False
-            classification_source = "fallback"
-            raw_top_matches = [{"instrument_id": matched_id, "similarity_score": 0.85, "confidence_percent": 92, "rank": 1, "is_top_match": True}]
+        # 1. Run Attribute-Based Visual Classification
+        attr_res = attribute_service.classify_by_attributes(image_data, forced_id=forced_id)
+        matched_id = attr_res["top_instrument_id"]
+        match_score = attr_res["match_score"]
+        confidence_percent = attr_res["confidence_percent"]
+        confidence_gate_triggered = attr_res["confidence_gate_triggered"]
+        raw_top_matches = attr_res["top_matches"]
+        extracted_data = attr_res["extracted_attributes"]
 
         matched = db_service.get_instrument_by_id(matched_id) or instruments[0]
 
-        # 3. Populate full MatchCandidate metadata
+        # 2. Populate full MatchCandidate metadata with explainability reasons
         top_matches: List[MatchCandidate] = []
         for m in raw_top_matches:
             c_inst = db_service.get_instrument_by_id(m["instrument_id"])
@@ -51,12 +41,27 @@ class VisionService:
                         instrument_name=c_inst.name,
                         sanskrit_name=c_inst.sanskritName,
                         category_label=c_inst.categoryLabel,
-                        similarity_score=m["similarity_score"],
+                        similarity_score=m["score"],
                         confidence_percent=m["confidence_percent"],
                         rank=m["rank"],
-                        is_top_match=m["is_top_match"]
+                        is_top_match=m["is_top_match"],
+                        matched_reasons=m.get("matched_reasons", []),
+                        attribute_breakdown=m.get("attribute_breakdown")
                     )
                 )
+
+        # 3. Build ExtractedAttributesResponse
+        extracted_attrs_model = ExtractedAttributesResponse(
+            instrument_family=extracted_data["instrument_family"],
+            resonator_shape=extracted_data["resonator_shape"],
+            resonator_material=extracted_data["resonator_material"],
+            neck_length_category=extracted_data["neck_length_category"],
+            number_of_strings=extracted_data["number_of_strings"],
+            distinctive_features=extracted_data["distinctive_features"],
+            playing_posture=extracted_data["playing_posture"],
+            detected_color_palette=extracted_data["detected_color_palette"],
+            spatial_aspect_ratio=extracted_data["spatial_aspect_ratio"]
+        )
 
         # 4. Detailed Structural Component Localization & Bounding Boxes
         detected_features: List[DetectedFeatureBox] = []
@@ -179,10 +184,11 @@ class VisionService:
         return VisionDetectionResponse(
             instrument=matched,
             confidence=confidence_percent,
-            similarity_score=similarity_score,
+            similarity_score=match_score,
             confidence_gate_triggered=confidence_gate_triggered,
             top_matches=top_matches,
-            classification_source=classification_source,
+            classification_source="vision_llm_attribute_matching",
+            extracted_attributes=extracted_attrs_model,
             detectedFeatures=detected_features,
             analysisNotes=notes,
             visualComparisonUrl=matched.carvingImage or matched.image

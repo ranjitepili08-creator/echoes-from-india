@@ -93,6 +93,18 @@ export interface Instrument {
   };
 }
 
+export interface ExtractedVisualAttributes {
+  instrument_family: string;
+  resonator_shape: string;
+  resonator_material: string;
+  neck_length_category: string;
+  number_of_strings: string;
+  distinctive_features: string[];
+  playing_posture: string;
+  detected_color_palette?: string;
+  spatial_aspect_ratio?: number;
+}
+
 export interface MatchCandidate {
   instrument_id: string;
   instrument_name: string;
@@ -102,6 +114,8 @@ export interface MatchCandidate {
   confidence_percent: number;
   rank: number;
   is_top_match: boolean;
+  matched_reasons?: string[];
+  attribute_breakdown?: Record<string, number>;
 }
 
 export interface VisionDetectionResult {
@@ -111,6 +125,7 @@ export interface VisionDetectionResult {
   confidence_gate_triggered?: boolean;
   top_matches?: MatchCandidate[];
   classification_source?: string;
+  extracted_attributes?: ExtractedVisualAttributes;
   detectedFeatures: {
     feature: string;
     confidence: number;

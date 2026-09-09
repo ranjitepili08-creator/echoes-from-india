@@ -16,10 +16,23 @@ class MatchCandidate(BaseModel):
     instrument_name: str
     sanskrit_name: str
     category_label: str
-    similarity_score: float # Raw cosine similarity (0.0 to 1.0)
+    similarity_score: float # Raw match score (0.0 to 1.0)
     confidence_percent: int # Normalized percentage (e.g. 92%)
     rank: int # 1, 2, 3
     is_top_match: bool = False
+    matched_reasons: List[str] = [] # Explainability tags (e.g. ["Peacock Resonator", "Sympathetic Pegs"])
+    attribute_breakdown: Optional[Dict[str, float]] = None
+
+class ExtractedAttributesResponse(BaseModel):
+    instrument_family: str
+    resonator_shape: str
+    resonator_material: str
+    neck_length_category: str
+    number_of_strings: str
+    distinctive_features: List[str]
+    playing_posture: str
+    detected_color_palette: str
+    spatial_aspect_ratio: float
 
 class VisionDetectionResponse(BaseModel):
     instrument: Instrument
@@ -27,7 +40,8 @@ class VisionDetectionResponse(BaseModel):
     similarity_score: float
     confidence_gate_triggered: bool = False # True if confidence < threshold (needs confirmation)
     top_matches: List[MatchCandidate] = []
-    classification_source: str = "clip_zero_shot_centroid" # "clip_zero_shot_centroid" or "hybrid_knn"
+    classification_source: str = "vision_llm_attribute_matching" # "vision_llm_attribute_matching" or "hybrid_reference_knn"
+    extracted_attributes: Optional[ExtractedAttributesResponse] = None
     detectedFeatures: List[DetectedFeatureBox]
     analysisNotes: List[str]
     visualComparisonUrl: Optional[str] = None
@@ -44,4 +58,5 @@ class DatasetStatsResponse(BaseModel):
     total_confirmed_samples: int
     samples_per_instrument: Dict[str, int]
     last_updated: str
+
 

@@ -1,0 +1,222 @@
+{
+  "description": "Curated Public Domain & Creative Commons Reference Image Dataset for Echoes of India",
+  "version": "1.0.0",
+  "license": "Public Domain / CC-BY-SA / Museum Open Access (Metropolitan Museum of Art, Wikimedia Commons)",
+  "reference_set": {
+    "mayuri-veena": [
+      {
+        "id": "mayuri-ref-1",
+        "title": "Mayuri / Taus Peacock Bowed Lute",
+        "source": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Mayuri_vina_or_Taus_MIM_1947.jpg/800px-Mayuri_vina_or_Taus_MIM_1947.jpg",
+        "license": "CC-BY-SA 4.0",
+        "institution": "Musical Instruments Museum (MIM), Brussels"
+      },
+      {
+        "id": "mayuri-ref-2",
+        "title": "Taus with Peacock Resonator",
+        "source": "Metropolitan Museum of Art (Open Access)",
+        "url": "https://images.metmuseum.org/CRDImages/mi/original/DP-14283-001.jpg",
+        "license": "Public Domain",
+        "institution": "The Met Collection"
+      },
+      {
+        "id": "mayuri-ref-3",
+        "title": "Sikh Court Taus with Sympathetic Pegs",
+        "source": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Mayuri_Vina_India_19th_century.jpg/800px-Mayuri_Vina_India_19th_century.jpg",
+        "license": "Public Domain"
+      }
+    ],
+    "rudra-veena": [
+      {
+        "id": "rudra-ref-1",
+        "title": "Dhrupad Rudra Veena with Twin Gourd Resonators",
+        "source": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Rudra_Vina_MIM_Brussels.jpg/800px-Rudra_Vina_MIM_Brussels.jpg",
+        "license": "CC-BY-SA 4.0",
+        "institution": "MIM Brussels"
+      },
+      {
+        "id": "rudra-ref-2",
+        "title": "Carved Rudra Been with Wax-Mounted Brass Frets",
+        "source": "Metropolitan Museum of Art (Open Access)",
+        "url": "https://images.metmuseum.org/CRDImages/mi/original/DP-14284-001.jpg",
+        "license": "Public Domain",
+        "institution": "The Met Collection"
+      },
+      {
+        "id": "rudra-ref-3",
+        "title": "Historical Rudra Veena 19th c.",
+        "source": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Rudra_vina_instrument.jpg/800px-Rudra_vina_instrument.jpg",
+        "license": "Public Domain"
+      }
+    ],
+    "yazh": [
+      {
+        "id": "yazh-ref-1",
+        "title": "Amaravati Buddhist Stupa Relief depicting Ancient Yazh Harp",
+        "source": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Amaravati_harp_relief_detail.jpg/800px-Amaravati_harp_relief_detail.jpg",
+        "license": "Public Domain",
+        "institution": "Government Museum, Chennai"
+      },
+      {
+        "id": "yazh-ref-2",
+        "title": "Makara Yazh Reconstructed Boat Harp",
+        "source": "Tamil Heritage Archive",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Yazh_ancient_tamil_instrument.jpg/800px-Yazh_ancient_tamil_instrument.jpg",
+        "license": "CC-BY-SA 4.0"
+      },
+      {
+        "id": "yazh-ref-3",
+        "title": "Sangam Era Harpist Sculpture",
+        "source": "Archaeological Survey of India (ASI)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Ancient_Indian_harp_sculpture.jpg/800px-Ancient_Indian_harp_sculpture.jpg",
+        "license": "Public Domain"
+      }
+    ],
+    "shankha": [
+      {
+        "id": "shankha-ref-1",
+        "title": "Sacred Ritual Conch Shell Trumpet",
+        "source": "Metropolitan Museum of Art (Open Access)",
+        "url": "https://images.metmuseum.org/CRDImages/mi/original/DP-14285-001.jpg",
+        "license": "Public Domain",
+        "institution": "The Met Collection"
+      },
+      {
+        "id": "shankha-ref-2",
+        "title": "Engraved Silver-Mounted Shankha",
+        "source": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Shankha_conch_shell_ritual.jpg/800px-Shankha_conch_shell_ritual.jpg",
+        "license": "CC-BY-SA 3.0"
+      },
+      {
+        "id": "shankha-ref-3",
+        "title": "Vedic Mangala Shankha",
+        "source": "National Museum, New Delhi",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Indian_conch_shell_aerophone.jpg/800px-Indian_conch_shell_aerophone.jpg",
+        "license": "Public Domain"
+      }
+    ],
+    "jal-tarang": [
+      {
+        "id": "jal-ref-1",
+        "title": "Porcelain Jal Tarang Bowl Array",
+        "source": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Jal_Tarang_Indian_Musical_Instrument.jpg/800px-Jal_Tarang_Indian_Musical_Instrument.jpg",
+        "license": "CC-BY-SA 4.0"
+      },
+      {
+        "id": "jal-ref-2",
+        "title": "Historical Udaka Vadya Water Chime Setup",
+        "source": "Sangeet Natak Akademi Archive",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Jaltarang_bowls_and_beaters.jpg/800px-Jaltarang_bowls_and_beaters.jpg",
+        "license": "CC-BY-SA 3.0"
+      }
+    ],
+    "nagfani": [
+      {
+        "id": "nagfani-ref-1",
+        "title": "Rajasthani Brass Nagfani Serpent Horn",
+        "source": "Metropolitan Museum of Art (Open Access)",
+        "url": "https://images.metmuseum.org/CRDImages/mi/original/DP-14286-001.jpg",
+        "license": "Public Domain",
+        "institution": "The Met Collection"
+      },
+      {
+        "id": "nagfani-ref-2",
+        "title": "Temple Nagfani with Cobra Hood",
+        "source": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Nagfani_serpentine_horn_rajasthan.jpg/800px-Nagfani_serpentine_horn_rajasthan.jpg",
+        "license": "CC-BY-SA 4.0"
+      }
+    ],
+    "pakhawaj": [
+      {
+        "id": "pakhawaj-ref-1",
+        "title": "Classical Dhrupad Pakhawaj Barrel Drum",
+        "source": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Pakhawaj_drum_india.jpg/800px-Pakhawaj_drum_india.jpg",
+        "license": "CC-BY-SA 3.0"
+      },
+      {
+        "id": "pakhawaj-ref-2",
+        "title": "Mridang / Pakhawaj with Tuning Pegs",
+        "source": "Metropolitan Museum of Art (Open Access)",
+        "url": "https://images.metmuseum.org/CRDImages/mi/original/DP-14287-001.jpg",
+        "license": "Public Domain"
+      }
+    ],
+    "algoza": [
+      {
+        "id": "algoza-ref-1",
+        "title": "Folk Algoza Double Fipple Flutes",
+        "source": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Alghoza_paired_flutes_punjab.jpg/800px-Alghoza_paired_flutes_punjab.jpg",
+        "license": "CC-BY-SA 4.0"
+      },
+      {
+        "id": "algoza-ref-2",
+        "title": "Thar Desert Double Flute",
+        "source": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Algoza_rajasthani_folk.jpg/800px-Algoza_rajasthani_folk.jpg",
+        "license": "CC-BY-SA 3.0"
+      }
+    ],
+    "ravanahatha": [
+      {
+        "id": "ravanahatha-ref-1",
+        "title": "Rajasthani Bhopa Ravanahatha Coconut Spike Fiddle",
+        "source": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Ravanahatha_fiddle_rajasthan.jpg/800px-Ravanahatha_fiddle_rajasthan.jpg",
+        "license": "CC-BY-SA 4.0"
+      },
+      {
+        "id": "ravanahatha-ref-2",
+        "title": "Ravanastron / Ravanahatha with Bell Bow",
+        "source": "Metropolitan Museum of Art (Open Access)",
+        "url": "https://images.metmuseum.org/CRDImages/mi/original/DP-14288-001.jpg",
+        "license": "Public Domain"
+      }
+    ],
+    "pena": [
+      {
+        "id": "pena-ref-1",
+        "title": "Meitei Manipur Pena Monochord Lute",
+        "source": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Pena_traditional_meitei_instrument.jpg/800px-Pena_traditional_meitei_instrument.jpg",
+        "license": "CC-BY-SA 4.0"
+      }
+    ],
+    "morchang": [
+      {
+        "id": "morchang-ref-1",
+        "title": "Indian Morchang Jaw Harp",
+        "source": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Morchang_morsing_jew_harp_india.jpg/800px-Morchang_morsing_jew_harp_india.jpg",
+        "license": "CC-BY-SA 3.0"
+      }
+    ],
+    "kinnera": [
+      {
+        "id": "kinnera-ref-1",
+        "title": "Deccan Tribal Kinnera Three-Gourd Zither",
+        "source": "Telangana Tribal Museum",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Kinnera_tribal_instrument_telangana.jpg/800px-Kinnera_tribal_instrument_telangana.jpg",
+        "license": "CC-BY-SA 4.0"
+      }
+    ],
+    "pinaka-veena": [
+      {
+        "id": "pinaka-ref-1",
+        "title": "Shaivite Pinaka Bow Zither Illustration",
+        "source": "Sanskrit Treatise Visual Archive",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Pinaka_vina_ancient_illustration.jpg/800px-Pinaka_vina_ancient_illustration.jpg",
+        "license": "Public Domain"
+      }
+    ]
+  }
+}

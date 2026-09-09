@@ -122,22 +122,22 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
     setIsConfirmed(false);
     setConfirmedMsg(null);
     setScanProgress(20);
-    setScanStageText('Stage 1: Extracting visual contours & generating CLIP zero-shot embeddings...');
+    setScanStageText('Stage 1: Extracting organological visual attributes (resonator, strings, neck, features)...');
 
     setTimeout(() => {
       setScanProgress(50);
-      setScanStageText('Stage 2: Cross-referencing multi-prompt physical & material centroids...');
+      setScanStageText('Stage 2: Evaluating weighted attribute rules across 13 historical instrument profiles...');
     }, 350);
 
     setTimeout(() => {
       setScanProgress(80);
-      setScanStageText('Stage 3: Computing cosine similarity & organological bounding boxes...');
+      setScanStageText('Stage 3: Cross-verifying against public-domain reference dataset & organological cues...');
     }, 700);
 
     try {
       const result = await ApiClient.classifyImage(imageUrl, forcedId);
       setScanProgress(100);
-      setScanStageText('Stage 4: Acoustic parameters & top matches synthesized!');
+      setScanStageText('Stage 4: Attribute match explainability & acoustic parameters synthesized!');
       
       setTimeout(() => {
         setIsScanning(false);
@@ -551,20 +551,20 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
                 </div>
               </div>
 
-              {/* TOP 3 CANDIDATE MATCHES & SIMILARITY COMPARISON */}
+              {/* TOP 3 CANDIDATE MATCHES & EXPLAINABLE ATTRIBUTE REASONS */}
               {detectionResult.top_matches && detectionResult.top_matches.length > 0 && (
                 <div className="bg-white/5 border border-white/10 rounded-xl p-3.5 space-y-2.5">
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] uppercase tracking-wider font-bold text-saffron-300 flex items-center gap-1.5">
                       <Sparkles className="w-3.5 h-3.5 text-saffron-400" />
-                      <span>Zero-Shot Top 3 Candidates</span>
+                      <span>Attribute Match Candidates</span>
                     </span>
-                    <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-black/40 text-parchment-300">
-                      {detectionResult.classification_source === 'hybrid_knn' ? 'Hybrid Image k-NN' : 'CLIP Text-Centroid'}
+                    <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-saffron-500/20 text-saffron-300 border border-saffron-500/30">
+                      {detectionResult.classification_source === 'vision_llm_attribute_matching' ? 'Vision-LLM Attributes' : 'Reference Image k-NN'}
                     </span>
                   </div>
 
-                  <div className="space-y-1.5">
+                  <div className="space-y-2">
                     {detectionResult.top_matches.map((cand) => {
                       const isCurrent = cand.instrument_id === detectionResult.instrument.id;
                       return (
@@ -577,13 +577,13 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
                               runScanPipeline(inst.image, inst.id);
                             }
                           }}
-                          className={`w-full text-left p-2 rounded-lg border transition-all ${
+                          className={`w-full text-left p-2.5 rounded-lg border transition-all ${
                             isCurrent
                               ? 'bg-saffron-500/20 border-saffron-500/60 shadow-sm'
                               : 'bg-white/5 border-white/5 hover:bg-white/10 text-parchment-300'
                           }`}
                         >
-                          <div className="flex items-center justify-between text-xs mb-1">
+                          <div className="flex items-center justify-between text-xs mb-1.5">
                             <span className="font-semibold text-parchment-100 flex items-center gap-1.5">
                               <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-mono font-bold ${
                                 cand.rank === 1 ? 'bg-amber-500 text-black' : 'bg-white/10 text-parchment-300'
@@ -591,12 +591,14 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
                                 {cand.rank}
                               </span>
                               <span>{cand.instrument_name}</span>
+                              <span className="text-[10px] text-parchment-400 font-serif italic">({cand.sanskrit_name.split('/')[0].trim()})</span>
                             </span>
                             <span className="font-mono text-saffron-300 font-bold text-[11px]">
                               {cand.confidence_percent}%
                             </span>
                           </div>
-                          <div className="w-full bg-black/40 rounded-full h-1.5 overflow-hidden">
+
+                          <div className="w-full bg-black/40 rounded-full h-1.5 overflow-hidden mb-2">
                             <div
                               className={`h-full transition-all duration-500 ${
                                 cand.rank === 1
@@ -606,10 +608,70 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
                               style={{ width: `${cand.confidence_percent}%` }}
                             />
                           </div>
+
+                          {/* Explainability Matched Attribute Badges */}
+                          {cand.matched_reasons && cand.matched_reasons.length > 0 && (
+                            <div className="flex flex-wrap gap-1 mt-1">
+                              {cand.matched_reasons.map((reason, rIdx) => (
+                                <span
+                                  key={rIdx}
+                                  className="text-[9px] px-1.5 py-0.5 rounded bg-indigoHeritage-950/80 border border-saffron-500/30 text-saffron-200 font-medium"
+                                >
+                                  ✓ {reason}
+                                </span>
+                              ))}
+                            </div>
+                          )}
                         </button>
                       );
                     })}
                   </div>
+                </div>
+              )}
+
+              {/* EXTRACTED VISUAL ATTRIBUTES DIAGNOSTIC PANEL */}
+              {detectionResult.extracted_attributes && (
+                <div className="bg-indigoHeritage-950/80 border border-saffron-500/30 rounded-xl p-3.5 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] uppercase tracking-wider font-bold text-saffron-300 flex items-center gap-1.5">
+                      <Radio className="w-3.5 h-3.5 text-saffron-400" />
+                      <span>Extracted Visual Attributes (Vision LLM)</span>
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 text-[11px]">
+                    <div className="bg-white/5 p-2 rounded-lg border border-white/5">
+                      <span className="text-[9px] text-parchment-400 uppercase font-bold block">Resonator Shape</span>
+                      <span className="text-parchment-200 font-medium capitalize">{detectionResult.extracted_attributes.resonator_shape}</span>
+                    </div>
+                    <div className="bg-white/5 p-2 rounded-lg border border-white/5">
+                      <span className="text-[9px] text-parchment-400 uppercase font-bold block">Material</span>
+                      <span className="text-parchment-200 font-medium capitalize">{detectionResult.extracted_attributes.resonator_material}</span>
+                    </div>
+                    <div className="bg-white/5 p-2 rounded-lg border border-white/5">
+                      <span className="text-[9px] text-parchment-400 uppercase font-bold block">Neck & Strings</span>
+                      <span className="text-parchment-200 font-medium capitalize">
+                        {detectionResult.extracted_attributes.neck_length_category} neck • {detectionResult.extracted_attributes.number_of_strings} strings
+                      </span>
+                    </div>
+                    <div className="bg-white/5 p-2 rounded-lg border border-white/5">
+                      <span className="text-[9px] text-parchment-400 uppercase font-bold block">Playing Posture</span>
+                      <span className="text-parchment-200 font-medium capitalize">{detectionResult.extracted_attributes.playing_posture}</span>
+                    </div>
+                  </div>
+
+                  {detectionResult.extracted_attributes.distinctive_features && detectionResult.extracted_attributes.distinctive_features.length > 0 && (
+                    <div className="pt-1">
+                      <span className="text-[9px] text-parchment-400 uppercase font-bold block mb-1">Distinctive Visual Cues:</span>
+                      <div className="flex flex-wrap gap-1">
+                        {detectionResult.extracted_attributes.distinctive_features.map((feat, fIdx) => (
+                          <span key={fIdx} className="text-[9px] px-1.5 py-0.5 rounded bg-saffron-500/15 border border-saffron-500/30 text-saffron-300">
+                            🔍 {feat}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 

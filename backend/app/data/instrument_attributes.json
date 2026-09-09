@@ -1,0 +1,238 @@
+{
+  "instruments": {
+    "mayuri-veena": {
+      "id": "mayuri-veena",
+      "name": "Mayuri Veena / Taus",
+      "instrument_family": "string_chordophone",
+      "sound_production": "bowed_string_friction",
+      "resonator_shape": "peacock-shaped body (sculpted wooden bird hull)",
+      "resonator_material": "seasoned jackfruit or tun wood with calf parchment chest",
+      "neck_length_category": "long heavy fretted neck",
+      "number_of_strings": "4 main bowed strings + 28 to 30 sympathetic tarab resonance strings",
+      "bridge_type": "high arched camel-bone or wood bowing bridge",
+      "distinctive_features": [
+        "sculpted peacock head neck and colorful painted wooden tail feathers",
+        "parchment covered soundbox chest",
+        "dense row of 28 to 30 side wooden sympathetic pegs",
+        "high arched bowing bridge resting on parchment membrane",
+        "metal frets tied along the fingerboard"
+      ],
+      "playing_posture": "seated on floor held vertically or diagonally across lap played with a heavy horsehair bow"
+    },
+    "rudra-veena": {
+      "id": "rudra-veena",
+      "name": "Rudra Veena (Dhrupad Been)",
+      "instrument_family": "string_chordophone",
+      "sound_production": "plucked_wire_with_plectrum",
+      "resonator_shape": "twin gourd (two massive round spherical tumbas)",
+      "resonator_material": "dried seasoned round pumpkin bottle gourds (Lagenaria siceraria) with teak/bamboo dandi",
+      "neck_length_category": "long hollow tubular dandi neck",
+      "number_of_strings": "4 main melody strings + 3 side chikari rhythm drone strings",
+      "bridge_type": "wide flat bone or horn jivari buzzing bridge",
+      "distinctive_features": [
+        "two massive spherical gourds mounted beneath the tubular neck",
+        "22 to 24 high raised brass frets (parda) fixed onto tubular dandi with beeswax",
+        "wide flat jivari bridge producing continuous microtonal buzzing overtones",
+        "carved makara or bird finial at the head of the dandi"
+      ],
+      "playing_posture": "seated cross-legged in vajrasana/padmasana held diagonally with upper gourd resting on left shoulder and lower gourd on right thigh"
+    },
+    "yazh": {
+      "id": "yazh",
+      "name": "Yazh (Ancient Tamil Open Harp)",
+      "instrument_family": "string_chordophone",
+      "sound_production": "plucked_silk_open_strings",
+      "resonator_shape": "boat-shaped / curved aquatic hull (pattar)",
+      "resonator_material": "hollow seasoned jackfruit wood covered with thin calf parchment skin",
+      "neck_length_category": "curved open bow arm (thandu) without neck or frets",
+      "number_of_strings": "7 to 21 open silk or gut strings",
+      "bridge_type": "integral wooden string anchoring bar along parchment",
+      "distinctive_features": [
+        "open arched bow harp frame without a central fingerboard",
+        "carved makara (mythical sea creature) or peacock head terminal",
+        "parchment soundboard covering boat-shaped cavity",
+        "leather tuning rings (thimar) along the curved bow arm"
+      ],
+      "playing_posture": "held diagonally or horizontally against torso plucked delicately with bare fingers without plectrum"
+    },
+    "shankha": {
+      "id": "shankha",
+      "name": "Shankha (Sacred Ritual Conch)",
+      "instrument_family": "wind_aerophone",
+      "sound_production": "lip_buzz_embouchure",
+      "resonator_shape": "natural logarithmic spiral conical shell",
+      "resonator_material": "natural white calcium carbonate marine sea shell (Turbinella pyrum)",
+      "neck_length_category": "none (single organic horn body)",
+      "number_of_strings": "none",
+      "bridge_type": "none",
+      "distinctive_features": [
+        "smooth porcelain-like white spiraled calcareous shell body",
+        "perforated apex embouchure mouthpiece",
+        "engraved silver or brass ritual filigree mounts and deity motifs",
+        "expanding spiral aperture"
+      ],
+      "playing_posture": "held with both hands to mouth blown with high air pressure and vibrating lip embouchure"
+    },
+    "jal-tarang": {
+      "id": "jal-tarang",
+      "name": "Jal Tarang (Porcelain Water Chime)",
+      "instrument_family": "percussion_idiophone",
+      "sound_production": "struck_ceramic_acoustic_boundary",
+      "resonator_shape": "semicircular crescent array of graduated circular cups",
+      "resonator_material": "fine china porcelain or bronze ceramic bowls with water",
+      "neck_length_category": "none (standalone bowl array)",
+      "number_of_strings": "none",
+      "bridge_type": "none",
+      "distinctive_features": [
+        "crescent arc of 14 to 22 graduated porcelain water bowls",
+        "varying water levels forming microtonal tuning boundaries",
+        "pair of slender flexible bamboo striking sticks (tilli)",
+        "played seated in the center of the bowl semicircle"
+      ],
+      "playing_posture": "seated on floor in the center of crescent bowl arrangement striking bowl rims with two wooden or bamboo sticks"
+    },
+    "nagfani": {
+      "id": "nagfani",
+      "name": "Nagfani (Serpentine Brass Horn)",
+      "instrument_family": "wind_aerophone",
+      "sound_production": "lip_buzz_brass_embouchure",
+      "resonator_shape": "serpentine S-shaped curved tubing with expanded serpent hood bell",
+      "resonator_material": "sheet brass or cast bronze with chased scale engravings",
+      "neck_length_category": "coiled S-curved body tubing",
+      "number_of_strings": "none",
+      "bridge_type": "none",
+      "distinctive_features": [
+        "coiled S-shaped winding tubular body",
+        "dramatically expanded bell sculpted like an open cobra hood (phan)",
+        "engraved reptile scales and mythological guardian imagery",
+        "cupped brass embouchure mouthpiece"
+      ],
+      "playing_posture": "held vertically in one or both hands with serpent hood flared upwards blown vigorously during temple and martial fanfares"
+    },
+    "pakhawaj": {
+      "id": "pakhawaj",
+      "name": "Pakhawaj (Dhrupad Barrel Drum)",
+      "instrument_family": "percussion_membranophone",
+      "sound_production": "struck_parchment_composite_membrane",
+      "resonator_shape": "horizontal asymmetrical barrel drum (khol)",
+      "resonator_material": "seasoned dense sheesham, jackfruit, or red sandalwood with animal parchment heads",
+      "neck_length_category": "none (cylindrical barrel body)",
+      "number_of_strings": "none",
+      "bridge_type": "none",
+      "distinctive_features": [
+        "horizontal asymmetrical barrel body narrower on treble right side and wider on bass left",
+        "black circular iron-oxide syahi harmonic loading patch on right dayan face",
+        "freshly applied wheat flour and water dough on left bayan face for deep sub-bass pitch bends",
+        "cylindrical wooden tuning blocks (gatta) inserted under braided buffalo hide tension straps"
+      ],
+      "playing_posture": "rested horizontally on floor or lap played with open palms and flat-finger slaps (thap) on both drumheads"
+    },
+    "algoza": {
+      "id": "algoza",
+      "name": "Algoza (Twin Fipple Flute)",
+      "instrument_family": "wind_aerophone",
+      "sound_production": "fipple_air_split_edge",
+      "resonator_shape": "pair of parallel cylindrical tubes",
+      "resonator_material": "sheesham wood, wild bamboo, or seasoned brass-banded reed",
+      "neck_length_category": "twin parallel straight pipes",
+      "number_of_strings": "none",
+      "bridge_type": "none",
+      "distinctive_features": [
+        "two matched parallel wooden flutes held together in mouth",
+        "beak-shaped fipple mouthpieces on both pipes",
+        "one pipe for continuous drone notes and one for melody",
+        "six finger holes per tube played simultaneously with continuous circular breathing"
+      ],
+      "playing_posture": "held vertically outwards with both mouthpieces in mouth, played with continuous circular breathing"
+    },
+    "ravanahatha": {
+      "id": "ravanahatha",
+      "name": "Ravanahatha (Desert Spike Fiddle)",
+      "instrument_family": "string_chordophone",
+      "sound_production": "bowed_gut_and_steel_strings",
+      "resonator_shape": "hemispherical half coconut cup with spike shaft",
+      "resonator_material": "seasoned half coconut shell covered with goat hide parchment and long bamboo pole",
+      "neck_length_category": "long bamboo spike neck",
+      "number_of_strings": "2 main melody strings (gut and steel) + 12 to 14 side sympathetic metal strings",
+      "bridge_type": "carved wood/bone bridge standing on membrane",
+      "distinctive_features": [
+        "halved coconut shell resonator covered with skin",
+        "long bamboo dandi shaft passing through soundbox as a spike",
+        "prominent curved horsehair bow adorned with dangling brass ghungroo jingle bells",
+        "wooden friction tuning pegs along the bamboo neck"
+      ],
+      "playing_posture": "held against left chest and shoulder, bowed with curved bell-bow in rhythmic sweeping strokes"
+    },
+    "pena": {
+      "id": "pena",
+      "name": "Pena (Meitei Ritual Lute)",
+      "instrument_family": "string_chordophone",
+      "sound_production": "bowed_monochord",
+      "resonator_shape": "spherical cut coconut shell soundbox (maru)",
+      "resonator_material": "coconut shell covered with monitor lizard or calfskin parchment and slender bamboo stem (nakong)",
+      "neck_length_category": "slender straight bamboo shaft",
+      "number_of_strings": "1 single horsehair string",
+      "bridge_type": "small bone or bamboo bridge",
+      "distinctive_features": [
+        "single continuous horsehair chord",
+        "carved iron or brass curved bow called Pena Cheijing with tiny chiming metal bells (zor)",
+        "bamboo shaft inserted into coconut cup with engraved geometric tribal patterns"
+      ],
+      "playing_posture": "held across torso with left hand stopping string with fingernails, bowed with curved Pena Cheijing"
+    },
+    "morchang": {
+      "id": "morchang",
+      "name": "Morchang / Morsing (Classical Jaw Harp)",
+      "instrument_family": "percussion_idiophone",
+      "sound_production": "plucked_vibrating_lamella_mouth_cavity",
+      "resonator_shape": "horseshoe or lyre-shaped rigid frame with slender central tongue",
+      "resonator_material": "forged wrought iron or brass frame with tempered steel reed tongue",
+      "neck_length_category": "none (compact handheld frame)",
+      "number_of_strings": "none",
+      "bridge_type": "none",
+      "distinctive_features": [
+        "horseshoe-shaped forged metal frame with two parallel prongs",
+        "flexible central vibrating steel tongue (zaban) with hooked trigger tip",
+        "player's oral cavity acts as variable acoustic resonator",
+        "compact handheld size (10 to 15 cm)"
+      ],
+      "playing_posture": "frame pressed firmly against front teeth, tongue plucked with right index finger while changing mouth shape for harmonic filtering"
+    },
+    "kinnera": {
+      "id": "kinnera",
+      "name": "Kinnera (Three-Gourd Tribal Zither)",
+      "instrument_family": "string_chordophone",
+      "sound_production": "plucked_wire_with_bone_frets",
+      "resonator_shape": "triple gourd (three dried spherical gourds in a row)",
+      "resonator_material": "three dried pumpkin gourds tied beneath a bamboo or hollow wood beam",
+      "neck_length_category": "long straight wooden beam with frets",
+      "number_of_strings": "3 to 4 steel/brass strings",
+      "bridge_type": "bone tailpiece bridge",
+      "distinctive_features": [
+        "three spherical gourds attached along the bottom of the beam",
+        "frets carved out of animal bone (pangolin or bull bone) fixed with herbal wax",
+        "carved bird or fish finial at top of beam",
+        "distinctive tribal ballad instrument of Chenchu and Dakkali communities"
+      ],
+      "playing_posture": "held horizontally or diagonally across the lap/chest, plucked while narrating historical epics"
+    },
+    "pinaka-veena": {
+      "id": "pinaka-veena",
+      "name": "Pinaka Veena (Shaivite Bow Zither)",
+      "instrument_family": "string_chordophone",
+      "sound_production": "bowed_friction_chord",
+      "resonator_shape": "curved arch bow-frame with gourd resonator",
+      "resonator_material": "seasoned bamboo bow shaft with dried gourd and silk/gut chord",
+      "neck_length_category": "flexible arched bow shaft",
+      "number_of_strings": "1 to 2 thick strings",
+      "bridge_type": "wooden friction bridge",
+      "distinctive_features": [
+        "constructed like Lord Shiva's divine Pinaka bow",
+        "played using a horsehair or resin-coated wooden friction stick",
+        "single hollow resonator at the base",
+        "ancient Vedic and Shaivite sacred iconography"
+      ],
+      "playing_posture": "held diagonally resting lower bow end on the floor, rubbed and bowed along the string"
+    }
+  }
+}
