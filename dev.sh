@@ -10,7 +10,6 @@ fi
 # Otherwise, Local Full-Stack Development Launcher
 echo "=========================================================="
 echo "  ECHOES OF INDIA: AI Historical Instrument Revival"
-echo "  AI/ML Program — Masai School × IIT Patna"
 echo "=========================================================="
 
 # Trap SIGINT to cleanly exit child processes

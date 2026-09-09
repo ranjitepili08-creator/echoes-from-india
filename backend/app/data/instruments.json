@@ -2,9 +2,9 @@
   {
     "id": "yazh",
     "name": "Yazh",
-    "sanskritName": "याऴ् / Vina (Harp type)",
+    "sanskritName": "\u092f\u093e\u0934\u094d / Vina (Harp type)",
     "regionalNames": [
-      "யாழ் (Tamil)",
+      "\u0baf\u0bbe\u0bb4\u0bcd (Tamil)",
       "Villu Yazh",
       "Makara Yazh",
       "Peri Yazh",
@@ -12,7 +12,7 @@
     ],
     "family": "tata",
     "categoryLabel": "Tata Vadya (Chordophone / Ancient Open Harp)",
-    "era": "Sangam Period (c. 3rd Century BCE – 6th Century CE)",
+    "era": "Sangam Period (c. 3rd Century BCE \u2013 6th Century CE)",
     "period": "sangam",
     "century": "3rd c. BCE - 5th c. CE",
     "region": "Ancient Tamilakam (Southern India / Tamil Nadu)",
@@ -21,14 +21,14 @@
       79.1378
     ],
     "status": "extinct",
-    "image": "https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=1200&q=80",
-    "carvingImage": "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?auto=format&fit=crop&w=800&q=80",
+    "image": "/instruments/yazh.jpg",
+    "carvingImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Amaravati_harp_relief_detail.jpg/800px-Amaravati_harp_relief_detail.jpg",
     "shortDescription": "Ancient Tamil bow-harp with silk strings and hollow wood boat-shaped resonator, praised in classical Sangam poetry as the pinnacle of sweet acoustic purity.",
-    "historicalContext": "The Yazh was the principal stringed instrument of ancient Tamil civilization, played by the wandering bardic clan known as the \"Panars\". Detailed descriptions appear across Tamil Sangam literature including the Silappadikaram, Manimekalai, and Pathupattu. As fretted lutes and veenas gained prominence in the medieval era (7th–9th century CE), the Yazh gradually became extinct, surviving only in temple sculptures at Pudukkottai, Thanjavur, and Amaravati.",
+    "historicalContext": "The Yazh was the principal stringed instrument of ancient Tamil civilization, played by the wandering bardic clan known as the \"Panars\". Detailed descriptions appear across Tamil Sangam literature including the Silappadikaram, Manimekalai, and Pathupattu. As fretted lutes and veenas gained prominence in the medieval era (7th\u20139th century CE), the Yazh gradually became extinct, surviving only in temple sculptures at Pudukkottai, Thanjavur, and Amaravati.",
     "constructionMaterials": [
       {
         "name": "Resonator (Pattar)",
-        "description": "Boat-shaped or aquatic beast (Makara) body scooped out of seasoned Jackfruit (Palā) or Red Sandalwood.",
+        "description": "Boat-shaped or aquatic beast (Makara) body scooped out of seasoned Jackfruit (Pal\u0101) or Red Sandalwood.",
         "acousticRole": "Warm low-mid resonance with hollow body damping"
       },
       {
@@ -53,7 +53,7 @@
       {
         "treatise": "Silappadikaram (by Ilango Adigal)",
         "chapter": "Kanal Vari, Verse 18-22",
-        "quote": "வார் உறு கோலும் வரியுறு நரம்பும் ஏறுபெறத் தொடுத்து...",
+        "quote": "\u0bb5\u0bbe\u0bb0\u0bcd \u0b89\u0bb1\u0bc1 \u0b95\u0bcb\u0bb2\u0bc1\u0bae\u0bcd \u0bb5\u0bb0\u0bbf\u0baf\u0bc1\u0bb1\u0bc1 \u0ba8\u0bb0\u0bae\u0bcd\u0baa\u0bc1\u0bae\u0bcd \u0b8f\u0bb1\u0bc1\u0baa\u0bc6\u0bb1\u0ba4\u0bcd \u0ba4\u0bca\u0b9f\u0bc1\u0ba4\u0bcd\u0ba4\u0bc1...",
         "translation": "Plucking the pure silk strings resting upon the curved bow-arm, sweet notes of the Sevvazhi pann echoed like the murmur of ancient waters."
       }
     ],
@@ -140,7 +140,7 @@
   {
     "id": "pinaka-veena",
     "name": "Pinaka Veena",
-    "sanskritName": "पिनाक वीणा / Pinākī Vīṇā",
+    "sanskritName": "\u092a\u093f\u0928\u093e\u0915 \u0935\u0940\u0923\u093e / Pin\u0101k\u012b V\u012b\u1e47\u0101",
     "regionalNames": [
       "Pinaki Veena",
       "Bowed Stick Veena",
@@ -148,7 +148,7 @@
     ],
     "family": "tata",
     "categoryLabel": "Tata Vadya (Chordophone / Bowed Stick Zither)",
-    "era": "Vedic & Epic Era (c. 1500 BCE – 12th Century CE)",
+    "era": "Vedic & Epic Era (c. 1500 BCE \u2013 12th Century CE)",
     "period": "vedic",
     "century": "10th c. BCE - 13th c. CE",
     "region": "Northern & Central India (Gangetic Plains / Himalayas)",
@@ -157,14 +157,14 @@
       78.1642
     ],
     "status": "extinct",
-    "image": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80",
-    "carvingImage": "https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?auto=format&fit=crop&w=800&q=80",
-    "shortDescription": "Sacred bowed monochord shaped like Shiva’s divine bow Pinaka, producing haunting, sustained continuous tones through horsehair friction.",
+    "image": "/instruments/pinaka-veena.jpg",
+    "carvingImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Pinaka_vina_ancient_illustration.jpg/800px-Pinaka_vina_ancient_illustration.jpg",
+    "shortDescription": "Sacred bowed monochord shaped like Shiva\u2019s divine bow Pinaka, producing haunting, sustained continuous tones through horsehair friction.",
     "historicalContext": "Described extensively by musicologist Sharngadeva in the 13th-century magnum opus \"Sangita Ratnakara\", the Pinaka Veena is considered one of the earliest bowed stringed instruments in world organology.",
     "constructionMaterials": [
       {
         "name": "Bow Staff (Danda)",
-        "description": "Curved bamboo or Khadira hardwood stem shaped like an archer’s bow.",
+        "description": "Curved bamboo or Khadira hardwood stem shaped like an archer\u2019s bow.",
         "acousticRole": "Elastic flexure providing structural counter-tension"
       },
       {
@@ -184,12 +184,12 @@
       }
     ],
     "playingTechnique": "Held vertically, bowed with a secondary bow (Kona) while stopping the string with a smooth rod for continuous glissando.",
-    "culturalSignificance": "Mythologically connected to Lord Shiva’s cosmic bow Pinaka. Capable of evoking Anahata Nada.",
+    "culturalSignificance": "Mythologically connected to Lord Shiva\u2019s cosmic bow Pinaka. Capable of evoking Anahata Nada.",
     "treatiseCitations": [
       {
         "treatise": "Sangita Ratnakara (by Sharngadeva)",
         "chapter": "Vadyadhyaya",
-        "quote": "धनुराकारदण्डा स्यात् पिनाकी तन्तुसंयुता...",
+        "quote": "\u0927\u0928\u0941\u0930\u093e\u0915\u093e\u0930\u0926\u0923\u094d\u0921\u093e \u0938\u094d\u092f\u093e\u0924\u094d \u092a\u093f\u0928\u093e\u0915\u0940 \u0924\u0928\u094d\u0924\u0941\u0938\u0902\u092f\u0941\u0924\u093e...",
         "translation": "The Pinaki has a staff shaped like an archer bow, strung with a single sacred chord; played with a bow, it pleases Shiva."
       }
     ],
@@ -258,7 +258,7 @@
   {
     "id": "rudra-veena",
     "name": "Rudra Veena",
-    "sanskritName": "रुद्र वीणा / Rudra Vīṇā (Bīn)",
+    "sanskritName": "\u0930\u0941\u0926\u094d\u0930 \u0935\u0940\u0923\u093e / Rudra V\u012b\u1e47\u0101 (B\u012bn)",
     "regionalNames": [
       "Been",
       "Khandavina",
@@ -266,7 +266,7 @@
     ],
     "family": "tata",
     "categoryLabel": "Tata Vadya (Chordophone / Tubular Stick Zither with Twin Gourd Resonators)",
-    "era": "Classical to Medieval (c. 6th Century – Present Living Heritage)",
+    "era": "Classical to Medieval (c. 6th Century \u2013 Present Living Heritage)",
     "period": "medieval",
     "century": "6th c. CE - 18th c. CE (Peak Dhrupad)",
     "region": "North & Central India / Varanasi & Gwalior Courts",
@@ -275,8 +275,8 @@
       82.9739
     ],
     "status": "rare",
-    "image": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80",
-    "carvingImage": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80",
+    "image": "/instruments/rudra-veena.jpg",
+    "carvingImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Rudra_Vina_MIM_Brussels.jpg/800px-Rudra_Vina_MIM_Brussels.jpg",
     "shortDescription": "The sovereign master instrument of classical Dhrupad music, featuring twin giant bottle gourds (tumbas) and 24 raised brass frets fixed with beeswax.",
     "historicalContext": "Regarded as the most venerable instrument in Indian classical music. Two giant dried bottle gourds mounted on a hollow teak tube with flat Jivari horn bridge.",
     "constructionMaterials": [
@@ -307,7 +307,7 @@
       {
         "treatise": "Sangita Ratnakara",
         "chapter": "Instrumental Treatises",
-        "quote": "वीणा वादन तत्त्वज्ञः श्रुतिजाति विशारदः...",
+        "quote": "\u0935\u0940\u0923\u093e \u0935\u093e\u0926\u0928 \u0924\u0924\u094d\u0924\u094d\u0935\u091c\u094d\u091e\u0903 \u0936\u094d\u0930\u0941\u0924\u093f\u091c\u093e\u0924\u093f \u0935\u093f\u0936\u093e\u0930\u0926\u0903...",
         "translation": "One who knows the true mystery of Veena playing effortlessly attains liberation."
       }
     ],
@@ -400,7 +400,7 @@
   {
     "id": "mayuri-veena",
     "name": "Mayuri (Taus)",
-    "sanskritName": "मयूरी वीणा / Mayūrī Vīṇā (Taus)",
+    "sanskritName": "\u092e\u092f\u0942\u0930\u0940 \u0935\u0940\u0923\u093e / May\u016br\u012b V\u012b\u1e47\u0101 (Taus)",
     "regionalNames": [
       "Taus",
       "Peacock Lute",
@@ -409,7 +409,7 @@
     ],
     "family": "tata",
     "categoryLabel": "Tata Vadya (Chordophone / Bowed Peacock Lute with Sympathetic Strings)",
-    "era": "16th – 19th Century (Sikh Tradition & Mughal Courts)",
+    "era": "16th \u2013 19th Century (Sikh Tradition & Mughal Courts)",
     "period": "mughal",
     "century": "16th c. - 19th c. CE",
     "region": "Punjab, Kashmir & Northern Bharat",
@@ -418,8 +418,8 @@
       74.8723
     ],
     "status": "rare",
-    "image": "https://images.unsplash.com/photo-1520523839898-5071282543e1?auto=format&fit=crop&w=1200&q=80",
-    "carvingImage": "https://images.unsplash.com/photo-1584679109597-c656b19974c9?auto=format&fit=crop&w=800&q=80",
+    "image": "/instruments/mayuri-veena.jpg",
+    "carvingImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Mayuri_vina_or_Taus_MIM_1947.jpg/800px-Mayuri_vina_or_Taus_MIM_1947.jpg",
     "shortDescription": "Splendid bowed instrument sculpted realistically in the shape of a peacock (Mayura), featuring heavy brass frets, parchment soundboard, and 30 sympathetic tarab strings.",
     "historicalContext": "Created in the historical traditions of Punjab (attributed to Guru Hargobind Ji and Guru Gobind Singh Ji), the Taus was designed to produce a deep, lion-hearted yet sweetly singing peacock timbre capable of filling congregational Gurmat Sangeet spaces.",
     "constructionMaterials": [
@@ -450,7 +450,7 @@
       {
         "treatise": "Historical Gurmat Sangeet Treatises & Organology Records",
         "chapter": "Taus Vadan Vidhi",
-        "quote": "मयूर-रूपिणि वीणा नाद-ब्रह्म-प्रकाशिनी...",
+        "quote": "\u092e\u092f\u0942\u0930-\u0930\u0942\u092a\u093f\u0923\u093f \u0935\u0940\u0923\u093e \u0928\u093e\u0926-\u092c\u094d\u0930\u0939\u094d\u092e-\u092a\u094d\u0930\u0915\u093e\u0936\u093f\u0928\u0940...",
         "translation": "In the form of a dancing peacock, this veena reveals the luminous glory of divine sound across all hearts."
       }
     ],
@@ -531,7 +531,7 @@
   {
     "id": "kinnera",
     "name": "Kinnera",
-    "sanskritName": "किन्नरी वीणा / Kinnarī Vīṇā",
+    "sanskritName": "\u0915\u093f\u0928\u094d\u0928\u0930\u0940 \u0935\u0940\u0923\u093e / Kinnar\u012b V\u012b\u1e47\u0101",
     "regionalNames": [
       "12-Fret Kinnera",
       "Dakkali Kinnera",
@@ -540,7 +540,7 @@
     ],
     "family": "tata",
     "categoryLabel": "Tata Vadya (Chordophone / Indigenous 3-Gourd Fretted Stick Zither)",
-    "era": "Ancient Tribal & Medieval (c. 11th Century – Endangered Living Folk)",
+    "era": "Ancient Tribal & Medieval (c. 11th Century \u2013 Endangered Living Folk)",
     "period": "medieval",
     "century": "11th c. CE - Living Endangered",
     "region": "Telangana & Andhra Pradesh (Deccan Plateau / Nallamala Forests)",
@@ -549,9 +549,9 @@
       78.4867
     ],
     "status": "endangered",
-    "image": "https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=1200&q=80",
-    "carvingImage": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80",
-    "shortDescription": "Rare indigenous 3-gourd fretted chordophone played by Dakkali and Chenchu nomadic bards of Telangana, documented in Sharngadeva’s Sangita Ratnakara as the Kinnari Veena.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Kinnera_tribal_instrument_telangana.jpg/800px-Kinnera_tribal_instrument_telangana.jpg",
+    "carvingImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Kinnera_tribal_instrument_telangana.jpg/800px-Kinnera_tribal_instrument_telangana.jpg",
+    "shortDescription": "Rare indigenous 3-gourd fretted chordophone played by Dakkali and Chenchu nomadic bards of Telangana, documented in Sharngadeva\u2019s Sangita Ratnakara as the Kinnari Veena.",
     "historicalContext": "Documented in medieval musicological texts including Sangita Ratnakara and Sangita Makaranda, the Kinnera is a direct surviving link to medieval Indian stick zithers. Constructed with three graduated dried bottle gourds fastened under a bamboo staff with 12 movable frets mounted with honey-bee wax, it is preserved today by master artists like Padma Shri Darshanam Mogilaiah.",
     "constructionMaterials": [
       {
@@ -576,12 +576,12 @@
       }
     ],
     "playingTechnique": "Held horizontally across the lap, plucked with wire plectrums on the right index finger while the left fingers stop the strings over the 12 wax-mounted frets to narrate ballads of Panduga Sayanna.",
-    "culturalSignificance": "Living symbol of Telangana’s indigenous bardic culture. Used to chant oral epic genealogies and heroic ballads.",
+    "culturalSignificance": "Living symbol of Telangana\u2019s indigenous bardic culture. Used to chant oral epic genealogies and heroic ballads.",
     "treatiseCitations": [
       {
         "treatise": "Sangita Ratnakara (by Sharngadeva)",
         "chapter": "Vadyadhyaya - Kinnari Lakshana",
-        "quote": "किन्नरी तु त्रिभिः कुम्भैः सारिकाभिर्विभूषिता...",
+        "quote": "\u0915\u093f\u0928\u094d\u0928\u0930\u0940 \u0924\u0941 \u0924\u094d\u0930\u093f\u092d\u093f\u0903 \u0915\u0941\u092e\u094d\u092d\u0948\u0903 \u0938\u093e\u0930\u093f\u0915\u093e\u092d\u093f\u0930\u094d\u0935\u093f\u092d\u0942\u0937\u093f\u0924\u093e...",
         "translation": "The Kinnari veena is adorned with three resonant gourds and movable frets, singing the sweet melodies of celestial beings."
       }
     ],
@@ -668,7 +668,7 @@
   {
     "id": "pena",
     "name": "Pena",
-    "sanskritName": "पेना / Tingte (Meitei Lute)",
+    "sanskritName": "\u092a\u0947\u0928\u093e / Tingte (Meitei Lute)",
     "regionalNames": [
       "Bana",
       "Pena Chei",
@@ -677,7 +677,7 @@
     ],
     "family": "tata",
     "categoryLabel": "Tata Vadya (Chordophone / Ancient Meitei Bowed Coconut Spike Fiddle)",
-    "era": "Ancient Antiquity (c. 1000 BCE – Living Heritage)",
+    "era": "Ancient Antiquity (c. 1000 BCE \u2013 Living Heritage)",
     "period": "vedic",
     "century": "Antiquity - Present",
     "region": "Manipur & Northeast Bharat (Kangleipak / Imphal Valley)",
@@ -686,8 +686,8 @@
       93.9368
     ],
     "status": "rare",
-    "image": "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80",
-    "carvingImage": "https://images.unsplash.com/photo-1599707307221-50e583e7428f?auto=format&fit=crop&w=800&q=80",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Pena_traditional_meitei_instrument.jpg/800px-Pena_traditional_meitei_instrument.jpg",
+    "carvingImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Pena_traditional_meitei_instrument.jpg/800px-Pena_traditional_meitei_instrument.jpg",
     "shortDescription": "Sacred single-string bowed lute of Manipur, featuring a coconut soundbox covered with membrane, slender bamboo neck, and a curved friction bow adorned with jingling bells.",
     "historicalContext": "The Pena is the soul of Manipuri culture, central to the sacred festival of Lai Haraoba (the merrymaking of the gods). The musician, known as the Pena Asheiba, is revered as a ritual priest-singer who invokes the creation of the universe through the bowed voice of the Pena.",
     "constructionMaterials": [
@@ -718,7 +718,7 @@
       {
         "treatise": "Meitei PuYa (Ancient Manipuri Chronicles & Treatises)",
         "chapter": "Lai Haraoba Sangeet",
-        "quote": "पेना-नादः सृष्टि-स्थिति-प्रलय-सूचकः...",
+        "quote": "\u092a\u0947\u0928\u093e-\u0928\u093e\u0926\u0903 \u0938\u0943\u0937\u094d\u091f\u093f-\u0938\u094d\u0925\u093f\u0924\u093f-\u092a\u094d\u0930\u0932\u092f-\u0938\u0942\u091a\u0915\u0903...",
         "translation": "The sacred sound of Pena awakens the cosmic dance of creation and the divine harmony of the ancestors."
       }
     ],
@@ -787,16 +787,16 @@
   {
     "id": "morchang",
     "name": "Morchang",
-    "sanskritName": "मूर्छङ्ग / Mūrchaṅga (Morsing)",
+    "sanskritName": "\u092e\u0942\u0930\u094d\u091b\u0919\u094d\u0917 / M\u016brcha\u1e45ga (Morsing)",
     "regionalNames": [
       "Morsing",
       "Mukharshanku",
       "Jaw Harp of Rajasthan",
-      "Indian Jew’s Harp"
+      "Indian Jew\u2019s Harp"
     ],
     "family": "ghana",
     "categoryLabel": "Ghana Vadya (Idiophone / Plucked Lamellophone with Oral Cavity Modulation)",
-    "era": "Ancient Bharat (c. 5th Century BCE – Living Heritage)",
+    "era": "Ancient Bharat (c. 5th Century BCE \u2013 Living Heritage)",
     "period": "maurya_gupta",
     "century": "5th c. BCE - Present",
     "region": "Rajasthan & Carnatic South India (Tamil Nadu, Karnataka)",
@@ -805,8 +805,8 @@
       75.7873
     ],
     "status": "living",
-    "image": "https://images.unsplash.com/photo-1519744346361-8935c18e15c3?auto=format&fit=crop&w=1200&q=80",
-    "carvingImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Morchang_morsing_jew_harp_india.jpg/800px-Morchang_morsing_jew_harp_india.jpg",
+    "carvingImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Morchang_morsing_jew_harp_india.jpg/800px-Morchang_morsing_jew_harp_india.jpg",
     "shortDescription": "Ancient iron lamellophone held firmly between the teeth; the flexible steel tongue is plucked while the performer changes oral cavity volume to isolate brilliant harmonic overtones.",
     "historicalContext": "Mentioned in ancient Indian literature and folk epics, the Morchang holds a vital place in both Rajasthani Langa-Manganiyar desert music and Carnatic classical concert percussion ensembles (Tani Avartanam alongside Mridangam and Ghatam).",
     "constructionMaterials": [
@@ -821,8 +821,8 @@
         "acousticRole": "Primary fundamental vibration source"
       },
       {
-        "name": "Musician’s Oral Cavity",
-        "description": "The performer’s mouth, throat, and nasal passage acts as the dynamic acoustic resonator.",
+        "name": "Musician\u2019s Oral Cavity",
+        "description": "The performer\u2019s mouth, throat, and nasal passage acts as the dynamic acoustic resonator.",
         "acousticRole": "Selects and amplifies specific harmonic formant poles"
       }
     ],
@@ -832,7 +832,7 @@
       {
         "treatise": "Medieval Sangeet Treatises & Folk Monograph Records",
         "chapter": "Ghana Vadya Prakarana",
-        "quote": "दन्तरन्ध्रे धृत्वा जिह्वया वाद्यते मुदा...",
+        "quote": "\u0926\u0928\u094d\u0924\u0930\u0928\u094d\u0927\u094d\u0930\u0947 \u0927\u0943\u0924\u094d\u0935\u093e \u091c\u093f\u0939\u094d\u0935\u092f\u093e \u0935\u093e\u0926\u094d\u092f\u0924\u0947 \u092e\u0941\u0926\u093e...",
         "translation": "Held firmly between the teeth and sounded through the breath of the tongue, it creates mesmerizing waves of harmonic resonance."
       }
     ],
@@ -901,7 +901,7 @@
   {
     "id": "nagfani",
     "name": "Nagfani",
-    "sanskritName": "नागफणी / Nāgaphaṇī (Serpent Horn)",
+    "sanskritName": "\u0928\u093e\u0917\u092b\u0923\u0940 / N\u0101gapha\u1e47\u012b (Serpent Horn)",
     "regionalNames": [
       "Nagpheni",
       "Serpent Trumpet",
@@ -910,7 +910,7 @@
     ],
     "family": "sushira",
     "categoryLabel": "Sushira Vadya (Aerophone / Serpentine Brass Ritual Horn)",
-    "era": "Medieval to Royal Temple Era (c. 12th – 18th Century CE)",
+    "era": "Medieval to Royal Temple Era (c. 12th \u2013 18th Century CE)",
     "period": "medieval",
     "century": "12th c. - 18th c. CE",
     "region": "Rajasthan, Gujarat & Maharashtra",
@@ -919,8 +919,8 @@
       73.7125
     ],
     "status": "rare",
-    "image": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80",
-    "carvingImage": "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?auto=format&fit=crop&w=800&q=80",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Nagfani_serpentine_horn_rajasthan.jpg/800px-Nagfani_serpentine_horn_rajasthan.jpg",
+    "carvingImage": "https://images.metmuseum.org/CRDImages/mi/original/DP-14286-001.jpg",
     "shortDescription": "Spectacular serpentine brass horn shaped realistically as an open-mouthed cobra (Naga), blown during royal court processions and Shaivite tantric rituals.",
     "historicalContext": "The Nagfani is a masterpiece of Indian metallurgical and acoustic art. Crafted from forged brass or copper tubes coiled in the shape of a serpent with an expanded cobra hood as the bell, it produces thunderous, brassy ceremonial drones that echoed across Rajput hill forts during battles and temple rituals.",
     "constructionMaterials": [
@@ -946,7 +946,7 @@
       {
         "treatise": "Medieval Vadya Granthas & Rajput Court Records",
         "chapter": "Sushira Prakarana",
-        "quote": "नागाकारं महावाद्यं कांस्य-निर्मितमुत्तमम्...",
+        "quote": "\u0928\u093e\u0917\u093e\u0915\u093e\u0930\u0902 \u092e\u0939\u093e\u0935\u093e\u0926\u094d\u092f\u0902 \u0915\u093e\u0902\u0938\u094d\u092f-\u0928\u093f\u0930\u094d\u092e\u093f\u0924\u092e\u0941\u0924\u094d\u0924\u092e\u092e\u094d...",
         "translation": "Fashioned from resonant bell-brass in the glorious shape of a serpent, its thunderous roar shakes the battlefield."
       }
     ],
@@ -1014,7 +1014,7 @@
   {
     "id": "jal-tarang",
     "name": "Jal Tarang",
-    "sanskritName": "जल तरङ्ग / Jala-Taraṅga",
+    "sanskritName": "\u091c\u0932 \u0924\u0930\u0919\u094d\u0917 / Jala-Tara\u1e45ga",
     "regionalNames": [
       "Jaltarang",
       "Water Waves Chime",
@@ -1022,7 +1022,7 @@
     ],
     "family": "ghana",
     "categoryLabel": "Ghana Vadya (Idiophone / Water-Tuned Melodic Porcelain Bowls)",
-    "era": "Ancient Bharat (c. 4th Century BCE – Living Heritage)",
+    "era": "Ancient Bharat (c. 4th Century BCE \u2013 Living Heritage)",
     "period": "maurya_gupta",
     "century": "4th c. BCE - Present",
     "region": "Pan-Indian / Mithila, Varanasi, Ujjain",
@@ -1031,10 +1031,10 @@
       75.7885
     ],
     "status": "rare",
-    "image": "https://images.unsplash.com/photo-1519744346361-8935c18e15c3?auto=format&fit=crop&w=1200&q=80",
-    "carvingImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Jal_Tarang_Indian_Musical_Instrument.jpg/800px-Jal_Tarang_Indian_Musical_Instrument.jpg",
+    "carvingImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Jaltarang_bowls_and_beaters.jpg/800px-Jaltarang_bowls_and_beaters.jpg",
     "shortDescription": "Mesmerizing melodic percussion of 16 to 22 porcelain bowls filled with graduated water levels to tune exact microtonal shrutis, struck with slender bamboo mallets.",
-    "historicalContext": "Mentioned in Vatsyayana’s Kama Sutra as Udaka Vadya (one of the 64 classical arts). Struck porcelain bowls filled with water.",
+    "historicalContext": "Mentioned in Vatsyayana\u2019s Kama Sutra as Udaka Vadya (one of the 64 classical arts). Struck porcelain bowls filled with water.",
     "constructionMaterials": [
       {
         "name": "Porcelain Bowls",
@@ -1058,7 +1058,7 @@
       {
         "treatise": "Kama Sutra (by Vatsyayana)",
         "chapter": "Chatusashti Kala",
-        "quote": "उदकवाद्यं जलतरङ्गम् च कलासु गण्यते...",
+        "quote": "\u0909\u0926\u0915\u0935\u093e\u0926\u094d\u092f\u0902 \u091c\u0932\u0924\u0930\u0919\u094d\u0917\u092e\u094d \u091a \u0915\u0932\u093e\u0938\u0941 \u0917\u0923\u094d\u092f\u0924\u0947...",
         "translation": "Playing upon vessels of water (Udaka Vadya) is enumerated among the noble arts."
       }
     ],
@@ -1146,7 +1146,7 @@
   {
     "id": "ravanahatha",
     "name": "Ravanahatha",
-    "sanskritName": "रावणहस्त / Rāvaṇahasta",
+    "sanskritName": "\u0930\u093e\u0935\u0923\u0939\u0938\u094d\u0924 / R\u0101va\u1e47ahasta",
     "regionalNames": [
       "Ravanhatta",
       "Ravanstron",
@@ -1154,7 +1154,7 @@
     ],
     "family": "tata",
     "categoryLabel": "Tata Vadya (Chordophone / Ancient Bowed Spike Fiddle)",
-    "era": "Pre-Classical to Medieval (c. 2500 BCE – Present Folklore)",
+    "era": "Pre-Classical to Medieval (c. 2500 BCE \u2013 Present Folklore)",
     "period": "maurya_gupta",
     "century": "Ancient origin - Surviving in Rajasthani folk",
     "region": "Rajasthan, Gujarat, and Ancient Western Bharat",
@@ -1163,8 +1163,8 @@
       75.7873
     ],
     "status": "rare",
-    "image": "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80",
-    "carvingImage": "https://images.unsplash.com/photo-1599707307221-50e583e7428f?auto=format&fit=crop&w=800&q=80",
+    "image": "/instruments/ravanahatha.png",
+    "carvingImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Ravanahatha_fiddle_rajasthan.jpg/800px-Ravanahatha_fiddle_rajasthan.jpg",
     "shortDescription": "Ancient bowed spike fiddle featuring a coconut soundbox covered with goat hide, bamboo neck, and ghungroo-adorned curved horsehair bow.",
     "historicalContext": "Associated with King Ravana. Nomadic bards of Rajasthan preserve it to narrate the epic of Pabuji.",
     "constructionMaterials": [
@@ -1190,7 +1190,7 @@
       {
         "treatise": "Medieval Sangeet Granthas",
         "chapter": "Tantu Vadya",
-        "quote": "नारिकेले कृते पात्रे त्वक्-बद्धे...",
+        "quote": "\u0928\u093e\u0930\u093f\u0915\u0947\u0932\u0947 \u0915\u0943\u0924\u0947 \u092a\u093e\u0924\u094d\u0930\u0947 \u0924\u094d\u0935\u0915\u094d-\u092c\u0926\u094d\u0927\u0947...",
         "translation": "Formed from a coconut vessel bound with parchment, its bowed strings enchant the soul."
       }
     ],
@@ -1271,7 +1271,7 @@
   {
     "id": "pakhawaj",
     "name": "Pakhawaj",
-    "sanskritName": "पखावज / Mṛdaṅga (Pakṣavādya)",
+    "sanskritName": "\u092a\u0916\u093e\u0935\u091c / M\u1e5bda\u1e45ga (Pak\u1e63av\u0101dya)",
     "regionalNames": [
       "Mardala",
       "Mridang",
@@ -1279,7 +1279,7 @@
     ],
     "family": "avanaddha",
     "categoryLabel": "Avanaddha Vadya (Membranophone / Classical Barrel Drum)",
-    "era": "Vedic to Classical (c. 1000 BCE – Living Heritage)",
+    "era": "Vedic to Classical (c. 1000 BCE \u2013 Living Heritage)",
     "period": "vedic",
     "century": "Ancient Vedic - Living Dhrupad",
     "region": "North & Central Bharat / Braj, Nathdwara, Varanasi",
@@ -1288,8 +1288,8 @@
       77.6745
     ],
     "status": "living",
-    "image": "https://images.unsplash.com/photo-1543791107-f3769cb3f736?auto=format&fit=crop&w=1200&q=80",
-    "carvingImage": "https://images.unsplash.com/photo-1590059390047-92044e05b9b9?auto=format&fit=crop&w=800&q=80",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Pakhawaj_drum_india.jpg/800px-Pakhawaj_drum_india.jpg",
+    "carvingImage": "https://images.metmuseum.org/CRDImages/mi/original/DP-14287-001.jpg",
     "shortDescription": "The primordial barrel-drum of ancient India, producing thunderous bass resonances from fresh wheat dough on the bass head and metallic harmonics on the treble head.",
     "historicalContext": "Documented in Natya Shastra Chapter 33. Rhythmic backbone of Dhrupad music.",
     "constructionMaterials": [
@@ -1315,7 +1315,7 @@
       {
         "treatise": "Natya Shastra (by Bharata Muni)",
         "chapter": "Chapter 33: Avanaddha Vidhi",
-        "quote": "मृदङ्गानां प्रवक्ष्यामि लक्षणं विधिमेव च...",
+        "quote": "\u092e\u0943\u0926\u0919\u094d\u0917\u093e\u0928\u093e\u0902 \u092a\u094d\u0930\u0935\u0915\u094d\u0937\u094d\u092f\u093e\u092e\u093f \u0932\u0915\u094d\u0937\u0923\u0902 \u0935\u093f\u0927\u093f\u092e\u0947\u0935 \u091a...",
         "translation": "I shall now declare the sacred characteristics of the Mridanga."
       }
     ],
@@ -1416,7 +1416,7 @@
   {
     "id": "algoza",
     "name": "Algoza",
-    "sanskritName": "अल्गोज़ा / Dviveni (Double Flute)",
+    "sanskritName": "\u0905\u0932\u094d\u0917\u094b\u091c\u093c\u093e / Dviveni (Double Flute)",
     "regionalNames": [
       "Alghoza",
       "Jorhi",
@@ -1425,7 +1425,7 @@
     ],
     "family": "sushira",
     "categoryLabel": "Sushira Vadya (Aerophone / Twin Drone & Melody Flutes)",
-    "era": "Medieval to Folk Heritage (c. 10th Century – Present)",
+    "era": "Medieval to Folk Heritage (c. 10th Century \u2013 Present)",
     "period": "medieval",
     "century": "10th c. CE - Living Folk",
     "region": "Rajasthan, Punjab, Sindh, Kutch",
@@ -1434,8 +1434,8 @@
       73.0243
     ],
     "status": "rare",
-    "image": "https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=1200&q=80",
-    "carvingImage": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Alghoza_paired_flutes_punjab.jpg/800px-Alghoza_paired_flutes_punjab.jpg",
+    "carvingImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Algoza_rajasthani_folk.jpg/800px-Algoza_rajasthani_folk.jpg",
     "shortDescription": "Pair of matched wooden beak flutes blown simultaneously using continuous circular breathing: one pipe sustains an unbroken drone while the other weaves rapid melodies.",
     "historicalContext": "Mastery of continuous circular breathing (Dam Pukht) across Thar desert pastoral traditions.",
     "constructionMaterials": [
@@ -1456,7 +1456,7 @@
       {
         "treatise": "Sangita Makaranda",
         "chapter": "Sushira Prakarana",
-        "quote": "द्विवंशी मिलिता वाद्या...",
+        "quote": "\u0926\u094d\u0935\u093f\u0935\u0902\u0936\u0940 \u092e\u093f\u0932\u093f\u0924\u093e \u0935\u093e\u0926\u094d\u092f\u093e...",
         "translation": "Twin flutes sounded together weave the ecstasy of pastoral melody."
       }
     ],
@@ -1542,7 +1542,7 @@
   {
     "id": "shankha",
     "name": "Shankha",
-    "sanskritName": "शङ्ख / Śaṅkha (Divine Conch Horn)",
+    "sanskritName": "\u0936\u0919\u094d\u0916 / \u015aa\u1e45kha (Divine Conch Horn)",
     "regionalNames": [
       "Conch Shell",
       "Sangu (Tamil)",
@@ -1550,7 +1550,7 @@
     ],
     "family": "sushira",
     "categoryLabel": "Sushira Vadya (Aerophone / Sacred Conch Horn)",
-    "era": "Vedic & Prehistoric Antiquity (c. 3000 BCE – Present)",
+    "era": "Vedic & Prehistoric Antiquity (c. 3000 BCE \u2013 Present)",
     "period": "vedic",
     "century": "3000+ BCE - Present",
     "region": "Pan-Indian Coastal / Rameshwaram, Dwarka, Puri",
@@ -1559,8 +1559,8 @@
       79.3129
     ],
     "status": "living",
-    "image": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80",
-    "carvingImage": "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?auto=format&fit=crop&w=800&q=80",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Shankha_conch_shell_ritual.jpg/800px-Shankha_conch_shell_ritual.jpg",
+    "carvingImage": "https://images.metmuseum.org/CRDImages/mi/original/DP-14285-001.jpg",
     "shortDescription": "The sacred natural shell of Turbinella pyrum blown during auspicious rituals and ancient battlefields, producing pure harmonic overtones and profound acoustic purification.",
     "historicalContext": "Mentioned in Bhagavad Gita (Panchajanya, Devadatta). Logarithmic spiral horn acoustics.",
     "constructionMaterials": [
@@ -1576,7 +1576,7 @@
       {
         "treatise": "Bhagavad Gita",
         "chapter": "Chapter 1, Verse 15",
-        "quote": "पाञ्चजन्यं हृषीकेशो देवदत्तं धनञ्जयः...",
+        "quote": "\u092a\u093e\u091e\u094d\u091a\u091c\u0928\u094d\u092f\u0902 \u0939\u0943\u0937\u0940\u0915\u0947\u0936\u094b \u0926\u0947\u0935\u0926\u0924\u094d\u0924\u0902 \u0927\u0928\u091e\u094d\u091c\u092f\u0903...",
         "translation": "Hrishikesha blew His conch Panchajanya; Dhananjaya blew Devadatta."
       }
     ],
