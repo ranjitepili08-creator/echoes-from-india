@@ -322,18 +322,19 @@ class ClipClassificationService:
             # Zero-shot cosine similarity: s = e_img . C_text
             text_sim = float(np.dot(img_emb, centroid))
 
-            # Hybrid k-NN matching if confirmed images exist
+            # Hybrid k-NN matching if confirmed images exist in trained dataset
             confirmed_imgs = self.reference_index.get(inst_id, [])
-            if len(confirmed_imgs) >= 3:
-                # Calculate max cosine similarity against confirmed real photos
-                knn_sims = [float(np.dot(img_emb, c_emb)) for c_emb in confirmed_imgs]
-                max_knn_sim = max(knn_sims)
+            if len(confirmed_imgs) >= 1:
+                # Calculate top-k average cosine similarity against confirmed real photos
+                knn_sims = sorted([float(np.dot(img_emb, c_emb)) for c_emb in confirmed_imgs], reverse=True)
+                top_k = min(3, len(knn_sims))
+                avg_topk_sim = sum(knn_sims[:top_k]) / top_k
                 
-                # Dynamic blending weight based on confirmed sample count (up to 40% weight)
-                knn_weight = min(0.40, len(confirmed_imgs) * 0.04)
-                blended_sim = (1.0 - knn_weight) * text_sim + knn_weight * max_knn_sim
+                # Dynamic blending weight giving high confidence to learned dataset samples
+                knn_weight = min(0.85, 0.50 + len(confirmed_imgs) * 0.05)
+                blended_sim = (1.0 - knn_weight) * text_sim + knn_weight * avg_topk_sim
                 raw_scores[inst_id] = blended_sim
-                classification_source = "hybrid_knn"
+                classification_source = "hybrid_learned_dataset_knn"
             else:
                 raw_scores[inst_id] = text_sim
 

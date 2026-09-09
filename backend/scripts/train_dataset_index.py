@@ -9,6 +9,7 @@ import os
 import io
 import json
 import glob
+import numpy as np
 from pathlib import Path
 from PIL import Image
 
@@ -121,9 +122,10 @@ def index_all_dataset_images():
 
             inst_count = 0
             for img_path in files:
-                if img_path.name.startswith(".") or img_path.name in seen_files:
+                resolved_path = str(img_path.resolve())
+                if img_path.name.startswith(".") or resolved_path in seen_files:
                     continue
-                seen_files.add(img_path.name)
+                seen_files.add(resolved_path)
 
                 try:
                     with open(img_path, "rb") as img_file:
@@ -153,6 +155,21 @@ def index_all_dataset_images():
     # Reload in-memory service index
     clip_service.build_reference_index()
 
+    # Compute and save centroid vectors for frontend & offline use
+    centroids = {}
+    for inst_id, emb_list in clip_service.reference_index.items():
+        if emb_list:
+            stacked = np.array(emb_list, dtype=np.float32)
+            mean_vec = np.mean(stacked, axis=0)
+            norm = np.linalg.norm(mean_vec)
+            if norm > 1e-6:
+                mean_vec = mean_vec / norm
+            centroids[inst_id] = mean_vec.tolist()
+
+    with open(CENTROIDS_FILE, "w", encoding="utf-8") as f:
+        json.dump(centroids, f, indent=2)
+    print(f"💾 Exported learned centroid vectors to {CENTROIDS_FILE}")
+
     print("\n==========================================")
     print(f"🎉 TRAINING & INDEXING COMPLETE!")
     print(f"Total Unique Reference Images Indexed: {total_indexed}")
@@ -163,3 +180,4 @@ def index_all_dataset_images():
 
 if __name__ == "__main__":
     index_all_dataset_images()
+
