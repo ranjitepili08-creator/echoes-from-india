@@ -41,11 +41,11 @@ export const Navbar: React.FC<NavbarProps> = ({
   ];
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 max-w-[95vw] pointer-events-auto">
-      <nav className="flex items-center gap-1.5 sm:gap-2 bg-[#12141a]/92 backdrop-blur-2xl border border-white/10 p-1.5 sm:p-2 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.95)]">
+    <div className="fixed bottom-3 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-[calc(100vw-16px)] sm:max-w-max px-1 pointer-events-auto">
+      <nav className="flex items-center justify-between sm:justify-center gap-1 sm:gap-2 bg-[#12141a]/95 backdrop-blur-2xl border border-white/10 p-1 sm:p-2 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.95)] max-w-full">
         
         {/* Navigation Tab Pills */}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center justify-around sm:justify-start gap-0.5 sm:gap-1 w-full sm:w-auto">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
@@ -58,14 +58,15 @@ export const Navbar: React.FC<NavbarProps> = ({
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }
                 }}
-                className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                className={`flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[10px] sm:text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer min-w-[44px] sm:min-w-0 ${
                   isActive
                     ? 'bg-white text-black font-bold shadow-md'
                     : 'text-[#8e95a5] hover:text-white hover:bg-white/5'
                 }`}
+                title={item.label}
               >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-black' : 'text-[#8e95a5]'}`} />
-                <span className="hidden md:inline">{item.label}</span>
+                <Icon className={`w-4 h-4 sm:w-3.5 sm:h-3.5 ${isActive ? 'text-black' : 'text-[#8e95a5]'}`} />
+                <span className="text-[9px] sm:text-xs sm:inline">{item.label}</span>
               </button>
             );
           })}

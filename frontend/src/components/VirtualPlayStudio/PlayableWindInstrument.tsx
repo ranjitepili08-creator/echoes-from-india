@@ -176,20 +176,20 @@ export const PlayableWindInstrument: React.FC<PlayableWindInstrumentProps> = ({ 
   }, [currentPitchInfo]);
 
   return (
-    <div className="space-y-4 max-w-lg mx-auto select-none touch-manipulation">
+    <div className="space-y-4 max-w-xl w-full mx-auto select-none touch-manipulation">
       
       {/* Museum Explorer Top Header */}
-      <div className="bg-[#0b0c16] border border-amber-500/30 rounded-3xl p-5 sm:p-6 shadow-2xl text-center space-y-4">
+      <div className="bg-[#12141a]/90 border border-white/10 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl text-center space-y-4">
         
         <div className="flex items-center justify-between">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-bold font-mono">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            <span>INDIAN ART & HERITAGE COLLECTION</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white text-xs font-bold font-mono">
+            <Sparkles className="w-3.5 h-3.5 text-white" />
+            <span>INDIAN ART &amp; HERITAGE COLLECTION</span>
           </div>
 
           <button
             onClick={() => setIsFullscreen(!isFullscreen)}
-            className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-parchment-300 text-xs font-medium border border-white/10 flex items-center gap-1.5"
+            className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-[#9da4b0] text-xs font-medium border border-white/10 flex items-center gap-1.5"
           >
             {isFullscreen ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
             <span className="hidden sm:inline">Fullscreen</span>
@@ -197,10 +197,10 @@ export const PlayableWindInstrument: React.FC<PlayableWindInstrumentProps> = ({ 
         </div>
 
         <div className="space-y-1 text-left">
-          <h3 className="font-serif text-xl sm:text-2xl font-bold text-parchment-100">
+          <h3 className="font-serif text-xl sm:text-2xl font-bold text-white">
             Play the {instrument.name}
           </h3>
-          <p className="text-xs text-parchment-300 leading-relaxed opacity-90">
+          <p className="text-xs text-[#9da4b0] leading-relaxed">
             Produces a resonant, airy acoustic tone with haunting microtonal vibrato. Cover the fingerholes below and blow into your phone's microphone!
           </p>
         </div>
@@ -220,33 +220,33 @@ export const PlayableWindInstrument: React.FC<PlayableWindInstrumentProps> = ({ 
               e.preventDefault();
               handleHoldEnd();
             }}
-            className={`w-full py-4 rounded-2xl border-2 border-dashed font-serif font-bold text-sm sm:text-base transition-all duration-150 shadow-lg flex items-center justify-center gap-2 touch-manipulation active:scale-95 ${
+            className={`w-full py-3.5 sm:py-4 rounded-2xl border-2 border-dashed font-serif font-bold text-xs sm:text-sm transition-all duration-150 shadow-lg flex items-center justify-center gap-2 touch-manipulation active:scale-95 ${
               isBlowing
-                ? 'bg-amber-500 text-indigoHeritage-950 border-amber-300 shadow-amber-500/40 scale-[0.98]'
-                : 'bg-white/5 border-amber-500/40 text-amber-300 hover:bg-amber-500/10'
+                ? 'bg-white text-black border-white shadow-white/20 scale-[0.98]'
+                : 'bg-white/5 border-white/20 text-white hover:bg-white/10'
             }`}
           >
-            <Wind className={`w-5 h-5 ${isBlowing ? 'animate-spin' : 'animate-pulse'}`} />
+            <Wind className={`w-4 h-4 ${isBlowing ? 'animate-spin' : 'animate-pulse'}`} />
             <span>{isBlowing ? '💨 Air Flowing — Playing Note!' : 'Touch & Hold to Blow Air'}</span>
           </button>
 
           {/* Real Phone Microphone Blow Toggle */}
           <button
             onClick={toggleMicrophone}
-            className={`w-full py-2.5 px-4 rounded-xl border text-xs font-bold flex items-center justify-center gap-2 transition-all ${
+            className={`w-full py-2.5 px-4 rounded-xl border text-xs font-bold flex items-center justify-center gap-2 transition-all touch-manipulation ${
               isMicEnabled
                 ? 'bg-emerald-500/25 border-emerald-400 text-emerald-200 animate-pulse shadow-md'
-                : 'bg-white/5 border-white/10 text-parchment-300 hover:bg-white/10'
+                : 'bg-white/5 border-white/10 text-[#9da4b0] hover:bg-white/10 hover:text-white'
             }`}
           >
-            {isMicEnabled ? <Mic className="w-4 h-4 text-emerald-400" /> : <MicOff className="w-4 h-4 text-parchment-400" />}
+            {isMicEnabled ? <Mic className="w-4 h-4 text-emerald-400" /> : <MicOff className="w-4 h-4 text-[#646c7c]" />}
             <span>{isMicEnabled ? '🎙️ Mic Active — Blow Into Bottom Phone Mic!' : '🎙️ Use Microphone to Blow (Real Breath)'}</span>
           </button>
 
           {/* Real-time Breath Pressure Meter */}
           {isMicEnabled && (
             <div className="space-y-1 animate-fade-in">
-              <div className="flex items-center justify-between text-[10px] font-mono text-parchment-400">
+              <div className="flex items-center justify-between text-[10px] font-mono text-[#646c7c]">
                 <span>Breath Airflow:</span>
                 <span className="text-emerald-300 font-bold">{Math.round(micLevel * 100)}%</span>
               </div>
@@ -262,19 +262,19 @@ export const PlayableWindInstrument: React.FC<PlayableWindInstrumentProps> = ({ 
         </div>
 
         {/* 🪈 6 VERTICAL FINGER HOLES (Flute Barrel) */}
-        <div className="py-4 relative flex flex-col items-center">
+        <div className="py-3 relative flex flex-col items-center">
           
           {/* Flute Pipe Body */}
-          <div className="relative w-20 py-6 bg-gradient-to-b from-stone-900 via-stone-800 to-stone-900 border-x-2 border-amber-500/40 rounded-3xl shadow-inner flex flex-col items-center gap-4">
+          <div className="relative w-16 sm:w-20 py-5 sm:py-6 bg-[#0a0b0e] border-x-2 border-white/20 rounded-3xl shadow-inner flex flex-col items-center gap-3 sm:gap-4">
             
             {holes.map((isCovered, index) => (
               <button
                 key={index}
                 onClick={() => toggleHole(index)}
-                className={`w-12 h-12 rounded-full border-2 transition-all flex items-center justify-center font-mono font-bold text-xs shadow-md active:scale-90 touch-manipulation ${
+                className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 transition-all flex items-center justify-center font-mono font-bold text-xs shadow-md active:scale-90 touch-manipulation ${
                   isCovered
-                    ? 'bg-amber-500 border-amber-300 text-indigoHeritage-950 shadow-amber-500/50 scale-105'
-                    : 'bg-black/60 border-amber-500/50 text-amber-300 hover:border-amber-400'
+                    ? 'bg-white border-white text-black shadow-white/30 scale-105'
+                    : 'bg-black/60 border-white/30 text-[#9da4b0] hover:border-white/60'
                 }`}
               >
                 <span>{index + 1}</span>
@@ -287,16 +287,16 @@ export const PlayableWindInstrument: React.FC<PlayableWindInstrumentProps> = ({ 
 
         {/* Real-time Note Status readout */}
         <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs">
-          <span className="text-parchment-400">
-            Playing: <strong className="text-amber-300 font-mono text-sm">{currentPitchInfo.note}</strong>
+          <span className="text-[#9da4b0]">
+            Playing: <strong className="text-white font-mono text-sm">{currentPitchInfo.note}</strong>
           </span>
-          <span className="text-[11px] font-mono text-parchment-400">
+          <span className="text-[11px] font-mono text-[#646c7c]">
             ({coveredCount} / 6 holes covered)
           </span>
         </div>
 
-        <p className="text-[10px] text-parchment-400 font-mono">
-          📱 Tap holes to cover/uncover • Blow into bottom mic or hold button above
+        <p className="text-[10px] sm:text-[11px] text-[#646c7c] font-mono">
+          📱 Tap holes to cover/uncover • Blow into mic or hold button above
         </p>
 
       </div>

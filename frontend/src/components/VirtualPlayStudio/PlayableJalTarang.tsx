@@ -57,72 +57,68 @@ export const PlayableJalTarang: React.FC<PlayableJalTarangProps> = ({ instrument
   }, [waterLevels, initialNotes, instrument]);
 
   return (
-    <div className="space-y-6 select-none">
+    <div className="space-y-4 sm:space-y-6 select-none max-w-5xl mx-auto w-full">
       {/* Control Strip */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-indigoHeritage-900/60 border border-saffron-500/20 p-4 rounded-2xl">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-[#12141a]/90 border border-white/10 p-4 rounded-2xl">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-saffron-500/10 flex items-center justify-center text-saffron-300">
+          <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-white">
             <Droplets className="w-4 h-4" />
           </div>
           <div>
-            <span className="text-xs uppercase font-bold text-parchment-200 block">
+            <span className="text-xs uppercase font-bold text-white block">
               Hydro-Acoustic Tuning
             </span>
-            <span className="text-[11px] text-parchment-400">
-              Adjust water volume in porcelain cups to alter pitch & vibrational damping
+            <span className="text-[11px] text-[#9da4b0]">
+              Adjust water volume in porcelain cups to alter pitch &amp; vibrational damping
             </span>
           </div>
         </div>
 
         <button
           onClick={resetWater}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-parchment-300 text-xs font-semibold"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-[#9da4b0] hover:text-white text-xs font-semibold touch-manipulation"
         >
           <RotateCcw className="w-3.5 h-3.5" />
-          <span>Reset Water Levels</span>
+          <span>Reset Water</span>
         </button>
       </div>
 
       {/* Main Jal Tarang Bowl Array */}
-      <div className="relative bg-gradient-to-b from-indigoHeritage-900 via-indigoHeritage-950 to-indigoHeritage-950 border-2 border-saffron-500/30 rounded-3xl p-6 lg:p-8 shadow-2xl">
-        <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
+      <div className="relative bg-[#12141a]/90 border border-white/10 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-2xl">
+        <div className="flex items-center justify-between mb-4 sm:mb-6 pb-3 border-b border-white/10">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-saffron-400" />
-            <span className="font-serif font-bold text-parchment-100 text-sm">
+            <Sparkles className="w-4 h-4 text-white" />
+            <span className="font-serif font-bold text-white text-sm sm:text-base">
               Jal Tarang (जल तरङ्ग) • Semicircular Crescent Array
             </span>
           </div>
-          <span className="text-xs text-parchment-400 font-mono hidden sm:inline">
+          <span className="text-xs text-[#646c7c] font-mono hidden sm:inline">
             Tap porcelain bowl or press keys [1 - 8]
           </span>
         </div>
 
-        {/* Crescent Arrangement of Bowls */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 pt-4">
+        {/* Responsive Grid of Bowls */}
+        <div className="grid grid-cols-4 sm:grid-cols-4 lg:grid-cols-8 gap-2.5 sm:gap-4 pt-2">
           {initialNotes.map((note, idx) => {
             const isActive = activeBowls[idx];
             const water = waterLevels[idx] || 50;
-            // Bowl size scales down from low to high pitch
-            const scaleSize = 100 - idx * 4;
 
             return (
-              <div key={idx} className="flex flex-col items-center gap-3">
+              <div key={idx} className="flex flex-col items-center gap-2">
                 {/* Hotkey Badge */}
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-black/50 text-parchment-300 border border-white/10">
-                  Key {note.keyboardKey}
+                <span className="text-[9px] sm:text-[10px] font-mono font-bold px-1.5 sm:px-2 py-0.5 rounded-full bg-black/50 text-[#9da4b0] border border-white/10">
+                  [{note.keyboardKey}]
                 </span>
 
                 {/* Struck Porcelain Bowl Graphic */}
                 <button
                   onClick={() => handleStrike(idx)}
-                  className={`relative rounded-full border-2 transition-all duration-150 flex items-center justify-center overflow-hidden shadow-lg group ${
+                  className={`relative rounded-full border-2 transition-all duration-150 flex items-center justify-center overflow-hidden shadow-lg group w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 touch-manipulation active:scale-95 ${
                     isActive
-                      ? 'border-saffron-300 scale-105 shadow-saffron-500/40 shadow-xl'
-                      : 'border-white/30 hover:border-saffron-400/80'
+                      ? 'border-white scale-105 shadow-white/20 shadow-xl'
+                      : 'border-white/30 hover:border-white/70'
                   }`}
                   style={{
-                    width: `${scaleSize}px`,
-                    height: `${scaleSize}px`,
                     background: 'radial-gradient(circle at 30% 30%, #ffffff 0%, #e2e8f0 40%, #94a3b8 100%)',
                   }}
                 >
@@ -142,18 +138,18 @@ export const PlayableJalTarang: React.FC<PlayableJalTarangProps> = ({ instrument
 
                   {/* Sargam Label inside Bowl */}
                   <div className="z-10 text-center select-none">
-                    <span className="font-serif text-base font-extrabold text-indigoHeritage-950 block">
+                    <span className="font-serif text-xs sm:text-base font-extrabold text-black block">
                       {note.sargam}
                     </span>
-                    <span className="text-[9px] font-mono text-indigoHeritage-900 font-bold block">
+                    <span className="text-[8px] sm:text-[9px] font-mono text-neutral-800 font-bold block">
                       {note.western}
                     </span>
                   </div>
                 </button>
 
                 {/* Water Level Slider */}
-                <div className="w-full px-2 text-center space-y-1">
-                  <div className="flex items-center justify-between text-[10px] font-mono text-parchment-400">
+                <div className="w-full px-1 text-center space-y-0.5">
+                  <div className="flex items-center justify-between text-[9px] sm:text-[10px] font-mono text-[#646c7c]">
                     <span>Water</span>
                     <span className="text-cyan-300">{water}%</span>
                   </div>
@@ -163,7 +159,7 @@ export const PlayableJalTarang: React.FC<PlayableJalTarangProps> = ({ instrument
                     max="100"
                     value={water}
                     onChange={(e) => handleWaterChange(idx, parseInt(e.target.value))}
-                    className="w-full h-1.5 bg-white/20 rounded-lg appearance-none cursor-pointer accent-cyan-400"
+                    className="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-cyan-400"
                   />
                 </div>
               </div>

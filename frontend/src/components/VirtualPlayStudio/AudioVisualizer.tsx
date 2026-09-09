@@ -47,7 +47,7 @@ export const AudioVisualizer: React.FC<AudioVisualizerProps> = ({ height = 110 }
       const width = canvas.width;
       const h = canvas.height;
 
-      // 1. Draw FFT Frequency Spectrum Bars (Golden / Amber gradient)
+      // 1. Draw FFT Frequency Spectrum Bars (Crisp monochrome & subtle white/silver glow)
       const barCount = 48;
       const barWidth = (width / barCount) - 2;
       const step = Math.floor(bufferLength / barCount);
@@ -61,25 +61,25 @@ export const AudioVisualizer: React.FC<AudioVisualizerProps> = ({ height = 110 }
         const y = h - barHeight;
 
         const grad = ctx.createLinearGradient(0, y, 0, h);
-        grad.addColorStop(0, 'rgba(251, 191, 36, 0.9)');
-        grad.addColorStop(0.5, 'rgba(245, 158, 11, 0.6)');
-        grad.addColorStop(1, 'rgba(217, 119, 6, 0.15)');
+        grad.addColorStop(0, 'rgba(255, 255, 255, 0.85)');
+        grad.addColorStop(0.5, 'rgba(200, 210, 230, 0.4)');
+        grad.addColorStop(1, 'rgba(255, 255, 255, 0.05)');
 
         ctx.fillStyle = grad;
         ctx.fillRect(x, y, barWidth, barHeight);
 
         // Top cap glow
         if (barHeight > 5) {
-          ctx.fillStyle = 'rgba(254, 243, 199, 0.95)';
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
           ctx.fillRect(x, y, barWidth, 2);
         }
       }
 
       // 2. Draw Oscilloscope Waveform Line Overlay
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = 'rgba(255, 237, 213, 0.75)';
-      ctx.shadowBlur = 8;
-      ctx.shadowColor = 'rgba(245, 158, 11, 0.8)';
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
+      ctx.shadowBlur = 6;
+      ctx.shadowColor = 'rgba(255, 255, 255, 0.6)';
       ctx.beginPath();
 
       const sliceWidth = width / bufferLength;
@@ -112,10 +112,10 @@ export const AudioVisualizer: React.FC<AudioVisualizerProps> = ({ height = 110 }
   }, []);
 
   return (
-    <div className="relative w-full rounded-xl overflow-hidden bg-indigoHeritage-950/90 border border-saffron-500/20 p-2 shadow-inner">
+    <div className="relative w-full rounded-xl overflow-hidden bg-[#0c0d12] border border-white/10 p-2 shadow-inner">
       <div className="absolute top-2 left-3 flex items-center gap-2 pointer-events-none z-10">
-        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-        <span className="text-[10px] font-mono uppercase font-bold text-parchment-300">
+        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+        <span className="text-[10px] font-mono uppercase font-bold text-[#8e95a5]">
           Real-Time Acoustic Spectrum & FFT Waveform
         </span>
       </div>

@@ -83,64 +83,64 @@ export const VirtualPlayStudio: React.FC<VirtualPlayStudioProps> = ({
       <AudioVisualizer height={100} />
 
       {/* Top Header & Instrument Switcher */}
-      <div className="bg-indigoHeritage-900/60 border border-saffron-500/20 rounded-2xl p-4 lg:p-6 space-y-4">
+      <div className="bg-[#12141a]/90 border border-white/10 rounded-2xl p-4 sm:p-6 space-y-4 shadow-xl">
         
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="w-2 h-2 rounded-full bg-saffron-400 animate-ping" />
-              <span className="text-xs uppercase font-mono font-bold text-saffron-300">
+              <span className="w-2 h-2 rounded-full bg-white animate-ping" />
+              <span className="text-xs uppercase font-mono font-bold text-white">
                 Interactive Organological Play Engine
               </span>
             </div>
-            <h2 className="font-serif text-2xl lg:text-3xl font-bold text-parchment-100">
+            <h2 className="font-serif text-2xl lg:text-3xl font-bold text-white">
               Virtual Play Studio: {currentInstrument.name}
             </h2>
-            <p className="text-xs text-parchment-300 mt-0.5">
+            <p className="text-xs text-[#9da4b0] mt-0.5">
               {currentInstrument.categoryLabel} • Modeled Timbre: <strong>{currentInstrument.acousticProfile.timbreType}</strong>
             </p>
           </div>
 
           {/* Performance Recorder & Accompaniment Controls */}
-          <div className="flex items-center flex-wrap gap-2.5">
+          <div className="flex items-center flex-wrap gap-2 w-full md:w-auto">
             {/* Record / Stop Button */}
             {!isRecording ? (
               <button
                 onClick={handleStartRecord}
-                className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-200 text-xs font-bold transition-all shadow-sm"
+                className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3.5 py-2 rounded-xl bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-200 text-xs font-bold transition-all shadow-sm touch-manipulation"
               >
                 <Mic className="w-3.5 h-3.5 text-red-400" />
-                <span>Record Performance</span>
+                <span>Record</span>
               </button>
             ) : (
               <button
                 onClick={handleStopRecord}
-                className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-red-600 text-white text-xs font-bold transition-all shadow-md animate-pulse"
+                className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3.5 py-2 rounded-xl bg-red-600 text-white text-xs font-bold transition-all shadow-md animate-pulse touch-manipulation"
               >
                 <Square className="w-3.5 h-3.5" />
-                <span>Stop Recording ({formatTimer(recordingDuration)})</span>
+                <span>Stop ({formatTimer(recordingDuration)})</span>
               </button>
             )}
 
             {/* Tanpura Accompaniment */}
             <button
               onClick={onToggleDrone}
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold border transition-all ${
+              className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold border transition-all touch-manipulation ${
                 isDroneActive
-                  ? 'bg-saffron-500/20 text-saffron-300 border-saffron-500/40 animate-pulse'
-                  : 'bg-white/5 border-white/10 text-parchment-300 hover:bg-white/10'
+                  ? 'bg-white text-black border-white shadow-md'
+                  : 'bg-white/5 border-white/10 text-[#9da4b0] hover:bg-white/10 hover:text-white'
               }`}
             >
               <Radio className="w-3.5 h-3.5" />
-              <span>{isDroneActive ? 'Tanpura Drone: ON' : 'Tanpura Drone: OFF'}</span>
+              <span>{isDroneActive ? 'Tanpura: ON' : 'Tanpura: OFF'}</span>
             </button>
 
             {/* Jump to Rhythm Game */}
             <button
               onClick={() => onNavigate('game')}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-terracotta-500/20 hover:bg-terracotta-500/30 border border-terracotta-500/40 text-terracotta-200 text-xs font-bold"
+              className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-white text-xs font-bold touch-manipulation"
             >
-              <Gamepad2 className="w-3.5 h-3.5 text-terracotta-400" />
+              <Gamepad2 className="w-3.5 h-3.5" />
               <span>Rhythm Game</span>
             </button>
           </div>
@@ -148,29 +148,29 @@ export const VirtualPlayStudio: React.FC<VirtualPlayStudioProps> = ({
 
         {/* Recorded Audio Playback Bar */}
         {recordedAudioUrl && (
-          <div className="bg-white/5 border border-saffron-500/30 rounded-xl p-3 flex items-center justify-between gap-4 animate-fade-in">
+          <div className="bg-white/5 border border-white/10 rounded-xl p-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 animate-fade-in">
             <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-saffron-400" />
-              <span className="text-xs font-bold text-parchment-100">
+              <Sparkles className="w-4 h-4 text-white" />
+              <span className="text-xs font-bold text-white">
                 Recording Complete!
               </span>
             </div>
-            <div className="flex items-center gap-3">
-              <audio src={recordedAudioUrl} controls className="h-8 max-w-[220px]" />
+            <div className="flex items-center gap-3 w-full sm:w-auto justify-between">
+              <audio src={recordedAudioUrl} controls className="h-8 max-w-[200px]" />
               <a
                 href={recordedAudioUrl}
                 download={`${currentInstrument.id}-performance.webm`}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-saffron-500 text-indigoHeritage-950 text-xs font-bold hover:bg-saffron-400"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white text-black text-xs font-bold hover:bg-neutral-200"
               >
                 <Download className="w-3.5 h-3.5" />
-                <span>Save Audio</span>
+                <span>Save</span>
               </a>
             </div>
           </div>
         )}
 
         {/* Instrument Quick Switcher Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-thin scrollbar-thumb-saffron-500/20 pt-2 border-t border-white/5">
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-thin pt-2 border-t border-white/5">
           {HISTORICAL_INSTRUMENTS.map((inst) => {
             const isSelected = inst.id === currentInstrument.id;
             return (
@@ -179,8 +179,8 @@ export const VirtualPlayStudio: React.FC<VirtualPlayStudioProps> = ({
                 onClick={() => onSelectInstrument(inst)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border ${
                   isSelected
-                    ? 'bg-saffron-500 text-indigoHeritage-950 border-saffron-300 font-bold shadow-sm'
-                    : 'bg-white/5 text-parchment-300 border-white/5 hover:bg-white/10'
+                    ? 'bg-white text-black border-white font-bold shadow-sm'
+                    : 'bg-white/5 text-[#9da4b0] border-white/5 hover:bg-white/10 hover:text-white'
                 }`}
               >
                 {inst.name}

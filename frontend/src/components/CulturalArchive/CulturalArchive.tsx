@@ -72,29 +72,29 @@ export const CulturalArchive: React.FC<CulturalArchiveProps> = ({
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Archive Header */}
-      <div className="bg-indigoHeritage-900/60 border border-saffron-500/20 rounded-2xl p-6 lg:p-8">
+      <div className="bg-[#12141a]/90 border border-white/10 rounded-2xl p-5 sm:p-6 lg:p-8 shadow-xl">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-saffron-500/10 text-saffron-300 text-xs font-semibold mb-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white text-xs font-semibold mb-2">
               <Library className="w-3.5 h-3.5" />
-              <span>Digital Heritage Museum & Repository</span>
+              <span>Digital Heritage Museum &amp; Repository</span>
             </div>
-            <h2 className="font-serif text-2xl lg:text-3xl font-bold text-parchment-100">
+            <h2 className="font-serif text-2xl lg:text-3xl font-bold text-white">
               National Archive of Historical Indian Instruments
             </h2>
-            <p className="text-xs sm:text-sm text-parchment-300 mt-1 max-w-2xl">
+            <p className="text-xs sm:text-sm text-[#9da4b0] mt-1 max-w-2xl leading-relaxed">
               Explore the four classical Natya Shastra instrument families (Tata, Sushira, Avanaddha, Ghana) 
               spanning over 3,000 years of civilizational musicology.
             </p>
           </div>
 
-          <div className="text-right">
-            <span className="text-2xl font-mono font-bold text-saffron-300">
+          <div className="text-left md:text-right">
+            <span className="text-2xl font-mono font-bold text-white">
               {filteredInstruments.length} / {instruments.length}
             </span>
-            <span className="block text-[10px] uppercase font-bold text-parchment-400">
+            <span className="block text-[10px] uppercase font-bold text-[#646c7c]">
               Archived Instruments
             </span>
           </div>
@@ -102,18 +102,18 @@ export const CulturalArchive: React.FC<CulturalArchiveProps> = ({
       </div>
 
       {/* Search and Filters Strip */}
-      <div className="bg-indigoHeritage-900/40 border border-white/10 rounded-2xl p-4 space-y-4">
+      <div className="bg-[#12141a]/90 border border-white/10 rounded-2xl p-4 space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
           
           {/* Search Input */}
           <div className="sm:col-span-4 relative">
-            <Search className="w-4 h-4 text-parchment-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-[#646c7c] absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Search by name, Sanskrit term, region..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-indigoHeritage-950/80 text-parchment-100 placeholder-parchment-500 pl-10 pr-4 py-2 rounded-xl text-xs border border-white/10 focus:border-saffron-500 outline-none"
+              className="w-full bg-[#0a0b0e] text-white placeholder-[#646c7c] pl-10 pr-4 py-2.5 rounded-xl text-xs border border-white/10 focus:border-white outline-none"
             />
           </div>
 
@@ -122,10 +122,10 @@ export const CulturalArchive: React.FC<CulturalArchiveProps> = ({
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full bg-indigoHeritage-950/80 text-parchment-200 px-3 py-2 rounded-xl text-xs border border-white/10 focus:border-saffron-500 outline-none cursor-pointer"
+              className="w-full bg-[#0a0b0e] text-white px-3 py-2.5 rounded-xl text-xs border border-white/10 focus:border-white outline-none cursor-pointer"
             >
               {INSTRUMENT_CATEGORIES.map((cat) => (
-                <option key={cat.id} value={cat.id}>
+                <option key={cat.id} value={cat.id} className="bg-[#0a0b0e] text-white">
                   {cat.label}
                 </option>
               ))}
@@ -137,10 +137,10 @@ export const CulturalArchive: React.FC<CulturalArchiveProps> = ({
             <select
               value={selectedEra}
               onChange={(e) => setSelectedEra(e.target.value)}
-              className="w-full bg-indigoHeritage-950/80 text-parchment-200 px-3 py-2 rounded-xl text-xs border border-white/10 focus:border-saffron-500 outline-none cursor-pointer"
+              className="w-full bg-[#0a0b0e] text-white px-3 py-2.5 rounded-xl text-xs border border-white/10 focus:border-white outline-none cursor-pointer"
             >
               {HISTORICAL_ERAS.map((era) => (
-                <option key={era.id} value={era.id}>
+                <option key={era.id} value={era.id} className="bg-[#0a0b0e] text-white">
                   {era.label}
                 </option>
               ))}
@@ -152,12 +152,12 @@ export const CulturalArchive: React.FC<CulturalArchiveProps> = ({
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="w-full bg-indigoHeritage-950/80 text-parchment-200 px-3 py-2 rounded-xl text-xs border border-white/10 focus:border-saffron-500 outline-none cursor-pointer"
+              className="w-full bg-[#0a0b0e] text-white px-3 py-2.5 rounded-xl text-xs border border-white/10 focus:border-white outline-none cursor-pointer"
             >
-              <option value="all">All Status</option>
-              <option value="extinct">Extinct</option>
-              <option value="rare">Rare</option>
-              <option value="living">Living</option>
+              <option value="all" className="bg-[#0a0b0e] text-white">All Status</option>
+              <option value="extinct" className="bg-[#0a0b0e] text-white">Extinct</option>
+              <option value="rare" className="bg-[#0a0b0e] text-white">Rare</option>
+              <option value="living" className="bg-[#0a0b0e] text-white">Living</option>
             </select>
           </div>
 
@@ -165,11 +165,11 @@ export const CulturalArchive: React.FC<CulturalArchiveProps> = ({
       </div>
 
       {/* Gallery Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
         {filteredInstruments.map((inst) => (
           <div
             key={inst.id}
-            className="group bg-indigoHeritage-900/60 border border-white/10 hover:border-saffron-500/40 rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl flex flex-col justify-between"
+            className="group bg-[#12141a]/90 border border-white/10 hover:border-white/30 rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl flex flex-col justify-between"
           >
             <div>
               {/* Image & Status Badge */}
@@ -183,7 +183,7 @@ export const CulturalArchive: React.FC<CulturalArchiveProps> = ({
                 {/* Status Badge */}
                 <span className={`absolute top-3 left-3 text-[10px] font-bold uppercase px-2.5 py-1 rounded-full backdrop-blur-md ${
                   inst.status === 'extinct' ? 'bg-red-500/80 text-white shadow-sm shadow-red-500/50' :
-                  inst.status === 'rare' ? 'bg-amber-500/80 text-indigoHeritage-950 font-extrabold shadow-sm' :
+                  inst.status === 'rare' ? 'bg-amber-500/80 text-black font-extrabold shadow-sm' :
                   'bg-emerald-500/80 text-white shadow-sm'
                 }`}>
                   {inst.status}
@@ -193,49 +193,49 @@ export const CulturalArchive: React.FC<CulturalArchiveProps> = ({
                 <button
                   onClick={() => handleAudition(inst)}
                   title="Audition Sound"
-                  className="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-indigoHeritage-950/90 text-saffron-300 border border-saffron-500/40 flex items-center justify-center hover:bg-saffron-500 hover:text-indigoHeritage-950 transition-all shadow-md"
+                  className="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-[#0a0b0e]/90 text-white border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-all shadow-md touch-manipulation"
                 >
                   <Volume2 className="w-4 h-4" />
                 </button>
               </div>
 
               {/* Instrument Meta Details */}
-              <div className="p-5 space-y-3">
-                <div className="flex items-center justify-between text-[11px] text-parchment-400">
+              <div className="p-4 sm:p-5 space-y-2.5">
+                <div className="flex items-center justify-between text-[11px] text-[#646c7c]">
                   <span>{inst.categoryLabel.split('(')[0]}</span>
                   <span className="font-mono">{inst.century}</span>
                 </div>
 
                 <div>
-                  <h3 className="font-serif text-xl font-bold text-parchment-100 group-hover:text-saffron-300 transition-colors">
+                  <h3 className="font-serif text-lg sm:text-xl font-bold text-white group-hover:text-white transition-colors">
                     {inst.name}
                   </h3>
-                  <p className="font-serif text-xs text-saffron-300/90 italic">
+                  <p className="font-serif text-xs text-[#9da4b0] italic">
                     {inst.sanskritName}
                   </p>
                 </div>
 
-                <p className="text-xs text-parchment-300 line-clamp-2 leading-relaxed">
+                <p className="text-xs text-[#9da4b0] line-clamp-2 leading-relaxed">
                   {inst.shortDescription}
                 </p>
 
-                <div className="flex items-center gap-1.5 text-[11px] text-parchment-400 pt-1">
-                  <MapPin className="w-3 h-3 text-terracotta-400" />
+                <div className="flex items-center gap-1.5 text-[11px] text-[#646c7c] pt-1">
+                  <MapPin className="w-3 h-3 text-[#9da4b0]" />
                   <span>{inst.region}</span>
                 </div>
               </div>
             </div>
 
             {/* Action Bar */}
-            <div className="p-4 bg-white/5 border-t border-white/5 grid grid-cols-2 gap-2">
+            <div className="p-3.5 sm:p-4 bg-white/5 border-t border-white/5 grid grid-cols-2 gap-2">
               <button
                 onClick={() => {
                   onSelectInstrument(inst);
                   onNavigate('knowledge');
                 }}
-                className="flex items-center justify-center gap-1.5 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-parchment-200 text-xs font-semibold transition-all"
+                className="flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white text-xs font-semibold transition-all touch-manipulation"
               >
-                <BookOpen className="w-3.5 h-3.5 text-saffron-300" />
+                <BookOpen className="w-3.5 h-3.5 text-white" />
                 <span>Dossier</span>
               </button>
 
@@ -244,7 +244,7 @@ export const CulturalArchive: React.FC<CulturalArchiveProps> = ({
                   onSelectInstrument(inst);
                   onNavigate('studio');
                 }}
-                className="flex items-center justify-center gap-1.5 py-2 rounded-xl bg-saffron-500 text-indigoHeritage-950 text-xs font-bold hover:bg-saffron-400 transition-all shadow-sm"
+                className="flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-white text-black text-xs font-bold hover:bg-neutral-200 transition-all shadow-sm touch-manipulation"
               >
                 <Music className="w-3.5 h-3.5" />
                 <span>Play Live</span>

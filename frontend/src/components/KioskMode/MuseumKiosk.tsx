@@ -86,28 +86,28 @@ export const MuseumKiosk: React.FC<MuseumKioskProps> = ({
     <div className="space-y-6 select-none">
       
       {/* Kiosk Controls Strip */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-indigoHeritage-900/80 border border-saffron-500/30 p-4 rounded-2xl">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-[#12141a] border border-white/10 p-4 rounded-2xl shadow-xl">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-saffron-500/20 text-saffron-300 flex items-center justify-center">
+          <div className="w-9 h-9 rounded-xl bg-white/10 text-white flex items-center justify-center">
             <MonitorPlay className="w-5 h-5" />
           </div>
           <div>
-            <span className="text-xs uppercase font-bold text-parchment-100 block">
+            <span className="text-xs uppercase font-bold text-white block tracking-wider" style={{ fontFamily: "'Cinzel', serif" }}>
               Museum Exhibit Kiosk Mode
             </span>
-            <span className="text-[11px] text-parchment-400">
+            <span className="text-[11px] text-[#8e95a5]">
               Interactive high-contrast touchscreen display for heritage institutions & academic kiosks
             </span>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
           <button
             onClick={() => setIsAutoCycling(!isAutoCycling)}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all ${
+            className={`flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold border transition-all w-full sm:w-auto touch-manipulation ${
               isAutoCycling
-                ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 animate-pulse'
-                : 'bg-white/5 border-white/10 text-parchment-300 hover:bg-white/10'
+                ? 'bg-white text-black border-white animate-pulse'
+                : 'bg-white/5 border-white/10 text-[#9da4b0] hover:bg-white/10 hover:text-white'
             }`}
           >
             {isAutoCycling ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
@@ -117,37 +117,39 @@ export const MuseumKiosk: React.FC<MuseumKioskProps> = ({
       </div>
 
       {/* Main Large-Format Exhibit Showcase Card */}
-      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-b from-indigoHeritage-900 via-indigoHeritage-950 to-indigoHeritage-950 border-2 border-saffron-500/40 shadow-2xl p-6 lg:p-10">
+      <div className="relative rounded-3xl overflow-hidden bg-[#12141a] border border-white/10 shadow-2xl p-5 sm:p-8 lg:p-10">
         
         {/* Navigation Arrows */}
         <button
           onClick={prevInstrument}
-          className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-2xl bg-indigoHeritage-950/80 hover:bg-saffron-500 hover:text-indigoHeritage-950 text-parchment-200 border border-saffron-500/30 flex items-center justify-center transition-all z-20 shadow-xl backdrop-blur-md"
+          aria-label="Previous Instrument"
+          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-[#0a0b0e]/80 hover:bg-white hover:text-black text-white border border-white/15 flex items-center justify-center transition-all z-20 shadow-xl backdrop-blur-md touch-manipulation"
         >
-          <ChevronLeft className="w-6 h-6" />
+          <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
         </button>
 
         <button
           onClick={nextInstrument}
-          className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-2xl bg-indigoHeritage-950/80 hover:bg-saffron-500 hover:text-indigoHeritage-950 text-parchment-200 border border-saffron-500/30 flex items-center justify-center transition-all z-20 shadow-xl backdrop-blur-md"
+          aria-label="Next Instrument"
+          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-[#0a0b0e]/80 hover:bg-white hover:text-black text-white border border-white/15 flex items-center justify-center transition-all z-20 shadow-xl backdrop-blur-md touch-manipulation"
         >
-          <ChevronRight className="w-6 h-6" />
+          <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
         </button>
 
-        <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center px-4 sm:px-8">
           
           {/* Visual Showcase */}
           <div className="lg:col-span-6 space-y-4">
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-black/50 border-2 border-saffron-500/30 shadow-2xl group">
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-black/60 border border-white/10 shadow-2xl group">
               <img
                 src={current.image}
                 alt={current.name}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />
-              <span className={`absolute top-3 left-3 text-xs font-bold uppercase px-3 py-1 rounded-full backdrop-blur-md shadow-lg ${
-                current.status === 'extinct' ? 'bg-red-500/90 text-white' :
-                current.status === 'rare' ? 'bg-amber-500/90 text-indigoHeritage-950' :
-                'bg-emerald-500/90 text-white'
+              <span className={`absolute top-3 left-3 text-[10px] sm:text-xs font-semibold uppercase px-3 py-1 rounded-full backdrop-blur-md shadow-lg border ${
+                current.status === 'extinct' ? 'bg-red-500/20 text-red-300 border-red-500/40' :
+                current.status === 'rare' ? 'bg-amber-500/20 text-amber-300 border-amber-500/40' :
+                'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
               }`}>
                 {current.status}
               </span>
@@ -155,51 +157,51 @@ export const MuseumKiosk: React.FC<MuseumKioskProps> = ({
 
             {/* Quick Carving Mini Showcase */}
             {current.carvingImage && (
-              <div className="bg-white/5 border border-white/5 rounded-xl p-3 flex items-center gap-3">
+              <div className="bg-white/[0.03] border border-white/5 rounded-xl p-3 flex items-center gap-3">
                 <img
                   src={current.carvingImage}
                   alt="Temple Carving"
-                  className="w-14 h-14 rounded-lg object-cover border border-white/10"
+                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg object-cover border border-white/10"
                 />
                 <div className="text-xs">
-                  <span className="font-bold text-saffron-300 block">Historical Temple Sculpture</span>
-                  <span className="text-[11px] text-parchment-400">Archaeological evidence matching this organological form</span>
+                  <span className="font-semibold text-white block">Historical Temple Sculpture</span>
+                  <span className="text-[11px] text-[#646c7c]">Archaeological evidence matching this organological form</span>
                 </div>
               </div>
             )}
           </div>
 
           {/* Instrument Dossier Content */}
-          <div className="lg:col-span-6 space-y-5">
+          <div className="lg:col-span-6 space-y-4 sm:space-y-5">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-xs font-mono font-bold text-saffron-300 uppercase tracking-wider">
+                <span className="text-xs font-mono font-semibold text-[#8e95a5] uppercase tracking-wider">
                   Exhibit {currentIndex + 1} of {HISTORICAL_INSTRUMENTS.length}
                 </span>
-                <span className="text-parchment-500">•</span>
-                <span className="text-xs text-parchment-300">{current.century}</span>
+                <span className="text-[#646c7c]">•</span>
+                <span className="text-xs text-[#8e95a5]">{current.century}</span>
               </div>
               
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-extrabold text-parchment-100">
+              <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white" style={{ fontFamily: "'Cinzel', serif" }}>
                 {current.name}
               </h2>
-              <p className="font-serif text-lg text-saffron-300 italic mt-0.5">
+              <p className="font-serif text-base sm:text-lg text-white/80 italic mt-0.5">
                 {current.sanskritName}
               </p>
             </div>
 
-            <p className="text-sm sm:text-base text-parchment-200 leading-relaxed">
+            <p className="text-xs sm:text-sm md:text-base text-[#9da4b0] leading-relaxed">
               {current.shortDescription}
             </p>
 
             {/* Origin & Classification Pills */}
             <div className="flex flex-wrap gap-2 text-xs">
-              <span className="bg-white/10 text-parchment-200 px-3 py-1.5 rounded-xl border border-white/10 flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-terracotta-400" />
+              <span className="bg-white/5 text-[#9da4b0] px-3 py-1.5 rounded-xl border border-white/10 flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-white/70" />
                 <span>{current.region}</span>
               </span>
-              <span className="bg-white/10 text-parchment-200 px-3 py-1.5 rounded-xl border border-white/10 flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5 text-amber-400" />
+              <span className="bg-white/5 text-[#9da4b0] px-3 py-1.5 rounded-xl border border-white/10 flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5 text-white/70" />
                 <span>{current.era}</span>
               </span>
             </div>
@@ -209,9 +211,9 @@ export const MuseumKiosk: React.FC<MuseumKioskProps> = ({
               <button
                 onClick={handleAudition}
                 disabled={isPlayingAudition}
-                className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-saffron-500 to-amber-500 text-indigoHeritage-950 font-bold text-sm hover:scale-105 transition-all shadow-xl"
+                className="flex items-center justify-center gap-2 px-5 sm:px-6 py-3.5 rounded-xl bg-white text-black font-bold text-xs sm:text-sm hover:bg-white/90 active:scale-95 transition-all shadow-xl touch-manipulation w-full sm:w-auto"
               >
-                <Volume2 className={`w-5 h-5 ${isPlayingAudition ? 'animate-bounce' : ''}`} />
+                <Volume2 className={`w-4 h-4 sm:w-5 sm:h-5 ${isPlayingAudition ? 'animate-bounce' : ''}`} />
                 <span>{isPlayingAudition ? 'Playing Acoustic Scale...' : 'Audition Sound'}</span>
               </button>
 
@@ -220,9 +222,9 @@ export const MuseumKiosk: React.FC<MuseumKioskProps> = ({
                   onSelectInstrument(current);
                   onNavigate('studio');
                 }}
-                className="flex items-center gap-2 px-5 py-3.5 rounded-xl bg-indigoHeritage-800 hover:bg-indigoHeritage-700 border border-saffron-500/30 text-parchment-100 font-semibold text-sm transition-all"
+                className="flex items-center justify-center gap-2 px-5 sm:px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white font-semibold text-xs sm:text-sm active:scale-95 transition-all touch-manipulation w-full sm:w-auto"
               >
-                <Music className="w-4 h-4 text-saffron-400" />
+                <Music className="w-4 h-4 text-white/80" />
                 <span>Play Live Studio</span>
               </button>
             </div>
