@@ -122,7 +122,6 @@ export function App() {
           <div className="flex items-center flex-wrap justify-center gap-4 text-center">
             <span>Project Concept: <strong>Ranjeet</strong></span>
             <span>•</span>
-            <span>AI/ML Program — <strong>Masai School × IIT Patna</strong></span>
             <span>•</span>
             <span>Grounding: <em>Natya Shastra & Sangita Ratnakara</em></span>
           </div>

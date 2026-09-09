@@ -6,7 +6,6 @@ from .api import api_router
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
-    description="REST API & AI Pipelines for Echoes of India - Historical Musical Instrument Revival (Masai School × IIT Patna)",
     docs_url="/docs",
     redoc_url="/redoc"
 )

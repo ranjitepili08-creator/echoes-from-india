@@ -4,7 +4,6 @@
 An AI-powered platform and digital museum that brings the sound of India's historical, near-extinct, and rare musical instruments back to life.
 
 > **Project Concept Prepared by**: Ranjeet  
-> **Academic Program**: AI/ML Program — Masai School, in collaboration with IIT Patna  
 > **Theoretical Grounding**: *Natya Shastra*, *Sangita Ratnakara*, *Silappadikaram*, *Kama Sutra*
 
 ---
@@ -98,7 +97,6 @@ backend/venv/bin/pytest backend/tests/
 ---
 
 ## 📜 Academic Attribution & Theoretical Grounding
-- **Masai School × IIT Patna** AI/ML Collaborative Project
 - **Primary Musicological Treatises**:
   - *Natya Shastra* by Bharata Muni (c. 200 BCE – 200 CE)
   - *Sangita Ratnakara* by Sharngadeva (13th Century CE)
