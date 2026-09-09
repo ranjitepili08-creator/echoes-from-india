@@ -31,155 +31,84 @@ export const Navbar: React.FC<NavbarProps> = ({
   masterVolume,
   onVolumeChange,
 }) => {
+  const navItems: { id: ActiveTab; label: string; icon: React.FC<{ className?: string }> }[] = [
+    { id: 'scanner', label: 'AI Scanner', icon: Sparkles },
+    { id: 'game', label: 'Rhythm Game', icon: Gamepad2 },
+    { id: 'studio', label: 'Studio', icon: Music },
+    { id: 'knowledge', label: 'Dossier', icon: BookOpen },
+    { id: 'archive', label: 'Museum', icon: Library },
+    { id: 'kiosk', label: 'Kiosk', icon: MonitorPlay },
+  ];
+
   return (
-    <header className="sticky top-0 z-50 bg-indigoHeritage-950/95 backdrop-blur-md border-b border-saffron-500/20 px-3 sm:px-6 lg:px-8 py-2.5 transition-all duration-200 shadow-lg">
+    <header className="sticky top-0 z-50 w-full bg-[#0a0b0e]/85 backdrop-blur-xl border-b border-white/10 px-4 sm:px-8 py-3 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
         
-        {/* Brand & Project Identity */}
-        <div className="w-full md:w-auto flex items-center justify-between">
-          <div 
-            onClick={() => setActiveTab('scanner')}
-            className="flex items-center gap-2.5 cursor-pointer group select-none"
-          >
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-saffron-600 via-amber-500 to-terracotta-500 flex items-center justify-center shadow-md shadow-saffron-500/20 group-hover:scale-105 transition-transform duration-300">
-              <Sparkles className="w-4 h-4 text-indigoHeritage-950 animate-pulse-subtle" />
-            </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className="font-serif text-base sm:text-lg font-bold tracking-wider text-parchment-100 bg-gradient-to-r from-parchment-100 via-saffron-200 to-saffron-400 bg-clip-text text-transparent">
-                  ECHOES OF INDIA
-                </span>
-                <span className="text-[9px] uppercase font-bold tracking-widest px-1.5 py-0.2 rounded-full bg-saffron-500/20 text-saffron-300 border border-saffron-500/30">
-                  AI
-                </span>
-              </div>
-              <p className="text-[10px] text-parchment-400 hidden sm:block">
-                Reviving Ancient Indian Instruments Through AI & Organology
-              </p>
-            </div>
+        {/* Brand & Project Logo */}
+        <div 
+          onClick={() => setActiveTab('scanner')}
+          className="flex items-center gap-3 cursor-pointer group select-none"
+        >
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-400 via-amber-600 to-amber-800 flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.25)] group-hover:scale-105 transition-transform duration-300">
+            <span className="font-serif text-black font-extrabold text-sm">ॐ</span>
           </div>
-
-          {/* Mobile Drone & Volume Controls */}
-          <div className="flex md:hidden items-center gap-2">
-            <button
-              onClick={onToggleDrone}
-              className={`p-1.5 rounded-xl border text-xs ${
-                isDroneActive ? 'bg-saffron-500/20 text-saffron-300 border-saffron-500/40' : 'bg-white/5 text-parchment-400 border-white/10'
-              }`}
-            >
-              <Radio className="w-4 h-4" />
-            </button>
-            <button 
-              onClick={() => {
-                const newVol = masterVolume > 0 ? 0 : 0.85;
-                onVolumeChange(newVol);
-                soundEngine.setMasterVolume(newVol);
-              }}
-              className="p-1.5 rounded-xl bg-white/5 border border-white/10 text-parchment-400"
-            >
-              {masterVolume > 0 ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4 text-red-400" />}
-            </button>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="font-serif text-sm sm:text-base font-bold tracking-[0.14em] text-white uppercase group-hover:text-amber-200 transition-colors" style={{ fontFamily: "'Cinzel', serif" }}>
+                Echoes of India
+              </span>
+              <span className="text-[9px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded-full bg-white/10 text-amber-300 border border-amber-400/30">
+                AI
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* Navigation Tabs (Smooth Horizontal Scroll on Mobile Phones) */}
-        <nav className="w-full md:w-auto flex items-center justify-start md:justify-center gap-1 bg-indigoHeritage-900/90 p-1 rounded-2xl border border-saffron-500/20 overflow-x-auto scrollbar-none touch-manipulation">
-          <button
-            onClick={() => setActiveTab('scanner')}
-            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
-              activeTab === 'scanner'
-                ? 'bg-gradient-to-r from-saffron-600 to-amber-600 text-indigoHeritage-950 shadow-md font-bold'
-                : 'text-parchment-300 hover:text-parchment-100 hover:bg-white/5'
-            }`}
-          >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>AI Scanner</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('game')}
-            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
-              activeTab === 'game'
-                ? 'bg-gradient-to-r from-saffron-600 to-amber-600 text-indigoHeritage-950 shadow-md font-bold'
-                : 'text-parchment-300 hover:text-parchment-100 hover:bg-white/5'
-            }`}
-          >
-            <Gamepad2 className="w-3.5 h-3.5" />
-            <span>Rhythm Game</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('studio')}
-            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
-              activeTab === 'studio'
-                ? 'bg-gradient-to-r from-saffron-600 to-amber-600 text-indigoHeritage-950 shadow-md font-bold'
-                : 'text-parchment-300 hover:text-parchment-100 hover:bg-white/5'
-            }`}
-          >
-            <Music className="w-3.5 h-3.5" />
-            <span>Studio</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('knowledge')}
-            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
-              activeTab === 'knowledge'
-                ? 'bg-gradient-to-r from-saffron-600 to-amber-600 text-indigoHeritage-950 shadow-md font-bold'
-                : 'text-parchment-300 hover:text-parchment-100 hover:bg-white/5'
-            }`}
-          >
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>Dossier</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('archive')}
-            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
-              activeTab === 'archive'
-                ? 'bg-gradient-to-r from-saffron-600 to-amber-600 text-indigoHeritage-950 shadow-md font-bold'
-                : 'text-parchment-300 hover:text-parchment-100 hover:bg-white/5'
-            }`}
-          >
-            <Library className="w-3.5 h-3.5" />
-            <span>Museum</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('kiosk')}
-            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
-              activeTab === 'kiosk'
-                ? 'bg-gradient-to-r from-saffron-600 to-amber-600 text-indigoHeritage-950 shadow-md font-bold'
-                : 'text-parchment-300 hover:text-parchment-100 hover:bg-white/5'
-            }`}
-          >
-            <MonitorPlay className="w-3.5 h-3.5" />
-            <span>Kiosk</span>
-          </button>
+        {/* Minimalist Centered Navigation Dock */}
+        <nav className="flex items-center gap-1 bg-[#12141a]/90 p-1 rounded-xl border border-white/10 shadow-inner overflow-x-auto max-w-full scrollbar-none">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = activeTab === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => setActiveTab(item.id)}
+                className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
+                  isActive
+                    ? 'bg-white text-black shadow-md font-bold scale-[1.02]'
+                    : 'text-[#8e95a5] hover:text-white hover:bg-white/5'
+                }`}
+              >
+                <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-black' : 'text-amber-400/80'}`} />
+                <span>{item.label}</span>
+              </button>
+            );
+          })}
         </nav>
 
-        {/* Desktop Audio Controls */}
-        <div className="hidden md:flex items-center gap-3">
+        {/* Desktop Audio Controls (Tanpura Drone & Volume) */}
+        <div className="flex items-center gap-2.5">
           <button
             onClick={onToggleDrone}
-            title={isDroneActive ? 'Stop Tanpura Drone' : 'Start Tanpura Drone Accompaniment'}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border transition-all ${
+            title={isDroneActive ? 'Stop Tanpura Drone' : 'Start Tanpura Drone Sound'}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${
               isDroneActive
-                ? 'bg-saffron-500/20 text-saffron-300 border-saffron-500/50 shadow-sm animate-pulse'
-                : 'bg-white/5 text-parchment-400 border-white/10 hover:bg-white/10'
+                ? 'bg-amber-400/20 text-amber-300 border-amber-400/50 shadow-[0_0_15px_rgba(245,158,11,0.3)] animate-pulse'
+                : 'bg-white/5 text-[#8e95a5] border-white/10 hover:text-white hover:bg-white/10'
             }`}
           >
             <Radio className="w-3.5 h-3.5" />
-            <span>Tanpura</span>
+            <span className="hidden sm:inline">Tanpura Drone</span>
           </button>
 
-          <div className="flex items-center gap-2 bg-white/5 px-2.5 py-1.5 rounded-xl border border-white/10">
+          <div className="flex items-center gap-2 bg-white/5 px-2.5 py-1.5 rounded-lg border border-white/10">
             <button 
               onClick={() => {
                 const newVol = masterVolume > 0 ? 0 : 0.85;
                 onVolumeChange(newVol);
                 soundEngine.setMasterVolume(newVol);
               }}
-              className="text-parchment-400 hover:text-parchment-200"
+              className="text-[#8e95a5] hover:text-white transition-colors"
             >
               {masterVolume > 0 ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4 text-red-400" />}
             </button>
@@ -194,7 +123,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onVolumeChange(val);
                 soundEngine.setMasterVolume(val);
               }}
-              className="w-16 h-1.5 bg-white/20 rounded-lg appearance-none cursor-pointer accent-saffron-500"
+              className="w-14 sm:w-16 h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-amber-400"
             />
           </div>
         </div>
