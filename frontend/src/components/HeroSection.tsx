@@ -11,13 +11,56 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onSelectSa
   return (
     <div className="w-full bg-[#0a0b0e] text-[#f0f2f5] font-sans selection:bg-saffron-500/30 selection:text-saffron-200">
       
-      {/* 100VH FULL-SCREEN HERO STAGE (Exact match to Empire reference layout) */}
-      <section className="relative w-full h-screen min-h-[700px] max-h-[1080px] flex flex-col justify-between px-8 sm:px-14 lg:px-20 pt-6 pb-12 overflow-hidden bg-[#0a0b0e]">
+      {/* 100VH FULL-SCREEN HERO STAGE (Exact replica of the editorial reference layout) */}
+      <section className="relative w-full h-screen min-h-[720px] max-h-[1100px] flex flex-col justify-between px-8 sm:px-14 lg:px-20 pt-6 pb-12 overflow-hidden bg-[#0a0b0e]">
         
-        {/* GIANT BACKGROUND TYPOGRAPHY: "EMPIRE" + "EXPLORER" */}
-        <div className="absolute top-[2%] left-0 w-full text-center pointer-events-none select-none z-[1]">
+        {/* TOP EDITORIAL NAVBAR (Crisp, minimal, perfectly spaced above typography) */}
+        <header className="relative z-30 flex items-center justify-between w-full max-w-[1400px] mx-auto text-[13px] tracking-wide text-[#9da4b0] font-normal">
+          {/* Left Links */}
+          <div className="flex items-center gap-8">
+            <button 
+              onClick={() => onNavigate('scanner')}
+              className="hover:text-white transition-colors duration-200"
+            >
+              Philosophy &amp; Power
+            </button>
+            <button 
+              onClick={() => onNavigate('knowledge')}
+              className="hover:text-white transition-colors duration-200"
+            >
+              Rituals &amp; Religion
+            </button>
+          </div>
+
+          {/* Center Brand Title */}
+          <div 
+            className="font-serif text-base sm:text-lg font-bold tracking-[0.08em] text-white" 
+            style={{ fontFamily: "'Cinzel', 'Cormorant Garamond', serif" }}
+          >
+            Echoes of India
+          </div>
+
+          {/* Right Links */}
+          <div className="flex items-center gap-8 justify-end">
+            <button 
+              onClick={() => onNavigate('studio')}
+              className="hover:text-white transition-colors duration-200"
+            >
+              Warfare &amp; Honor
+            </button>
+            <button 
+              onClick={() => onNavigate('game')}
+              className="hover:text-white transition-colors duration-200"
+            >
+              Legacy &amp; Ruins
+            </button>
+          </div>
+        </header>
+
+        {/* GIANT BACKGROUND TYPOGRAPHY: "EMPIRE" + "EXPLORER" (Cleanly below the navbar) */}
+        <div className="absolute top-[85px] sm:top-[90px] lg:top-[95px] left-0 w-full text-center pointer-events-none select-none z-[1]">
           <h1 
-            className="font-serif font-black text-[clamp(6.5rem,18vw,22rem)] tracking-[0.18em] leading-[0.82] text-transparent bg-clip-text ml-[0.18em] opacity-95"
+            className="font-serif font-black text-[clamp(6.5rem,17.5vw,21rem)] tracking-[0.18em] leading-[0.82] text-transparent bg-clip-text ml-[0.18em] opacity-95"
             style={{
               fontFamily: "'Cinzel', serif",
               backgroundImage: 'linear-gradient(180deg, #ffffff 15%, #b5bcc9 60%, rgba(50, 55, 68, 0.35) 100%)',
@@ -28,19 +71,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onSelectSa
             EMPIRE
           </h1>
           <span 
-            className="absolute right-[8vw] sm:right-[10vw] lg:right-[12vw] top-[74%] font-serif font-medium text-[clamp(1.3rem,3.2vw,3.8rem)] tracking-[0.28em] text-[#d6d9e0] uppercase"
+            className="absolute right-[8vw] sm:right-[10vw] lg:right-[12vw] top-[74%] font-serif font-normal text-[clamp(1.3rem,3.2vw,3.8rem)] tracking-[0.28em] text-[#d6d9e0] uppercase"
             style={{ fontFamily: "'Cinzel', serif" }}
           >
             EXPLORER
           </span>
         </div>
 
-        {/* PROMINENT OVERLAPPING CENTRAL FIGURE (Reaches high up into EMPIRE) */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[850px] h-[85vh] z-[10] flex justify-center items-end pointer-events-none">
+        {/* PROMINENT OVERLAPPING CENTRAL FIGURE (Reaches high up into the lower half of EMPIRE) */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[850px] h-[80vh] z-[10] flex justify-center items-end pointer-events-none">
           <img 
             src="/musician.png" 
             alt="Classical Musician"
-            className="h-full w-auto max-w-none object-contain drop-shadow-[0_25px_60px_rgba(0,0,0,0.98)] transform scale-110 sm:scale-125 lg:scale-135 origin-bottom"
+            className="h-full w-auto max-w-none object-contain drop-shadow-[0_25px_60px_rgba(0,0,0,0.98)] transform scale-110 sm:scale-120 lg:scale-130 origin-bottom"
             style={{
               maskImage: 'linear-gradient(to bottom, black 82%, transparent 100%)',
               WebkitMaskImage: 'linear-gradient(to bottom, black 82%, transparent 100%)'
@@ -50,9 +93,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onSelectSa
             }}
           />
         </div>
-
-        {/* Empty Spacer Top to balance flex layout */}
-        <div className="w-full h-8 z-[20] pointer-events-none" />
 
         {/* SIDE STORY CARDS (Positioned on the lower left and right) */}
         <div className="relative z-[20] flex flex-col lg:flex-row justify-between items-end w-full max-w-[1400px] mx-auto gap-8 mb-2">
