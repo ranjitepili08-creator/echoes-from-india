@@ -23,6 +23,15 @@ app.add_middleware(
 # Mount API Routers
 app.include_router(api_router, prefix=settings.API_V1_STR)
 
+@app.get("/", tags=["Root"])
+def root():
+    return {
+        "message": "Welcome to Echoes of India API",
+        "docs": "/docs",
+        "health": "/health",
+        "version": settings.VERSION
+    }
+
 @app.get("/health", tags=["Health"])
 def health_check():
     return {
