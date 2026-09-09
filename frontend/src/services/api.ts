@@ -2,6 +2,7 @@ import { Instrument, VisionDetectionResult, SongChart } from '../types';
 import { HISTORICAL_INSTRUMENTS } from '../data/instrumentsData';
 import { HERITAGE_SONGS } from '../data/songsData';
 import { ANCIENT_TREATISES } from '../data/treatisesData';
+import { GeminiVisionService } from './geminiVisionService';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
 
@@ -36,14 +37,24 @@ export class ApiClient {
     forcedInstrumentId?: string,
     fileName?: string
   ): Promise<VisionDetectionResult> {
+    // 1. If Gemini API Key is configured, use Google Gemini 1.5 Flash Vision API
+    try {
+      if (GeminiVisionService.hasApiKey() && !forcedInstrumentId) {
+        return await GeminiVisionService.classifyWithGemini(imageDataUrl);
+      }
+    } catch (geminiErr) {
+      console.warn('Gemini vision API error, falling back to local classifier:', geminiErr);
+    }
+
     const isRemoteHosted = typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
     
-    // If on Vercel or remote host without custom API URL, execute client classifier directly for instant 0ms result
+    // 2. If on Vercel or remote host without custom API URL, execute client classifier directly for instant 0ms result
     if (isRemoteHosted && !import.meta.env.VITE_API_URL) {
       const { VisionClassifier } = await import('./visionClassifier');
       return VisionClassifier.analyzeImage(imageDataUrl, forcedInstrumentId, fileName);
     }
 
+    // 3. Otherwise try backend endpoint with fast timeout and client fallback
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 2500);

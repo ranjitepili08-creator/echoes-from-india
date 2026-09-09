@@ -9,13 +9,18 @@ import {
   Gamepad2, 
   CheckCircle2, 
   RefreshCw, 
-  Info,
-  X,
-  Radio,
-  ArrowRight
+  Info, 
+  X, 
+  Radio, 
+  ArrowRight,
+  Settings,
+  Key,
+  Cpu,
+  Bot
 } from 'lucide-react';
 import { HISTORICAL_INSTRUMENTS } from '../../data/instrumentsData';
 import { VisionClassifier } from '../../services/visionClassifier';
+import { GeminiVisionService } from '../../services/geminiVisionService';
 import { ApiClient } from '../../services/api';
 import { Instrument, VisionDetectionResult } from '../../types';
 import { ActiveTab } from '../Navbar';
@@ -43,6 +48,17 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
   
   // Camera Capture Modal State
   const [isCameraOpen, setIsCameraOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [apiKeyInput, setApiKeyInput] = useState(() => GeminiVisionService.getApiKey());
+  const [hasGemini, setHasGemini] = useState(() => GeminiVisionService.hasApiKey());
+
+  const handleSaveApiKey = () => {
+    GeminiVisionService.setApiKey(apiKeyInput);
+    setHasGemini(Boolean(apiKeyInput.trim()));
+    setIsSettingsOpen(false);
+    runScanPipeline(selectedImage);
+  };
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
@@ -58,25 +74,37 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
     {
       id: 'rudra-veena',
       title: 'Dhrupad Rudra Veena',
-      subtitle: 'Twin Gourd Zither',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSpRIEkS_ugARFZyXCFujnfBMe65Z3PnSZOw32XhJxOO4JGJFgqkAqa2OA&s=10',
+      subtitle: 'Twin Gourd Been',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Rudra_Vina_MIM_Brussels.jpg/800px-Rudra_Vina_MIM_Brussels.jpg',
     },
     {
-      id: 'pinaka-veena',
-      title: 'Shaivite Pinaka Veena',
-      subtitle: 'Bowed Vedic Monochord',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-PAddSJ3aRnE8Ume5AKIAVE6nRaAKYnOAZLUOjPgJ3HC3XOsI-Dw8Wto&s=10',
+      id: 'pena',
+      title: 'Meitei Pena Fiddle',
+      subtitle: 'Lai Haraoba Sacred Lute',
+      image: '/instruments/pena.jpg',
+    },
+    {
+      id: 'nagfani',
+      title: 'Serpentine Nagfani',
+      subtitle: 'Cobra Hood Brass Horn',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/01234_SerpentineHorn_001.jpeg/800px-01234_SerpentineHorn_001.jpeg',
+    },
+    {
+      id: 'shankha',
+      title: 'Sacred Conch Shell',
+      subtitle: 'Vedic Mangala Aerophone',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Shankha_conch_shell_trumpet.jpg/800px-Shankha_conch_shell_trumpet.jpg',
     },
     {
       id: 'jal-tarang',
-      title: 'Jal Tarang Porcelain',
-      subtitle: 'Kama Sutra Udaka Vadya',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyIAl8GI5L00iqnptmaG-ZpfG9CDukWAEmHIT22RyMgZygpL-gtDrfPIN8&s=10',
+      title: 'Porcelain Jal Tarang',
+      subtitle: 'Acoustic Water Chimes',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH7mC3k9FfGjWc_jWvXq_zS32s8x4lP4Z_lw&s=10',
     },
     {
       id: 'ravanahatha',
-      title: 'Bhopa Ravanahatha',
-      subtitle: 'Coconut Soundbox Fiddle',
+      title: 'Rajasthani Ravanahatha',
+      subtitle: 'Ancient Bowed Monochord',
       image: 'https://images.indianexpress.com/2026/07/Ravanhatha.png?w=350',
     },
     {
@@ -84,18 +112,6 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
       title: 'Temple Pakhawaj Drum',
       subtitle: 'Wheat Dough & Syahi Head',
       image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ68oNewxC2jAsS3QeTcHfkEU0Jx4ugx2x-4Pq5NEpTY2bumpKDQI4rhqT&s=10',
-    },
-    {
-      id: 'mayuri-veena',
-      title: 'Taus Peacock Lute',
-      subtitle: '30 Sympathetic Tarab',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3iFSb3cMOTSksXC1idZCP2adq70Uym1X7rVW8Ck_eR9CCQYSRsHfiyo8&s=10',
-    },
-    {
-      id: 'algoza',
-      title: 'Thar Desert Algoza',
-      subtitle: 'Circular Breathing Twin Flute',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzx-GrEjkprxTyy-zoOg_sFju5wMQkt1NBJR980qmWF0xj8Ap-0CnDAsUo&s=10',
     }
   ];
 
@@ -126,7 +142,7 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
 
     setTimeout(() => {
       setScanProgress(50);
-      setScanStageText('Stage 2: Evaluating weighted attribute rules across 13 historical instrument profiles...');
+      setScanStageText(hasGemini ? 'Stage 2: Querying Google Gemini 1.5 Flash Vision Multimodal Model...' : 'Stage 2: Evaluating attribute rules across 13 historical profiles...');
     }, 200);
 
     setTimeout(() => {
@@ -183,7 +199,7 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
         videoRef.current.srcObject = stream;
       }
     } catch (err) {
-      console.warn('Direct camera stream not supported, opening fallback camera capture:', err);
+      console.warn('Camera access error, falling back to camera input:', err);
       setIsCameraOpen(false);
       cameraInputRef.current?.click();
     }
@@ -196,7 +212,7 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
       canvas.height = videoRef.current.videoHeight || 480;
       const ctx = canvas.getContext('2d');
       if (ctx) {
-        ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(videoRef.current, 0, 0);
         const dataUrl = canvas.toDataURL('image/jpeg');
         setSelectedImage(dataUrl);
         stopCamera();
@@ -254,6 +270,19 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
               Upload or snap a photo of any instrument carving or museum artifact. 
               Our vision AI segments organological features and derives its playable soundfont.
             </p>
+
+            {/* AI Engine Status & Configuration Trigger */}
+            <div className="flex items-center gap-2 mt-3">
+              <button
+                onClick={() => setIsSettingsOpen(true)}
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[11px] text-[#d6d9e0] transition-colors"
+                title="Configure Google Gemini Vision or local model"
+              >
+                <Bot className={`w-3.5 h-3.5 ${hasGemini ? 'text-emerald-400' : 'text-blue-400'}`} />
+                <span>Engine: <strong>{hasGemini ? 'Google Gemini 1.5 Flash Vision' : '193-Sample Dataset Neural Model'}</strong></span>
+                <Settings className="w-3 h-3 text-[#8e95a5] ml-1" />
+              </button>
+            </div>
           </div>
 
           {/* Action Buttons for Upload & Camera */}
@@ -276,6 +305,89 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
           </div>
         </div>
       </div>
+
+      {/* AI Engine Settings Modal */}
+      {isSettingsOpen && (
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="relative w-full max-w-md bg-[#12141a] border border-white/20 rounded-3xl p-5 sm:p-6 space-y-4 shadow-2xl">
+            <div className="flex items-center justify-between pb-2 border-b border-white/10">
+              <div className="flex items-center gap-2 text-white text-sm font-bold">
+                <Settings className="w-4 h-4" />
+                <span>AI Vision Engine Settings</span>
+              </div>
+              <button onClick={() => setIsSettingsOpen(false)} className="p-1 rounded-full bg-white/10 text-[#9da4b0] hover:text-white">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="space-y-3 text-xs text-[#9da4b0]">
+              <p>
+                Our system uses a dual-engine architecture:
+              </p>
+              
+              <div className="bg-[#181a22] p-3 rounded-xl border border-white/10 space-y-2">
+                <div className="flex items-center gap-2 text-white font-semibold">
+                  <Bot className="w-4 h-4 text-emerald-400" />
+                  <span>Google Gemini 1.5 Flash Vision API</span>
+                </div>
+                <p className="text-[11px] text-[#8e95a5]">
+                  Provides cloud multimodal vision intelligence. Accurately identifies even rare or damaged museum artifacts from any angle.
+                </p>
+                
+                <div className="pt-2">
+                  <label className="text-[10px] uppercase font-bold text-[#8e95a5] block mb-1">
+                    Gemini API Key (Optional / Free):
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <Key className="w-3.5 h-3.5 text-[#8e95a5]" />
+                    <input
+                      type="password"
+                      placeholder="Paste your Gemini API Key..."
+                      value={apiKeyInput}
+                      onChange={(e) => setApiKeyInput(e.target.value)}
+                      className="flex-1 bg-black/50 border border-white/20 rounded-lg px-2.5 py-1.5 text-xs text-white outline-none focus:border-white/50 font-mono"
+                    />
+                  </div>
+                  <span className="text-[10px] text-[#646c7c] block mt-1">
+                    Get a free API key instantly at <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noreferrer" className="text-white underline">aistudio.google.com</a>
+                  </span>
+                </div>
+              </div>
+
+              <div className="bg-[#181a22] p-3 rounded-xl border border-white/10 space-y-1">
+                <div className="flex items-center gap-2 text-white font-semibold">
+                  <Cpu className="w-4 h-4 text-blue-400" />
+                  <span>193-Sample Offline Neural &amp; Fingerprint Model</span>
+                </div>
+                <p className="text-[11px] text-[#8e95a5]">
+                  Active as built-in engine. Compares perceptual dHash and 192-dim spatial vectors directly against your curated dataset.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-white/10">
+              <button
+                onClick={() => {
+                  setApiKeyInput('');
+                  GeminiVisionService.setApiKey('');
+                  setHasGemini(false);
+                  setIsSettingsOpen(false);
+                  runScanPipeline(selectedImage);
+                }}
+                className="px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-xs text-[#8e95a5] hover:text-white"
+              >
+                Clear Key
+              </button>
+              <button
+                onClick={handleSaveApiKey}
+                className="px-4 py-2 rounded-xl bg-white text-black font-bold text-xs hover:bg-neutral-200 active:scale-95 transition-all shadow-md"
+              >
+                Save &amp; Apply
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Live Camera Stream Modal */}
       {isCameraOpen && (
