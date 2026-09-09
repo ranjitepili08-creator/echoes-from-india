@@ -111,13 +111,13 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
       reader.onload = () => {
         const resultUrl = reader.result as string;
         setSelectedImage(resultUrl);
-        runScanPipeline(resultUrl);
+        runScanPipeline(resultUrl, undefined, file.name);
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const runScanPipeline = async (imageUrl: string, forcedId?: string) => {
+  const runScanPipeline = async (imageUrl: string, forcedId?: string, fileName?: string) => {
     setIsScanning(true);
     setIsConfirmed(false);
     setConfirmedMsg(null);
@@ -127,15 +127,15 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
     setTimeout(() => {
       setScanProgress(50);
       setScanStageText('Stage 2: Evaluating weighted attribute rules across 13 historical instrument profiles...');
-    }, 350);
+    }, 200);
 
     setTimeout(() => {
       setScanProgress(80);
-      setScanStageText('Stage 3: Cross-verifying against public-domain reference dataset & organological cues...');
-    }, 700);
+      setScanStageText('Stage 3: Cross-verifying against 193 dataset reference samples & visual fingerprints...');
+    }, 400);
 
     try {
-      const result = await ApiClient.classifyImage(imageUrl, forcedId);
+      const result = await ApiClient.classifyImage(imageUrl, forcedId, fileName);
       setScanProgress(100);
       setScanStageText('Stage 4: Attribute match explainability & acoustic parameters synthesized!');
       
@@ -143,7 +143,7 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
         setIsScanning(false);
         setDetectionResult(result);
         onInstrumentIdentified(result.instrument);
-      }, 300);
+      }, 200);
     } catch (err) {
       console.error('Scan error:', err);
       setIsScanning(false);

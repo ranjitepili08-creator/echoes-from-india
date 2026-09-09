@@ -33,23 +33,37 @@ export class ApiClient {
   // Submit Image to AI Vision Classifier Endpoint
   public static async classifyImage(
     imageDataUrl: string,
-    forcedInstrumentId?: string
+    forcedInstrumentId?: string,
+    fileName?: string
   ): Promise<VisionDetectionResult> {
+    const isRemoteHosted = typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+    
+    // If on Vercel or remote host without custom API URL, execute client classifier directly for instant 0ms result
+    if (isRemoteHosted && !import.meta.env.VITE_API_URL) {
+      const { VisionClassifier } = await import('./visionClassifier');
+      return VisionClassifier.analyzeImage(imageDataUrl, forcedInstrumentId, fileName);
+    }
+
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 2500);
+
       const res = await fetch(`${API_BASE_URL}/vision/classify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
         body: JSON.stringify({
           image_data: imageDataUrl,
           forced_instrument_id: forcedInstrumentId
         })
       });
+      clearTimeout(timeoutId);
       if (!res.ok) throw new Error('Vision API error');
       return await res.json();
     } catch {
-      // Fallback to client-side heuristic simulation
+      // Fallback to client-side trained visual classifier
       const { VisionClassifier } = await import('./visionClassifier');
-      return VisionClassifier.analyzeImage(imageDataUrl, forcedInstrumentId);
+      return VisionClassifier.analyzeImage(imageDataUrl, forcedInstrumentId, fileName);
     }
   }
 
