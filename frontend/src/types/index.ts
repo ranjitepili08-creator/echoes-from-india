@@ -93,9 +93,24 @@ export interface Instrument {
   };
 }
 
+export interface MatchCandidate {
+  instrument_id: string;
+  instrument_name: string;
+  sanskrit_name: string;
+  category_label: string;
+  similarity_score: number;
+  confidence_percent: number;
+  rank: number;
+  is_top_match: boolean;
+}
+
 export interface VisionDetectionResult {
   instrument: Instrument;
   confidence: number;
+  similarity_score?: number;
+  confidence_gate_triggered?: boolean;
+  top_matches?: MatchCandidate[];
+  classification_source?: string;
   detectedFeatures: {
     feature: string;
     confidence: number;

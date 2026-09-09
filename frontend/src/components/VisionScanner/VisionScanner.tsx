@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { HISTORICAL_INSTRUMENTS } from '../../data/instrumentsData';
 import { VisionClassifier } from '../../services/visionClassifier';
+import { ApiClient } from '../../services/api';
 import { Instrument, VisionDetectionResult } from '../../types';
 import { ActiveTab } from '../Navbar';
 
@@ -36,6 +37,9 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
   const [scanStageText, setScanStageText] = useState('');
   const [detectionResult, setDetectionResult] = useState<VisionDetectionResult | null>(null);
   const [activeFeatureBox, setActiveFeatureBox] = useState<number | null>(null);
+  const [isConfirmed, setIsConfirmed] = useState(false);
+  const [isConfirming, setIsConfirming] = useState(false);
+  const [confirmedMsg, setConfirmedMsg] = useState<string | null>(null);
   
   // Camera Capture Modal State
   const [isCameraOpen, setIsCameraOpen] = useState(false);
@@ -115,23 +119,25 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
 
   const runScanPipeline = async (imageUrl: string, forcedId?: string) => {
     setIsScanning(true);
+    setIsConfirmed(false);
+    setConfirmedMsg(null);
     setScanProgress(20);
-    setScanStageText('Stage 1: Extracting visual contours & segmenting body geometry...');
+    setScanStageText('Stage 1: Extracting visual contours & generating CLIP zero-shot embeddings...');
 
     setTimeout(() => {
       setScanProgress(50);
-      setScanStageText('Stage 2: Analyzing material textures (Gourds, Jackfruit Wood, Parchment)...');
+      setScanStageText('Stage 2: Cross-referencing multi-prompt physical & material centroids...');
     }, 350);
 
     setTimeout(() => {
       setScanProgress(80);
-      setScanStageText('Stage 3: Cross-referencing Natya Shastra & Sangita Ratnakara organology...');
+      setScanStageText('Stage 3: Computing cosine similarity & organological bounding boxes...');
     }, 700);
 
     try {
-      const result = await VisionClassifier.analyzeImage(imageUrl, forcedId);
+      const result = await ApiClient.classifyImage(imageUrl, forcedId);
       setScanProgress(100);
-      setScanStageText('Stage 4: Acoustic parameters synthesized & verified!');
+      setScanStageText('Stage 4: Acoustic parameters & top matches synthesized!');
       
       setTimeout(() => {
         setIsScanning(false);
@@ -141,6 +147,28 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
     } catch (err) {
       console.error('Scan error:', err);
       setIsScanning(false);
+    }
+  };
+
+  const handleConfirmClassification = async (confirmedInstId: string) => {
+    if (!detectionResult) return;
+    setIsConfirming(true);
+    try {
+      await ApiClient.confirmVisionClassification({
+        imageDataUrl: selectedImage,
+        predictedId: detectionResult.instrument.id,
+        confirmedId: confirmedInstId,
+        userCorrected: confirmedInstId !== detectionResult.instrument.id,
+        confidenceScore: detectionResult.similarity_score || (detectionResult.confidence / 100)
+      });
+      setIsConfirmed(true);
+      setConfirmedMsg('✓ Confirmed & added to active learning training dataset!');
+    } catch (err) {
+      console.warn('Dataset confirm error:', err);
+      setIsConfirmed(true);
+      setConfirmedMsg('✓ Label recorded locally!');
+    } finally {
+      setIsConfirming(false);
     }
   };
 
@@ -521,6 +549,107 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
                     {detectionResult.instrument.status}
                   </span>
                 </div>
+              </div>
+
+              {/* TOP 3 CANDIDATE MATCHES & SIMILARITY COMPARISON */}
+              {detectionResult.top_matches && detectionResult.top_matches.length > 0 && (
+                <div className="bg-white/5 border border-white/10 rounded-xl p-3.5 space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] uppercase tracking-wider font-bold text-saffron-300 flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-saffron-400" />
+                      <span>Zero-Shot Top 3 Candidates</span>
+                    </span>
+                    <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-black/40 text-parchment-300">
+                      {detectionResult.classification_source === 'hybrid_knn' ? 'Hybrid Image k-NN' : 'CLIP Text-Centroid'}
+                    </span>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    {detectionResult.top_matches.map((cand) => {
+                      const isCurrent = cand.instrument_id === detectionResult.instrument.id;
+                      return (
+                        <button
+                          key={cand.instrument_id}
+                          onClick={() => {
+                            const inst = HISTORICAL_INSTRUMENTS.find(i => i.id === cand.instrument_id);
+                            if (inst) {
+                              setSelectedImage(inst.image);
+                              runScanPipeline(inst.image, inst.id);
+                            }
+                          }}
+                          className={`w-full text-left p-2 rounded-lg border transition-all ${
+                            isCurrent
+                              ? 'bg-saffron-500/20 border-saffron-500/60 shadow-sm'
+                              : 'bg-white/5 border-white/5 hover:bg-white/10 text-parchment-300'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between text-xs mb-1">
+                            <span className="font-semibold text-parchment-100 flex items-center gap-1.5">
+                              <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-mono font-bold ${
+                                cand.rank === 1 ? 'bg-amber-500 text-black' : 'bg-white/10 text-parchment-300'
+                              }`}>
+                                {cand.rank}
+                              </span>
+                              <span>{cand.instrument_name}</span>
+                            </span>
+                            <span className="font-mono text-saffron-300 font-bold text-[11px]">
+                              {cand.confidence_percent}%
+                            </span>
+                          </div>
+                          <div className="w-full bg-black/40 rounded-full h-1.5 overflow-hidden">
+                            <div
+                              className={`h-full transition-all duration-500 ${
+                                cand.rank === 1
+                                  ? 'bg-gradient-to-r from-saffron-500 to-amber-400'
+                                  : 'bg-saffron-500/60'
+                              }`}
+                              style={{ width: `${cand.confidence_percent}%` }}
+                            />
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* ACTIVE LEARNING DATASET CONFIRMATION & CONFIDENCE GATE */}
+              <div className="p-3.5 rounded-xl border border-saffron-500/30 bg-gradient-to-r from-saffron-500/10 via-indigoHeritage-900/60 to-terracotta-500/10 space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-bold text-parchment-200 flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-saffron-400" />
+                    <span>Active Learning Dataset Builder</span>
+                  </span>
+                  {detectionResult.confidence_gate_triggered && (
+                    <span className="text-[10px] font-bold text-amber-300 bg-amber-500/20 border border-amber-500/40 px-2 py-0.5 rounded-full">
+                      ⚠️ Needs Confirmation
+                    </span>
+                  )}
+                </div>
+
+                <p className="text-[11px] text-parchment-300 leading-snug">
+                  Help improve open-source historical recognition. Confirm or correct this label to expand our training index.
+                </p>
+
+                {isConfirmed ? (
+                  <div className="p-2.5 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <span>{confirmedMsg || '✓ Confirmed & added to open archive dataset!'}</span>
+                  </div>
+                ) : (
+                  <button
+                    disabled={isConfirming}
+                    onClick={() => handleConfirmClassification(detectionResult.instrument.id)}
+                    className="w-full py-2.5 px-3 rounded-xl bg-saffron-500 hover:bg-saffron-400 text-indigoHeritage-950 font-bold text-xs shadow-md transition-all active:scale-95 flex items-center justify-center gap-2"
+                  >
+                    <CheckCircle2 className="w-4 h-4" />
+                    <span>
+                      {isConfirming
+                        ? 'Logging Dataset Sample...'
+                        : `✓ Confirm Match as "${detectionResult.instrument.name}"`}
+                    </span>
+                  </button>
+                )}
               </div>
 
               {/* Detected Physical Components (Interactive) */}

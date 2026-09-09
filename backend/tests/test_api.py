@@ -33,6 +33,38 @@ def test_vision_classification():
     data = response.json()
     assert data["instrument"]["id"] == "yazh"
     assert data["confidence"] >= 80
+    assert "top_matches" in data
+    assert len(data["top_matches"]) > 0
+    assert "confidence_gate_triggered" in data
+
+def test_vision_top_3_and_confirmation():
+    # 1. Classify image and get top 3 matches
+    response = client.post("/api/v1/vision/classify", json={
+        "image_data": "data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==",
+    })
+    assert response.status_code == 200
+    data = response.json()
+    assert "top_matches" in data
+    assert len(data["top_matches"]) <= 3
+    top_inst_id = data["instrument"]["id"]
+
+    # 2. Confirm the classification to build dataset
+    confirm_res = client.post("/api/v1/vision/confirm", json={
+        "image_data": "data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==",
+        "predicted_instrument_id": top_inst_id,
+        "confirmed_instrument_id": "mayuri-veena",
+        "user_corrected": False,
+        "confidence_score": 0.94
+    })
+    assert confirm_res.status_code == 200
+    confirm_data = confirm_res.json()
+    assert confirm_data["status"] == "logged"
+
+    # 3. Check dataset stats
+    stats_res = client.get("/api/v1/vision/dataset-stats")
+    assert stats_res.status_code == 200
+    stats_data = stats_res.json()
+    assert stats_data["total_confirmed_samples"] >= 1
 
 def test_rag_query():
     response = client.post("/api/v1/rag/query", json={"query": "yazh silk strings"})
