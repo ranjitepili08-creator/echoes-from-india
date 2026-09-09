@@ -421,7 +421,7 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
               
               {/* Header Status & Confidence */}
               <div className="flex items-start justify-between gap-3 border-b border-white/10 pb-4">
-                <div>
+                <div className="flex-1">
                   <div className="flex items-center gap-1.5 mb-1">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                     <span className="text-[11px] font-mono font-bold text-emerald-300 uppercase tracking-wider">
@@ -431,9 +431,31 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
                   <h3 className="font-serif text-2xl font-bold text-parchment-100">
                     {detectionResult.instrument.name}
                   </h3>
-                  <p className="text-xs font-serif text-saffron-300 italic">
+                  <p className="text-xs font-serif text-saffron-300 italic mb-2">
                     {detectionResult.instrument.sanskritName}
                   </p>
+
+                  {/* Manual Instrument Switcher */}
+                  <div className="flex items-center gap-2 mt-2">
+                    <span className="text-[10px] text-parchment-400 font-semibold whitespace-nowrap">Switch to:</span>
+                    <select
+                      value={detectionResult.instrument.id}
+                      onChange={(e) => {
+                        const targetInst = HISTORICAL_INSTRUMENTS.find(i => i.id === e.target.value);
+                        if (targetInst) {
+                          setSelectedImage(targetInst.image);
+                          runScanPipeline(targetInst.image, targetInst.id);
+                        }
+                      }}
+                      className="bg-indigoHeritage-950 border border-saffron-500/40 text-saffron-300 text-xs rounded-lg px-2.5 py-1 focus:outline-none focus:border-saffron-400 font-medium cursor-pointer"
+                    >
+                      {HISTORICAL_INSTRUMENTS.map((inst) => (
+                        <option key={inst.id} value={inst.id} className="bg-indigoHeritage-950 text-parchment-100">
+                          {inst.name} ({inst.sanskritName.split('/')[0].trim()})
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
 
                 <div className="text-right bg-saffron-500/15 border border-saffron-500/40 px-3 py-1.5 rounded-xl">
