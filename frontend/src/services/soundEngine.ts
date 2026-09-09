@@ -9,6 +9,8 @@ class SoundEngine {
   private rhythmInterval: number | null = null;
   private isRhythmBeatPlaying = false;
 
+  private isUnlocked = false;
+
   // Initialize Web Audio Context upon user interaction
   public init(): AudioContext {
     if (!this.ctx) {
@@ -29,6 +31,23 @@ class SoundEngine {
       this.ctx.resume();
     }
     return this.ctx;
+  }
+
+  // Special mobile unlocker for iOS Safari & Android Web Audio pipeline
+  public unlockMobileAudio() {
+    try {
+      const ctx = this.init();
+      if (ctx.state === 'suspended') {
+        ctx.resume();
+      }
+      // Play 1-sample silent buffer to unlock iOS audio subsystem
+      const buffer = ctx.createBuffer(1, 1, 22050);
+      const source = ctx.createBufferSource();
+      source.buffer = buffer;
+      source.connect(ctx.destination);
+      source.start(0);
+      this.isUnlocked = true;
+    } catch {}
   }
 
   public getAnalyser(): AnalyserNode | null {
@@ -474,3 +493,17 @@ class SoundEngine {
 }
 
 export const soundEngine = new SoundEngine();
+
+// Auto-unlock Web Audio pipeline on first mobile touch or interaction
+if (typeof window !== 'undefined') {
+  const unlockEvents = ['touchstart', 'touchend', 'pointerdown', 'mousedown', 'keydown'];
+  const unlockHandler = () => {
+    soundEngine.unlockMobileAudio();
+    unlockEvents.forEach((ev) => window.removeEventListener(ev, unlockHandler));
+  };
+  unlockEvents.forEach((ev) => {
+    window.addEventListener(ev, unlockHandler, { passive: true, once: true });
+  });
+}
+
+
