@@ -10,7 +10,8 @@ import {
   Layers, 
   Volume2,
   Gamepad2,
-  BookOpen
+  BookOpen,
+  Brain
 } from 'lucide-react';
 import { HISTORICAL_INSTRUMENTS } from '../../data/instrumentsData';
 import { Instrument } from '../../types';
@@ -21,6 +22,7 @@ import { PlayableWindInstrument } from './PlayableWindInstrument';
 import { AudioVisualizer } from './AudioVisualizer';
 import { audioRecorder } from '../../services/audioRecorder';
 import { ActiveTab } from '../Navbar';
+import { EchoMatchGame } from '../RhythmGame/EchoMatchGame';
 
 interface VirtualPlayStudioProps {
   currentInstrument: Instrument;
@@ -37,6 +39,7 @@ export const VirtualPlayStudio: React.FC<VirtualPlayStudioProps> = ({
   isDroneActive,
   onToggleDrone,
 }) => {
+  const [studioMode, setStudioMode] = useState<'play' | 'echo'>('play');
   const [isRecording, setIsRecording] = useState(false);
   const [recordingDuration, setRecordingDuration] = useState(0);
   const [recordedAudioUrl, setRecordedAudioUrl] = useState<string | null>(null);
@@ -135,13 +138,26 @@ export const VirtualPlayStudio: React.FC<VirtualPlayStudioProps> = ({
               <span>{isDroneActive ? 'Tanpura: ON' : 'Tanpura: OFF'}</span>
             </button>
 
-            {/* Jump to Rhythm Game */}
+            {/* Jump to Echo Match Memory Game */}
+            <button
+              onClick={() => setStudioMode('echo')}
+              className={`flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold border transition-all touch-manipulation cursor-pointer ${
+                studioMode === 'echo'
+                  ? 'bg-amber-400 text-black border-amber-300 shadow-md'
+                  : 'bg-white/10 hover:bg-white/15 border-white/10 text-white'
+              }`}
+            >
+              <Brain className="w-3.5 h-3.5" />
+              <span>Echo Match</span>
+            </button>
+
+            {/* Jump to Piano Tiles Rhythm Game */}
             <button
               onClick={() => onNavigate('game')}
-              className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-white text-xs font-bold touch-manipulation"
+              className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-white text-xs font-bold touch-manipulation cursor-pointer"
             >
               <Gamepad2 className="w-3.5 h-3.5" />
-              <span>Rhythm Game</span>
+              <span>Piano Tiles</span>
             </button>
           </div>
         </div>
@@ -169,43 +185,99 @@ export const VirtualPlayStudio: React.FC<VirtualPlayStudioProps> = ({
           </div>
         )}
 
-        {/* Instrument Quick Switcher Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-thin pt-2 border-t border-white/5">
-          {HISTORICAL_INSTRUMENTS.map((inst) => {
-            const isSelected = inst.id === currentInstrument.id;
-            return (
-              <button
-                key={inst.id}
-                onClick={() => onSelectInstrument(inst)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border ${
-                  isSelected
-                    ? 'bg-white text-black border-white font-bold shadow-sm'
-                    : 'bg-white/5 text-[#9da4b0] border-white/5 hover:bg-white/10 hover:text-white'
-                }`}
-              >
-                {inst.name}
-              </button>
-            );
-          })}
+        {/* Mode Selector & Instrument Quick Switcher Strip */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2 border-t border-white/5">
+          
+          {/* Studio Mode Selector Pills */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setStudioMode('play')}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                studioMode === 'play'
+                  ? 'bg-white text-black shadow-sm'
+                  : 'bg-white/5 text-[#9da4b0] hover:bg-white/10 hover:text-white border border-white/5'
+              }`}
+            >
+              <Music className="w-3.5 h-3.5" />
+              <span>Free Play Studio</span>
+            </button>
+
+            <button
+              onClick={() => setStudioMode('echo')}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                studioMode === 'echo'
+                  ? 'bg-amber-400 text-black shadow-sm font-black'
+                  : 'bg-white/5 text-[#9da4b0] hover:bg-white/10 hover:text-white border border-white/5'
+              }`}
+            >
+              <Brain className="w-3.5 h-3.5" />
+              <span>Play Echo Match</span>
+            </button>
+
+            <button
+              onClick={() => onNavigate('game')}
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-[#9da4b0] hover:bg-white/10 hover:text-white bg-white/5 border border-white/5 transition-all cursor-pointer"
+            >
+              <Gamepad2 className="w-3.5 h-3.5" />
+              <span>Piano Tiles</span>
+            </button>
+          </div>
+
+          {/* Instrument Quick Switcher Pills */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-thin">
+            {HISTORICAL_INSTRUMENTS.map((inst) => {
+              const isSelected = inst.id === currentInstrument.id;
+              return (
+                <button
+                  key={inst.id}
+                  onClick={() => onSelectInstrument(inst)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border ${
+                    isSelected
+                      ? 'bg-white text-black border-white font-bold shadow-sm'
+                      : 'bg-white/5 text-[#9da4b0] border-white/5 hover:bg-white/10 hover:text-white'
+                  }`}
+                >
+                  {inst.name}
+                </button>
+              );
+            })}
+          </div>
+
         </div>
 
       </div>
 
-      {/* Specialized Tactile Play Interface based on Organological Type */}
-      {currentInstrument.playInterface.type === 'strings' && (
-        <PlayableStringInstrument instrument={currentInstrument} />
+      {/* Mode 1: Echo Match Memory Game */}
+      {studioMode === 'echo' && (
+        <EchoMatchGame
+          currentInstrument={currentInstrument}
+          onSelectInstrument={onSelectInstrument}
+          onSwitchMode={(m) => {
+            if (m === 'tiles') onNavigate('game');
+            else setStudioMode('echo');
+          }}
+        />
       )}
 
-      {currentInstrument.playInterface.type === 'jaltarang' && (
-        <PlayableJalTarang instrument={currentInstrument} />
-      )}
+      {/* Mode 2: Specialized Tactile Play Interface based on Organological Type */}
+      {studioMode === 'play' && (
+        <>
+          {currentInstrument.playInterface.type === 'strings' && (
+            <PlayableStringInstrument instrument={currentInstrument} />
+          )}
 
-      {currentInstrument.playInterface.type === 'pakhawaj' && (
-        <PlayablePakhawaj instrument={currentInstrument} />
-      )}
+          {currentInstrument.playInterface.type === 'jaltarang' && (
+            <PlayableJalTarang instrument={currentInstrument} />
+          )}
 
-      {currentInstrument.playInterface.type === 'wind' && (
-        <PlayableWindInstrument instrument={currentInstrument} />
+          {currentInstrument.playInterface.type === 'pakhawaj' && (
+            <PlayablePakhawaj instrument={currentInstrument} />
+          )}
+
+          {currentInstrument.playInterface.type === 'wind' && (
+            <PlayableWindInstrument instrument={currentInstrument} />
+          )}
+        </>
       )}
 
     </div>

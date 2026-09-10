@@ -13,6 +13,7 @@ import {
   BookOpen, 
   Layers, 
   MapPin, 
+  Landmark,
   Calendar 
 } from 'lucide-react';
 import { HISTORICAL_INSTRUMENTS } from '../../data/instrumentsData';
@@ -194,11 +195,11 @@ export const MuseumKiosk: React.FC<MuseumKioskProps> = ({
               {current.shortDescription}
             </p>
 
-            {/* Origin & Classification Pills */}
+            {/* Present Museums & Classification Pills */}
             <div className="flex flex-wrap gap-2 text-xs">
-              <span className="bg-white/5 text-[#9da4b0] px-3 py-1.5 rounded-xl border border-white/10 flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-white/70" />
-                <span>{current.region}</span>
+              <span className="bg-white/5 text-[#d6d9e0] px-3 py-1.5 rounded-xl border border-white/10 flex items-center gap-1.5">
+                <Landmark className="w-3.5 h-3.5 text-amber-400" />
+                <span>Present in: <strong className="text-white">{current.museums && current.museums.length > 0 ? current.museums.join(' • ') : current.region}</strong></span>
               </span>
               <span className="bg-white/5 text-[#9da4b0] px-3 py-1.5 rounded-xl border border-white/10 flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5 text-white/70" />

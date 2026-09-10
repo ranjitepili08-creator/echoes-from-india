@@ -73,6 +73,7 @@ export interface Instrument {
   period: HistoricalPeriod;
   century: string;
   region: string;
+  museums: string[];
   coordinates?: [number, number]; // approx Lat, Lng for map
   status: ConservationStatus;
   image: string;

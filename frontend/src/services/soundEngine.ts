@@ -71,6 +71,44 @@ class SoundEngine {
     }
   }
 
+  // Helper to generate realistic acoustic parchment/leather impact slap transients
+  private createParchmentTransient(
+    ctx: AudioContext,
+    now: number,
+    freq: number,
+    duration: number = 0.025,
+    gainLevel: number = 0.35,
+    type: BiquadFilterType = 'bandpass'
+  ) {
+    try {
+      const bufferSize = Math.floor(ctx.sampleRate * Math.max(0.01, duration));
+      const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const output = noiseBuffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = Math.random() * 2 - 1;
+      }
+
+      const whiteNoise = ctx.createBufferSource();
+      whiteNoise.buffer = noiseBuffer;
+
+      const filter = ctx.createBiquadFilter();
+      filter.type = type;
+      filter.frequency.setValueAtTime(freq, now);
+      filter.Q.setValueAtTime(2.5, now);
+
+      const noiseGain = ctx.createGain();
+      noiseGain.gain.setValueAtTime(gainLevel, now);
+      noiseGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+      whiteNoise.connect(filter);
+      filter.connect(noiseGain);
+      noiseGain.connect(this.masterGain!);
+
+      whiteNoise.start(now);
+      whiteNoise.stop(now + duration);
+    } catch {}
+  }
+
   // Play Note based on Instrument Organology & Timbre Type
   public playNote(
     freq: number = 261.63, 
@@ -92,43 +130,67 @@ class SoundEngine {
     let bendFn = (_newFreq: number) => {};
 
     if (timbre === 'percussive_membrane' || instId === 'pakhawaj') {
-      // 🥁 DRUMS & MEMBRANOPHONES (Pakhawaj, Tabla, Mridangam)
+      // 🥁 DRUMS & MEMBRANOPHONES (Authentic Pakhawaj / Dhrupad Drum Synthesis)
+      const drumDecay = Math.max(0.35, Math.min(1.2, safeDur * 0.65));
+      const basePitch = safeFreq < 160 ? safeFreq : safeFreq < 320 ? safeFreq * 0.5 : 82;
+
+      // 1. Parchment Skin Impact Click
+      this.createParchmentTransient(ctx, now, 1800, 0.025, safeVel * 0.4, 'bandpass');
+
+      // 2. Bass Dough Cavity (Aata Head) - Deep Thud with downward pitch deflection
       const bassOsc = ctx.createOscillator();
       const bassGain = ctx.createGain();
-      const trebleOsc = ctx.createOscillator();
-      const trebleGain = ctx.createGain();
+      const bassFilter = ctx.createBiquadFilter();
 
-      // Bass head: pitch drops from 120Hz to 60Hz
       bassOsc.type = 'sine';
-      bassOsc.frequency.setValueAtTime(Math.min(safeFreq * 0.7, 140), now);
-      bassOsc.frequency.linearRampToValueAtTime(Math.min(safeFreq * 0.3, 60), now + 0.15);
+      bassOsc.frequency.setValueAtTime(basePitch * 1.5, now);
+      bassOsc.frequency.exponentialRampToValueAtTime(basePitch, now + 0.06);
 
-      bassGain.gain.setValueAtTime(0.01, now);
-      bassGain.gain.linearRampToValueAtTime(safeVel * 1.0, now + 0.01);
-      bassGain.gain.linearRampToValueAtTime(0.001, now + Math.max(0.6, safeDur));
+      bassFilter.type = 'lowpass';
+      bassFilter.frequency.setValueAtTime(240, now);
+      bassFilter.Q.setValueAtTime(2.0, now);
 
-      // Treble head: bright singing syahi ring
-      trebleOsc.type = 'triangle';
-      trebleOsc.frequency.setValueAtTime(safeFreq, now);
+      bassGain.gain.setValueAtTime(0.001, now);
+      bassGain.gain.linearRampToValueAtTime(safeVel * 0.95, now + 0.006);
+      bassGain.gain.exponentialRampToValueAtTime(0.0001, now + drumDecay);
 
-      trebleGain.gain.setValueAtTime(0.01, now);
-      trebleGain.gain.linearRampToValueAtTime(safeVel * 0.9, now + 0.008);
-      trebleGain.gain.linearRampToValueAtTime(0.001, now + Math.max(0.4, safeDur * 0.7));
-
-      bassOsc.connect(bassGain);
+      bassOsc.connect(bassFilter);
+      bassFilter.connect(bassGain);
       bassGain.connect(this.masterGain!);
 
-      trebleOsc.connect(trebleGain);
+      bassOsc.start(now);
+      bassOsc.stop(now + drumDecay);
+
+      // 3. Dayan Treble Syahi Metallic Overtones
+      const trebleOsc = ctx.createOscillator();
+      const trebleGain = ctx.createGain();
+      const trebleFilter = ctx.createBiquadFilter();
+
+      trebleOsc.type = 'sine';
+      trebleOsc.frequency.setValueAtTime(safeFreq, now);
+
+      trebleFilter.type = 'bandpass';
+      trebleFilter.frequency.setValueAtTime(safeFreq * 1.5, now);
+      trebleFilter.Q.setValueAtTime(3.0, now);
+
+      trebleGain.gain.setValueAtTime(0.001, now);
+      trebleGain.gain.linearRampToValueAtTime(safeVel * 0.7, now + 0.004);
+      trebleGain.gain.exponentialRampToValueAtTime(0.0001, now + drumDecay * 0.6);
+
+      trebleOsc.connect(trebleFilter);
+      trebleFilter.connect(trebleGain);
       trebleGain.connect(this.masterGain!);
 
-      bassOsc.start(now);
       trebleOsc.start(now);
-      bassOsc.stop(now + safeDur);
-      trebleOsc.stop(now + safeDur);
+      trebleOsc.stop(now + drumDecay * 0.6);
 
       stopFn = () => {
         bassGain.gain.setValueAtTime(0.001, ctx.currentTime);
         trebleGain.gain.setValueAtTime(0.001, ctx.currentTime);
+      };
+      bendFn = (newFreq: number) => {
+        bassOsc.frequency.setValueAtTime(newFreq * 0.5, ctx.currentTime);
+        trebleOsc.frequency.setValueAtTime(newFreq, ctx.currentTime);
       };
 
     } else if (instId === 'morchang') {
@@ -340,7 +402,7 @@ class SoundEngine {
     return { stop: stopFn, bendPitch: bendFn };
   }
 
-  // Play Percussion Bol (Pakhawaj / Membranophones)
+  // Play Percussion Bol (Pakhawaj / Dhrupad Membranophone Engine)
   public playBol(
     bolName: string, 
     pitch: number = 110, 
@@ -350,43 +412,139 @@ class SoundEngine {
     const ctx = this.init();
     this.unlockMobileAudio();
     const now = ctx.currentTime;
-    const safeDecay = Math.max(0.2, decay);
 
-    if (head === 'left_bass' || head === 'both') {
+    const name = bolName.trim();
+    const isTa = name === 'Ta' || name === 'Tin';
+    const isNa = name === 'Na';
+    const isDhin = name === 'Dhin';
+    const isGe = name === 'Ge' || name === 'Ga';
+    const isDha = name === 'Dha';
+    const isMutedBass = name === 'Ka' || name === 'Ki';
+    const isMutedTreble = name === 'Tit' || name === 'Te';
+
+    // 1. LEFT BASS HEAD (Bayan with wheat dough / aata)
+    if (head === 'left_bass' || head === 'both' || isDha || isGe || isMutedBass) {
+      const bassDecay = isMutedBass ? 0.08 : Math.max(0.4, (isGe ? 1.3 : 0.85) * decay);
+      const baseFreq = pitch > 40 && pitch < 200 ? pitch : (isGe ? 68 : 82);
+
+      // Transient slap on leather parchment
+      this.createParchmentTransient(
+        ctx, 
+        now, 
+        isMutedBass ? 350 : 220, 
+        isMutedBass ? 0.04 : 0.03, 
+        isMutedBass ? 0.5 : 0.35, 
+        'lowpass'
+      );
+
+      // Deep sub-bass dough oscillator with downward pitch sweep
       const bassOsc = ctx.createOscillator();
       const bassGain = ctx.createGain();
+      const bassFilter = ctx.createBiquadFilter();
 
       bassOsc.type = 'sine';
-      bassOsc.frequency.setValueAtTime(pitch * 1.4, now);
-      bassOsc.frequency.linearRampToValueAtTime(pitch * 0.7, now + 0.12);
+      // Pitch inflection: initial impact punch dropping into resonant sub-bass
+      bassOsc.frequency.setValueAtTime(baseFreq * 1.5, now);
+      bassOsc.frequency.exponentialRampToValueAtTime(baseFreq, now + (isMutedBass ? 0.03 : 0.07));
+      if (!isMutedBass && isGe) {
+        // Dough pitch inflection
+        bassOsc.frequency.linearRampToValueAtTime(baseFreq * 0.92, now + bassDecay * 0.5);
+      }
 
-      bassGain.gain.setValueAtTime(0.01, now);
-      bassGain.gain.linearRampToValueAtTime(1.0, now + 0.008);
-      bassGain.gain.linearRampToValueAtTime(0.001, now + safeDecay);
+      bassFilter.type = 'lowpass';
+      bassFilter.frequency.setValueAtTime(isMutedBass ? 300 : 240, now);
+      bassFilter.Q.setValueAtTime(2.0, now);
 
-      bassOsc.connect(bassGain);
+      bassGain.gain.setValueAtTime(0.001, now);
+      bassGain.gain.linearRampToValueAtTime(isMutedBass ? 0.7 : 0.95, now + 0.005);
+      bassGain.gain.exponentialRampToValueAtTime(0.0001, now + bassDecay);
+
+      bassOsc.connect(bassFilter);
+      bassFilter.connect(bassGain);
       bassGain.connect(this.masterGain!);
 
       bassOsc.start(now);
-      bassOsc.stop(now + safeDecay);
+      bassOsc.stop(now + bassDecay);
+
+      // Wood body barrel cavity warmth
+      if (!isMutedBass) {
+        const bodyOsc = ctx.createOscillator();
+        const bodyGain = ctx.createGain();
+        bodyOsc.type = 'triangle';
+        bodyOsc.frequency.setValueAtTime(baseFreq * 1.95, now);
+        bodyGain.gain.setValueAtTime(0.001, now);
+        bodyGain.gain.linearRampToValueAtTime(0.25, now + 0.008);
+        bodyGain.gain.exponentialRampToValueAtTime(0.0001, now + bassDecay * 0.45);
+        bodyOsc.connect(bassGain);
+        bodyOsc.start(now);
+        bodyOsc.stop(now + bassDecay * 0.45);
+      }
     }
 
-    if (head === 'right_treble' || head === 'both') {
-      const trebleOsc = ctx.createOscillator();
+    // 2. RIGHT TREBLE HEAD (Dayan with black iron-ore syahi paste)
+    if (head === 'right_treble' || head === 'both' || isDha || isTa || isNa || isDhin || isMutedTreble) {
+      const trebleDecay = isMutedTreble 
+        ? 0.06 
+        : isTa 
+        ? 0.22 
+        : isNa 
+        ? Math.max(0.45, 0.7 * decay) 
+        : isDhin 
+        ? Math.max(0.6, 0.9 * decay) 
+        : Math.max(0.3, 0.5 * decay);
+
+      // Sharp parchment click transient
+      this.createParchmentTransient(
+        ctx, 
+        now, 
+        isTa ? 3200 : isNa ? 2200 : 1600, 
+        isMutedTreble ? 0.025 : 0.02, 
+        isTa ? 0.45 : 0.3, 
+        isTa ? 'highpass' : 'bandpass'
+      );
+
+      // Main harmonic syahi fundamental
+      const trebleFreq = isTa ? 310 : isNa ? 261.63 : isDhin ? 175 : isMutedTreble ? 240 : 261.63;
+      
+      const trebleOsc1 = ctx.createOscillator();
       const trebleGain = ctx.createGain();
+      const trebleFilter = ctx.createBiquadFilter();
 
-      trebleOsc.type = 'triangle';
-      trebleOsc.frequency.setValueAtTime(bolName === 'Ta' ? 293 : bolName === 'Tit' ? 220 : 261, now);
+      trebleOsc1.type = 'sine';
+      trebleOsc1.frequency.setValueAtTime(trebleFreq * (isMutedTreble ? 1.2 : 1.05), now);
+      trebleOsc1.frequency.exponentialRampToValueAtTime(trebleFreq, now + 0.025);
 
-      trebleGain.gain.setValueAtTime(0.01, now);
-      trebleGain.gain.linearRampToValueAtTime(0.95, now + 0.005);
-      trebleGain.gain.linearRampToValueAtTime(0.001, now + (bolName === 'Ta' || bolName === 'Tit' ? 0.35 : safeDecay * 0.8));
+      trebleFilter.type = isDhin ? 'lowpass' : 'bandpass';
+      trebleFilter.frequency.setValueAtTime(isDhin ? 900 : trebleFreq * 1.5, now);
+      trebleFilter.Q.setValueAtTime(isDhin ? 1.5 : 3.5, now);
 
-      trebleOsc.connect(trebleGain);
+      trebleGain.gain.setValueAtTime(0.001, now);
+      trebleGain.gain.linearRampToValueAtTime(isMutedTreble ? 0.6 : (isTa ? 0.85 : 0.75), now + 0.004);
+      trebleGain.gain.exponentialRampToValueAtTime(0.0001, now + trebleDecay);
+
+      trebleOsc1.connect(trebleFilter);
+      trebleFilter.connect(trebleGain);
       trebleGain.connect(this.masterGain!);
 
-      trebleOsc.start(now);
-      trebleOsc.stop(now + safeDecay);
+      trebleOsc1.start(now);
+      trebleOsc1.stop(now + trebleDecay);
+
+      // Metallic Syahi Concentric Ring Overtones (distinctive bell-like ring of Indian drums)
+      if (!isMutedTreble) {
+        const overtoneOsc = ctx.createOscillator();
+        const overtoneGain = ctx.createGain();
+        overtoneOsc.type = 'sine';
+        // Non-harmonic Bessel membrane mode
+        overtoneOsc.frequency.setValueAtTime(trebleFreq * 2.76, now);
+
+        overtoneGain.gain.setValueAtTime(0.001, now);
+        overtoneGain.gain.linearRampToValueAtTime(isNa ? 0.35 : 0.18, now + 0.003);
+        overtoneGain.gain.exponentialRampToValueAtTime(0.0001, now + trebleDecay * 0.4);
+
+        overtoneOsc.connect(trebleGain);
+        overtoneOsc.start(now);
+        overtoneOsc.stop(now + trebleDecay * 0.4);
+      }
     }
   }
 
@@ -398,14 +556,13 @@ class SoundEngine {
 
     // Play first beat immediately without waiting for first interval
     const firstBol = pattern[0];
-    const isFirstBass = firstBol === 'Dha' || firstBol === 'Ge';
-    this.playBol(firstBol, isFirstBass ? 85 : 220, 0.45, isFirstBass ? 'both' : 'right_treble');
+    this.playBol(firstBol, 82, 0.8, 'both');
     let step = 1;
 
     this.rhythmInterval = window.setInterval(() => {
       const bol = pattern[step % pattern.length];
       const isBass = bol === 'Dha' || bol === 'Ge';
-      this.playBol(bol, isBass ? 85 : 220, 0.4, isBass ? 'both' : 'right_treble');
+      this.playBol(bol, isBass ? 82 : 261, 0.7, isBass ? 'both' : 'right_treble');
       step++;
     }, intervalMs);
 

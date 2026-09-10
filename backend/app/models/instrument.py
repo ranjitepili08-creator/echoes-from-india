@@ -68,6 +68,7 @@ class Instrument(BaseModel):
     period: HistoricalPeriod
     century: str
     region: str
+    museums: List[str] = Field(default_factory=list)
     coordinates: Optional[Tuple[float, float]] = None
     status: ConservationStatus
     image: str

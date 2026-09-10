@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { 
   BookOpen, 
   MapPin, 
+  Landmark,
   Calendar, 
   Scroll, 
   Cpu, 
@@ -127,11 +128,11 @@ export const HistoricalPanel: React.FC<HistoricalPanelProps> = ({
               {currentInstrument.shortDescription}
             </p>
 
-            {/* Regional Names & Origin Tag */}
+            {/* Regional Names & Museum Preservation Tag */}
             <div className="flex flex-wrap items-center gap-2.5 pt-1 text-xs text-[#9da4b0]">
               <div className="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5">
-                <MapPin className="w-3.5 h-3.5 text-white" />
-                <span>Origin: <strong className="text-white">{currentInstrument.region}</strong></span>
+                <Landmark className="w-3.5 h-3.5 text-amber-400" />
+                <span>Present in: <strong className="text-white">{currentInstrument.museums && currentInstrument.museums.length > 0 ? currentInstrument.museums[0] + (currentInstrument.museums.length > 1 ? ` (+${currentInstrument.museums.length - 1} more)` : '') : currentInstrument.region}</strong></span>
               </div>
               <div className="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5">
                 <Scroll className="w-3.5 h-3.5 text-white" />
@@ -256,6 +257,31 @@ export const HistoricalPanel: React.FC<HistoricalPanelProps> = ({
               <p className="text-xs text-[#9da4b0] leading-relaxed">
                 {currentInstrument.playingTechnique}
               </p>
+            </div>
+          </div>
+
+          <div className="md:col-span-2 bg-[#12141a]/90 border border-white/10 rounded-2xl p-5 sm:p-6 space-y-3">
+            <h3 className="font-serif text-lg font-bold text-white flex items-center gap-2">
+              <Landmark className="w-4 h-4 text-amber-400" />
+              <span>Current Museum Collections &amp; Galleries</span>
+            </h3>
+            <p className="text-xs text-[#9da4b0]">
+              Original historical specimens, restored period replicas, or ancient sculptures of this instrument are preserved and on exhibit at:
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 pt-1">
+              {currentInstrument.museums && currentInstrument.museums.length > 0 ? (
+                currentInstrument.museums.map((museum, idx) => (
+                  <div key={idx} className="flex items-start gap-2.5 bg-white/5 border border-white/10 hover:border-white/20 rounded-xl p-3 transition-colors">
+                    <Landmark className="w-4 h-4 text-amber-400/90 shrink-0 mt-0.5" />
+                    <div>
+                      <span className="text-xs font-semibold text-white block leading-snug">{museum}</span>
+                      <span className="text-[10px] text-[#646c7c] block mt-0.5">Permanent Collection</span>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="text-xs text-[#9da4b0] italic">Archived in National Heritage Collections</div>
+              )}
             </div>
           </div>
         </div>

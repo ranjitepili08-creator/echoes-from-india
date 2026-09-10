@@ -22,7 +22,7 @@ def list_instruments(
         results = [i for i in results if i.period == period]
     if search:
         s = search.lower()
-        results = [i for i in results if s in i.name.lower() or s in i.sanskritName.lower() or s in i.region.lower()]
+        results = [i for i in results if s in i.name.lower() or s in i.sanskritName.lower() or s in i.region.lower() or any(s in m.lower() for m in i.museums)]
         
     return results
 

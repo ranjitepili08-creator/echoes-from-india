@@ -57,7 +57,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onSelectSa
           </div>
         </header>
 
-        {/* DESKTOP GIANT TYPOGRAPHY: "EMPIRE" + "EXPLORER" */}
+        {/* DESKTOP GIANT TYPOGRAPHY: "BHARAT" + "ECHOES" */}
         <div className="hidden lg:block absolute top-[6%] left-0 w-full text-center pointer-events-none select-none z-[1] overflow-hidden px-2">
           <h1 
             className="font-serif font-black text-[clamp(4.5rem,15vw,20rem)] tracking-[0.18em] leading-[0.85] text-transparent bg-clip-text ml-[0.18em] opacity-90"
@@ -68,13 +68,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onSelectSa
               WebkitTextFillColor: 'transparent',
             }}
           >
-            EMPIRE
+            BHARAT
           </h1>
           <span 
             className="absolute right-[12vw] top-[74%] font-serif font-normal text-[clamp(1.2rem,3.2vw,4rem)] tracking-[0.28em] text-[#c4cad4] uppercase"
             style={{ fontFamily: "'Cinzel', serif" }}
           >
-            EXPLORER
+            ECHOES
           </span>
         </div>
 
@@ -137,78 +137,74 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onSelectSa
         {/* On desktop: positioned at bottom left & right corners. On mobile: responsive grid cards */}
         <div className="relative z-[20] grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-row justify-between items-stretch lg:items-end w-full max-w-[1400px] mx-auto gap-3 sm:gap-6 mt-2 lg:mt-0">
           
-          {/* Left Spotlight: Pena (Sacred Manipuri Fiddle) */}
+          {/* Left Spotlight: Galaxy of Musicians / Voices of Heritage */}
           <div 
-            onClick={() => onSelectSample('pena')}
+            onClick={() => onSelectSample('rudra-veena')}
             className="group cursor-pointer bg-[#12141a]/90 sm:bg-[#12141a]/70 lg:bg-transparent lg:hover:bg-[#12141a]/40 p-3 lg:p-0 rounded-2xl lg:rounded-none border border-white/10 lg:border-none backdrop-blur-md max-w-full sm:max-w-[320px] lg:max-w-[300px] w-full space-y-2 transition-all"
           >
             <div className="w-full h-[120px] sm:h-[150px] lg:h-[170px] rounded-xl lg:rounded-sm overflow-hidden border border-white/10 shadow-[0_10px_25px_rgba(0,0,0,0.6)] relative bg-black/40">
               <img 
-                src="/instruments/pena.jpg" 
-                alt="Pena Lute of Manipur" 
+                src="/hero1.jpeg" 
+                alt="Galaxy of Musicians" 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = '/hero1.jpeg';
-                }}
               />
               <span className="absolute top-2 left-2 text-[9px] font-mono uppercase px-2 py-0.5 rounded bg-black/70 text-white border border-white/15">
-                Spotlight • Manipur
+                Classical Ensemble
               </span>
             </div>
             
             <div className="space-y-0.5">
               <div className="flex items-center justify-between">
                 <h2 className="font-serif text-sm sm:text-base font-bold text-white tracking-wide group-hover:text-white/90" style={{ fontFamily: "'Cinzel', serif" }}>
-                  Pena of Manipur
+                  Voices of Heritage
                 </h2>
                 <ArrowRight className="w-3.5 h-3.5 text-white/50 group-hover:translate-x-1 transition-transform" />
               </div>
               <p className="text-[11px] text-[#8e95a5] leading-relaxed line-clamp-2">
-                Sacred single-string bowed lute with bell-bow, invoking cosmic creation in the ancient Lai Haraoba.
+                Raja Ravi Varma's iconic portrayal of diverse Indian chordophones and traditional ensembles.
               </p>
             </div>
           </div>
 
-          {/* Right Spotlight: Mayuri Veena & Yazh */}
+          {/* Right Spotlight: Ancient Yazh / Celestial Sangam Yazh */}
           <div 
-            onClick={() => onSelectSample('mayuri-veena')}
+            onClick={() => onSelectSample('yazh')}
             className="group cursor-pointer bg-[#12141a]/90 sm:bg-[#12141a]/70 lg:bg-transparent lg:hover:bg-[#12141a]/40 p-3 lg:p-0 rounded-2xl lg:rounded-none border border-white/10 lg:border-none backdrop-blur-md max-w-full sm:max-w-[320px] lg:max-w-[300px] w-full space-y-2 transition-all"
           >
+            {/* Desktop: Title on top */}
             <div className="space-y-0.5 hidden lg:block">
               <div className="flex items-center justify-between">
-                <h2 className="font-serif text-sm sm:text-base font-bold text-white tracking-wide" style={{ fontFamily: "'Cinzel', serif" }}>
-                  Mayuri Veena &amp; Taus
+                <h2 className="font-serif text-sm sm:text-base font-bold text-white tracking-wide group-hover:text-white/90" style={{ fontFamily: "'Cinzel', serif" }}>
+                  Celestial Sangam Yazh
                 </h2>
                 <ArrowRight className="w-3.5 h-3.5 text-white/50 group-hover:translate-x-1 transition-transform" />
               </div>
               <p className="text-[11px] text-[#8e95a5] leading-relaxed line-clamp-2">
-                Peacock-carved bowed chordophone embodying the royal court elegance and Dhrupad ragas.
+                Ancient Sangam bards and Amaravati harpists invoking sacred panns with the celestial open harp.
               </p>
             </div>
 
             <div className="w-full h-[120px] sm:h-[150px] lg:h-[170px] rounded-xl lg:rounded-sm overflow-hidden border border-white/10 shadow-[0_10px_25px_rgba(0,0,0,0.6)] relative bg-black/40">
               <img 
-                src="/instruments/mayuri-veena.jpg" 
-                alt="Mayuri Veena" 
+                src="/hero2.jpeg" 
+                alt="Celestial Sangam Yazh" 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = '/hero2.jpeg';
-                }}
               />
               <span className="absolute top-2 left-2 text-[9px] font-mono uppercase px-2 py-0.5 rounded bg-black/70 text-white border border-white/15">
-                Court Instrument
+                Sangam Harps
               </span>
             </div>
 
+            {/* Mobile: Title below */}
             <div className="space-y-0.5 block lg:hidden">
               <div className="flex items-center justify-between">
                 <h2 className="font-serif text-sm sm:text-base font-bold text-white tracking-wide" style={{ fontFamily: "'Cinzel', serif" }}>
-                  Mayuri Veena &amp; Taus
+                  Celestial Sangam Yazh
                 </h2>
                 <ArrowRight className="w-3.5 h-3.5 text-white/50 group-hover:translate-x-1 transition-transform" />
               </div>
               <p className="text-[11px] text-[#8e95a5] leading-relaxed line-clamp-2">
-                Peacock-carved bowed chordophone embodying the royal court elegance and Dhrupad ragas.
+                Ancient Sangam bards and Amaravati harpists invoking sacred panns with the celestial open harp.
               </p>
             </div>
           </div>

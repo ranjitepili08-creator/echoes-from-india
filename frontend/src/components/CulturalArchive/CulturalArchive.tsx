@@ -10,6 +10,7 @@ import {
   Volume2, 
   PlusCircle, 
   MapPin, 
+  Landmark,
   Calendar,
   Layers,
   X
@@ -44,6 +45,7 @@ export const CulturalArchive: React.FC<CulturalArchiveProps> = ({
     const matchesSearch =
       inst.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       inst.sanskritName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (inst.museums && inst.museums.some((m) => m.toLowerCase().includes(searchQuery.toLowerCase()))) ||
       inst.region.toLowerCase().includes(searchQuery.toLowerCase()) ||
       inst.shortDescription.toLowerCase().includes(searchQuery.toLowerCase());
 
@@ -219,9 +221,26 @@ export const CulturalArchive: React.FC<CulturalArchiveProps> = ({
                   {inst.shortDescription}
                 </p>
 
-                <div className="flex items-center gap-1.5 text-[11px] text-[#646c7c] pt-1">
-                  <MapPin className="w-3 h-3 text-[#9da4b0]" />
-                  <span>{inst.region}</span>
+                {/* Present Museums */}
+                <div className="pt-2 border-t border-white/5 space-y-1">
+                  <div className="flex items-center gap-1.5 text-[10px] text-amber-400/90 font-bold uppercase tracking-wider">
+                    <Landmark className="w-3.5 h-3.5 shrink-0" />
+                    <span>Present in Museums</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1 pt-0.5">
+                    {inst.museums && inst.museums.length > 0 ? (
+                      inst.museums.map((museum, idx) => (
+                        <span
+                          key={idx}
+                          className="inline-flex items-center text-[10.5px] leading-snug px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[#d6d9e0] hover:text-white hover:bg-white/10 transition-colors"
+                        >
+                          {museum}
+                        </span>
+                      ))
+                    ) : (
+                      <span className="text-[11px] text-[#646c7c] italic">National Heritage Archives</span>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

@@ -93,13 +93,19 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
       id: 'shankha',
       title: 'Sacred Conch Shell',
       subtitle: 'Vedic Mangala Aerophone',
-      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Shankha_conch_shell_trumpet.jpg/800px-Shankha_conch_shell_trumpet.jpg',
+      image: '/instruments/shankha.jpg',
     },
     {
       id: 'jal-tarang',
       title: 'Porcelain Jal Tarang',
       subtitle: 'Acoustic Water Chimes',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH7mC3k9FfGjWc_jWvXq_zS32s8x4lP4Z_lw&s=10',
+      image: '/instruments/jal-tarang.jpg',
+    },
+    {
+      id: 'algoza',
+      title: 'Rajasthani Algoza',
+      subtitle: 'Twin Circular Flutes',
+      image: '/instruments/algoza.jpg',
     },
     {
       id: 'ravanahatha',
@@ -111,7 +117,7 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
       id: 'pakhawaj',
       title: 'Temple Pakhawaj Drum',
       subtitle: 'Wheat Dough & Syahi Head',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ68oNewxC2jAsS3QeTcHfkEU0Jx4ugx2x-4Pq5NEpTY2bumpKDQI4rhqT&s=10',
+      image: '/instruments/pakhawaj.jpg',
     }
   ];
 
@@ -389,31 +395,90 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
         </div>
       )}
 
-      {/* Live Camera Stream Modal */}
+      {/* Full-Screen Immersive Camera Viewfinder */}
       {isCameraOpen && (
-        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex flex-col items-center justify-center p-4">
-          <div className="relative w-full max-w-lg bg-[#12141a] border border-white/20 rounded-3xl overflow-hidden shadow-2xl p-4 space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b border-white/10">
-              <div className="flex items-center gap-2 text-white text-xs font-bold">
-                <Camera className="w-4 h-4" />
-                <span>Align Instrument in Frame</span>
-              </div>
-              <button onClick={stopCamera} className="p-1 rounded-full bg-white/10 text-[#9da4b0] hover:text-white">
-                <X className="w-5 h-5" />
+        <div className="fixed inset-0 z-[100] w-screen h-screen bg-black flex flex-col justify-between overflow-hidden select-none">
+          {/* Full Screen Live Camera Video Background */}
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            muted
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+
+          {/* Dark Vignette Overlay for High-Contrast Scanning */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80 pointer-events-none" />
+
+          {/* Center Scan Reticle & Alignment Frame */}
+          <div className="absolute inset-0 flex items-center justify-center p-6 sm:p-12 pointer-events-none">
+            <div className="relative w-full max-w-sm sm:max-w-md aspect-[4/3] rounded-3xl border-2 border-white/60 shadow-[0_0_50px_rgba(0,0,0,0.8)] flex items-center justify-center overflow-hidden">
+              {/* Animated Glowing Scan Line */}
+              <div className="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent animate-pulse shadow-[0_0_15px_#ffffff]" style={{ top: '50%' }} />
+
+              {/* Corner Framing Brackets */}
+              <div className="absolute top-3 left-3 w-6 h-6 border-t-4 border-l-4 border-white rounded-tl-lg" />
+              <div className="absolute top-3 right-3 w-6 h-6 border-t-4 border-r-4 border-white rounded-tr-lg" />
+              <div className="absolute bottom-3 left-3 w-6 h-6 border-b-4 border-l-4 border-white rounded-bl-lg" />
+              <div className="absolute bottom-3 right-3 w-6 h-6 border-b-4 border-r-4 border-white rounded-br-lg" />
+
+              <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-white/90 bg-black/50 px-3 py-1 rounded-full backdrop-blur-md">
+                Align Instrument In Frame
+              </span>
+            </div>
+          </div>
+
+          {/* Top Floating Header Controls */}
+          <div className="relative z-10 p-4 sm:p-6 flex items-center justify-between">
+            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white text-xs font-semibold">
+              <Camera className="w-4 h-4 text-emerald-400 animate-pulse" />
+              <span>Full Screen AI Scanner</span>
+            </div>
+
+            <button
+              onClick={stopCamera}
+              className="p-3 rounded-full bg-black/60 hover:bg-white hover:text-black text-white border border-white/20 backdrop-blur-md transition-all active:scale-95 shadow-xl"
+              title="Close Full Screen Camera"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Bottom Floating Action Bar & Large Shutter Button */}
+          <div className="relative z-10 p-6 sm:p-10 flex flex-col items-center gap-4">
+            <p className="text-xs text-white/80 font-medium text-center drop-shadow-md bg-black/40 px-4 py-1 rounded-full backdrop-blur-sm">
+              Point at any instrument sculpture, carving, or book page
+            </p>
+
+            <div className="flex items-center justify-center gap-8 w-full max-w-xs">
+              <button
+                onClick={() => {
+                  stopCamera();
+                  fileInputRef.current?.click();
+                }}
+                className="p-3.5 rounded-full bg-black/60 hover:bg-white/20 border border-white/20 text-white backdrop-blur-md active:scale-90 transition-all shadow-lg"
+                title="Upload Photo Instead"
+              >
+                <Upload className="w-5 h-5" />
               </button>
-            </div>
 
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-black flex items-center justify-center">
-              <video ref={videoRef} autoPlay playsInline className="w-full h-full object-cover" />
-              <div className="absolute inset-8 border-2 border-dashed border-white/60 rounded-xl pointer-events-none animate-pulse" />
-            </div>
-
-            <div className="flex items-center justify-center gap-4 pt-2">
+              {/* Primary Large Camera Shutter Ring */}
               <button
                 onClick={capturePhoto}
-                className="w-full py-3.5 rounded-xl bg-white text-black font-bold text-sm shadow-xl active:scale-95 transition-all touch-manipulation"
+                className="w-20 h-20 sm:w-22 sm:h-22 rounded-full bg-white p-1.5 shadow-[0_0_30px_rgba(255,255,255,0.4)] active:scale-90 transition-all flex items-center justify-center group"
+                title="Capture Photo"
               >
-                📸 Capture &amp; Identify Instrument
+                <div className="w-full h-full rounded-full border-4 border-black bg-white group-hover:scale-95 transition-transform flex items-center justify-center">
+                  <div className="w-5 h-5 rounded-full bg-black/80" />
+                </div>
+              </button>
+
+              <button
+                onClick={stopCamera}
+                className="p-3.5 rounded-full bg-black/60 hover:bg-white/20 border border-white/20 text-white backdrop-blur-md active:scale-90 transition-all shadow-lg"
+                title="Cancel"
+              >
+                <X className="w-5 h-5" />
               </button>
             </div>
           </div>
@@ -645,9 +710,11 @@ export const VisionScanner: React.FC<VisionScannerProps> = ({
                 </div>
 
                 <div className="bg-white/5 p-2.5 rounded-xl border border-white/5">
-                  <span className="text-[9px] text-[#646c7c] uppercase font-bold block mb-0.5">Region of Origin</span>
-                  <span className="font-semibold text-white truncate block">
-                    {detectionResult.instrument.region}
+                  <span className="text-[9px] text-[#646c7c] uppercase font-bold block mb-0.5">Present In Museums</span>
+                  <span className="font-semibold text-white truncate block" title={detectionResult.instrument.museums?.join(', ')}>
+                    {detectionResult.instrument.museums && detectionResult.instrument.museums.length > 0
+                      ? detectionResult.instrument.museums[0] + (detectionResult.instrument.museums.length > 1 ? ` (+${detectionResult.instrument.museums.length - 1})` : '')
+                      : detectionResult.instrument.region}
                   </span>
                 </div>
 

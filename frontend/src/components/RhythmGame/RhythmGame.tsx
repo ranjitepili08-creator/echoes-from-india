@@ -10,17 +10,20 @@ import {
   Pause, 
   RotateCcw,
   Radio,
-  Sliders
+  Sliders,
+  Brain
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { HERITAGE_SONGS } from '../../data/songsData';
 import { HISTORICAL_INSTRUMENTS } from '../../data/instrumentsData';
 import { Instrument, SongChart, SongNote } from '../../types';
 import { soundEngine } from '../../services/soundEngine';
+import { EchoMatchGame } from './EchoMatchGame';
 
 interface RhythmGameProps {
   currentInstrument: Instrument;
   onSelectInstrument: (inst: Instrument) => void;
+  initialMode?: 'tiles' | 'echo';
 }
 
 interface ActiveTile {
@@ -34,10 +37,14 @@ interface ActiveTile {
 export const RhythmGame: React.FC<RhythmGameProps> = ({
   currentInstrument,
   onSelectInstrument,
+  initialMode = 'tiles',
 }) => {
+  const [gameMode, setGameMode] = useState<'tiles' | 'echo'>(initialMode);
+
   // Default is the Tarana "Dheem Ta Dare Dani" theme
   const [selectedSong, setSelectedSong] = useState<SongChart>(HERITAGE_SONGS[0]);
   const [gameState, setGameState] = useState<'idle' | 'playing' | 'paused' | 'gameover'>('idle');
+  const [bestTilesScore, setBestTilesScore] = useState<number>(0);
   
   const [score, setScore] = useState(0);
   const [combo, setCombo] = useState(0);
@@ -102,11 +109,18 @@ export const RhythmGame: React.FC<RhythmGameProps> = ({
 
   // Stop preview and accompaniment on unmount or song switch
   useEffect(() => {
+    try {
+      const stored = localStorage.getItem(`piano_tiles_best_${currentInstrument.id}`);
+      setBestTilesScore(stored ? parseInt(stored, 10) : 0);
+    } catch {
+      setBestTilesScore(0);
+    }
+
     return () => {
       stopPreview();
       soundEngine.stopRhythmBeat();
     };
-  }, [selectedSong]);
+  }, [selectedSong, currentInstrument.id]);
 
   // Frequency mapping for the scanned instrument tone
   const getFrequencyForPitch = (pitch: string): number => {
@@ -304,6 +318,15 @@ export const RhythmGame: React.FC<RhythmGameProps> = ({
         } else {
           setGameState('gameover');
           confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+          setScore((currentScore) => {
+            if (currentScore > bestTilesScore) {
+              setBestTilesScore(currentScore);
+              try {
+                localStorage.setItem(`piano_tiles_best_${currentInstrument.id}`, currentScore.toString());
+              } catch {}
+            }
+            return currentScore;
+          });
         }
         return;
       }
@@ -410,9 +433,50 @@ export const RhythmGame: React.FC<RhythmGameProps> = ({
       : 100
   );
 
+  if (gameMode === 'echo') {
+    return (
+      <EchoMatchGame
+        currentInstrument={currentInstrument}
+        onSelectInstrument={onSelectInstrument}
+        onSwitchMode={setGameMode}
+      />
+    );
+  }
+
   return (
-    <div className="space-y-4 sm:space-y-6 select-none touch-manipulation">
+    <div className="space-y-4 sm:space-y-6 select-none touch-manipulation max-w-5xl mx-auto w-full">
       
+      {/* Game Mode Navigation Switcher Strip */}
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-[#12141a]/95 border border-white/10 p-3 sm:p-4 rounded-2xl shadow-xl">
+        <div className="flex items-center gap-2">
+          <button
+            className="flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold bg-white text-black shadow-md border border-white transition-all cursor-pointer"
+          >
+            <Gamepad2 className="w-3.5 h-3.5 text-black" />
+            <span>Piano Tiles (Cascade)</span>
+          </button>
+
+          <button
+            onClick={() => {
+              stopPreview();
+              soundEngine.stopRhythmBeat();
+              setGameMode('echo');
+            }}
+            className="flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-semibold text-[#8e95a5] hover:text-white hover:bg-white/5 border border-transparent transition-all cursor-pointer"
+          >
+            <Brain className="w-3.5 h-3.5" />
+            <span>Echo Match (Memory)</span>
+          </button>
+        </div>
+
+        {/* Best Score Badge for Piano Tiles */}
+        <div className="flex items-center gap-2 bg-[#181a22] px-3.5 py-1.5 rounded-xl border border-white/10 text-xs">
+          <Trophy className="w-4 h-4 text-yellow-400" />
+          <span className="text-[#8e95a5]">Best Score:</span>
+          <span className="font-mono font-bold text-amber-300">{bestTilesScore}</span>
+        </div>
+      </div>
+
       {/* Top Banner & Active Scanned Instrument Soundfont Indicator */}
       <div className="bg-[#12141a] border border-white/10 rounded-2xl p-4 sm:p-6 shadow-xl">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
