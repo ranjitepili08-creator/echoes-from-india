@@ -4,6 +4,7 @@
  */
 
 import { InstrumentStringPreset, karplusEngine } from './KarplusStrongEngine';
+import { Instrument } from '../types';
 
 export interface VirtualString {
   id: number;
@@ -54,6 +55,7 @@ export class StringPhysics {
   public sensitivity: number = 1.0;
   public fretModulationEnabled: boolean = true;
   public preset: InstrumentStringPreset = 'sitar';
+  public currentInstrument: Instrument | null = null;
 
   private prevPoint: { x: number; y: number; time: number } | null = null;
   private onPluckCallback: ((event: PluckEvent) => void) | null = null;
@@ -61,10 +63,14 @@ export class StringPhysics {
   constructor(
     width: number = 800,
     height: number = 600,
-    preset: InstrumentStringPreset = 'sitar'
+    presetOrInstrument: InstrumentStringPreset | Instrument = 'sitar'
   ) {
     this.updateDimensions(width, height);
-    this.setPreset(preset);
+    if (typeof presetOrInstrument === 'string') {
+      this.setPreset(presetOrInstrument);
+    } else {
+      this.setInstrument(presetOrInstrument);
+    }
   }
 
   public setPluckCallback(cb: (event: PluckEvent) => void): void {
@@ -79,46 +85,138 @@ export class StringPhysics {
     this.recalculateStringPositions();
   }
 
+  /**
+   * Set up strings dynamically based on full Instrument definition
+   */
+  public setInstrument(instrument: Instrument): void {
+    this.currentInstrument = instrument;
+    const instId = (instrument.id || 'sitar').toLowerCase().replace(/_/g, '-') as InstrumentStringPreset;
+    this.preset = instId;
+
+    const notes = instrument.playInterface?.notes || [];
+    if (notes.length > 0) {
+      const palette = [
+        { color: '#d97706', glow: '#f59e0b' },
+        { color: '#f59e0b', glow: '#fbbf24' },
+        { color: '#e2e8f0', glow: '#ffffff' },
+        { color: '#4ade80', glow: '#86efac' },
+        { color: '#38bdf8', glow: '#7dd3fc' },
+        { color: '#a78bfa', glow: '#c4b5fd' },
+        { color: '#ec4899', glow: '#f472b6' },
+        { color: '#f43f5e', glow: '#fda4af' }
+      ];
+
+      const stringConfigs = notes.map((n, idx) => {
+        const pal = palette[idx % palette.length];
+        const isBass = n.frequency < 200;
+        return {
+          name: `${n.sargam} (${n.western})`,
+          sargam: n.sargam,
+          freq: n.frequency,
+          color: pal.color,
+          glow: pal.glow,
+          thick: isBass ? 4.2 : Math.max(1.5, 3.6 - idx * 0.3)
+        };
+      });
+
+      this.buildStrings(stringConfigs);
+    } else {
+      this.setPreset(instId);
+    }
+  }
+
   public setPreset(preset: InstrumentStringPreset, rootFreq: number = 130.81): void {
     this.preset = preset;
-    const stringConfigs: { name: string; sargam: string; ratio: number; color: string; glow: string; thick: number }[] = [];
+    const stringConfigs: { name: string; sargam: string; freq: number; color: string; glow: string; thick: number }[] = [];
+    const normalizedPreset = preset.toLowerCase().replace(/_/g, '-');
 
-    switch (preset) {
+    switch (normalizedPreset) {
       case 'tanpura':
         stringConfigs.push(
-          { name: 'Pa (G3)', sargam: 'Pa', ratio: 1.5, color: '#f59e0b', glow: '#fbbf24', thick: 3.5 },
-          { name: 'Sa (C4)', sargam: 'Sa', ratio: 2.0, color: '#e2e8f0', glow: '#ffffff', thick: 2.5 },
-          { name: 'Sa (C4)', sargam: 'Sa', ratio: 2.0, color: '#e2e8f0', glow: '#ffffff', thick: 2.5 },
-          { name: 'Kharaj Sa (C3)', sargam: 'Sa(K)', ratio: 1.0, color: '#d97706', glow: '#f59e0b', thick: 4.5 }
+          { name: 'Pa (G3)', sargam: 'Pa', freq: rootFreq * 1.5, color: '#f59e0b', glow: '#fbbf24', thick: 3.5 },
+          { name: 'Sa (C4)', sargam: 'Sa', freq: rootFreq * 2.0, color: '#e2e8f0', glow: '#ffffff', thick: 2.5 },
+          { name: 'Sa (C4)', sargam: 'Sa', freq: rootFreq * 2.0, color: '#e2e8f0', glow: '#ffffff', thick: 2.5 },
+          { name: 'Kharaj Sa (C3)', sargam: 'Sa(K)', freq: rootFreq * 1.0, color: '#d97706', glow: '#f59e0b', thick: 4.5 }
         );
         break;
 
       case 'sarod':
         stringConfigs.push(
-          { name: 'Kharaj (C3)', sargam: 'Kharaj', ratio: 1.0, color: '#d97706', glow: '#f59e0b', thick: 4.0 },
-          { name: 'Pa (G3)', sargam: 'Pa', ratio: 1.5, color: '#f59e0b', glow: '#fbbf24', thick: 3.2 },
-          { name: 'Sa (C4)', sargam: 'Sa', ratio: 2.0, color: '#e2e8f0', glow: '#ffffff', thick: 2.6 },
-          { name: 'Ma (F4)', sargam: 'Ma', ratio: 2.67, color: '#38bdf8', glow: '#7dd3fc', thick: 2.2 },
-          { name: 'Chikari 1 (C5)', sargam: 'Chikari', ratio: 4.0, color: '#a78bfa', glow: '#c4b5fd', thick: 1.5 },
-          { name: 'Chikari 2 (G5)', sargam: 'Tara Pa', ratio: 6.0, color: '#ec4899', glow: '#f472b6', thick: 1.2 }
+          { name: 'Kharaj (C3)', sargam: 'Kharaj', freq: rootFreq * 1.0, color: '#d97706', glow: '#f59e0b', thick: 4.0 },
+          { name: 'Pa (G3)', sargam: 'Pa', freq: rootFreq * 1.5, color: '#f59e0b', glow: '#fbbf24', thick: 3.2 },
+          { name: 'Sa (C4)', sargam: 'Sa', freq: rootFreq * 2.0, color: '#e2e8f0', glow: '#ffffff', thick: 2.6 },
+          { name: 'Ma (F4)', sargam: 'Ma', freq: rootFreq * 2.67, color: '#38bdf8', glow: '#7dd3fc', thick: 2.2 },
+          { name: 'Chikari 1 (C5)', sargam: 'Chikari', freq: rootFreq * 4.0, color: '#a78bfa', glow: '#c4b5fd', thick: 1.5 },
+          { name: 'Chikari 2 (G5)', sargam: 'Tara Pa', freq: rootFreq * 6.0, color: '#ec4899', glow: '#f472b6', thick: 1.2 }
         );
         break;
 
       case 'yazh':
+        stringConfigs.push(
+          { name: 'Kural (C4)', sargam: 'Kural (Sa)', freq: 261.63, color: '#f59e0b', glow: '#fbbf24', thick: 3.0 },
+          { name: 'Thuttam (D4)', sargam: 'Thuttam (Re)', freq: 293.66, color: '#fbbf24', glow: '#fde68a', thick: 2.7 },
+          { name: 'Kaikkilai (E4)', sargam: 'Kaikkilai (Ga)', freq: 329.63, color: '#34d399', glow: '#a7f3d0', thick: 2.4 },
+          { name: 'Uzhai (F4)', sargam: 'Uzhai (Ma)', freq: 349.23, color: '#38bdf8', glow: '#bae6fd', thick: 2.1 },
+          { name: 'Ili (G4)', sargam: 'Ili (Pa)', freq: 392.00, color: '#818cf8', glow: '#c7d2fe', thick: 1.8 },
+          { name: 'Vilari (A4)', sargam: 'Vilari (Dha)', freq: 440.00, color: '#c084fc', glow: '#e9d5ff', thick: 1.5 },
+          { name: 'Tharam (B4)', sargam: 'Tharam (Ni)', freq: 493.88, color: '#f472b6', glow: '#fbcfe8', thick: 1.2 }
+        );
+        break;
+
+      case 'morchang':
+        stringConfigs.push(
+          { name: 'Ta (C4)', sargam: 'Ta (Low)', freq: 261.63, color: '#38bdf8', glow: '#7dd3fc', thick: 3.5 },
+          { name: 'Dhin (E4)', sargam: 'Dhin (F1)', freq: 329.63, color: '#4ade80', glow: '#86efac', thick: 3.0 },
+          { name: 'Ki (G4)', sargam: 'Ki (F2)', freq: 392.00, color: '#fbbf24', glow: '#fde68a', thick: 2.5 },
+          { name: 'Te (C5)', sargam: 'Te (F3)', freq: 523.25, color: '#a78bfa', glow: '#c4b5fd', thick: 2.0 },
+          { name: 'Dha (E5)', sargam: 'Dha (Harm)', freq: 659.25, color: '#f43f5e', glow: '#fda4af', thick: 1.6 }
+        );
+        break;
+
+      case 'jal-tarang':
+        stringConfigs.push(
+          { name: 'Bowl 1 (C4)', sargam: 'Sa (Bowl 1)', freq: 261.63, color: '#38bdf8', glow: '#7dd3fc', thick: 3.5 },
+          { name: 'Bowl 2 (D4)', sargam: 'Re (Bowl 2)', freq: 293.66, color: '#60a5fa', glow: '#93c5fd', thick: 3.2 },
+          { name: 'Bowl 3 (E4)', sargam: 'Ga (Bowl 3)', freq: 329.63, color: '#34d399', glow: '#6ee7b7', thick: 2.9 },
+          { name: 'Bowl 4 (F4)', sargam: 'Ma (Bowl 4)', freq: 349.23, color: '#2dd4bf', glow: '#5eead4', thick: 2.6 },
+          { name: 'Bowl 5 (G4)', sargam: 'Pa (Bowl 5)', freq: 392.00, color: '#fbbf24', glow: '#fde68a', thick: 2.3 },
+          { name: 'Bowl 6 (A4)', sargam: 'Dha (Bowl 6)', freq: 440.00, color: '#a78bfa', glow: '#c4b5fd', thick: 2.0 },
+          { name: 'Bowl 7 (B4)', sargam: 'Ni (Bowl 7)', freq: 493.88, color: '#e879f9', glow: '#f0abfc', thick: 1.7 },
+          { name: 'Bowl 8 (C5)', sargam: 'Sa\' (Bowl 8)', freq: 523.25, color: '#f43f5e', glow: '#fda4af', thick: 1.4 }
+        );
+        break;
+
+      case 'rudra-veena':
+      case 'rudra_veena':
+        stringConfigs.push(
+          { name: 'Kharaj Sa (C3)', sargam: 'Kharaj Sa', freq: 130.81, color: '#d97706', glow: '#f59e0b', thick: 4.8 },
+          { name: 'Komal Re (Db3)', sargam: 're', freq: 138.59, color: '#f59e0b', glow: '#fbbf24', thick: 4.2 },
+          { name: 'Shuddha Ga (E3)', sargam: 'Ga', freq: 164.81, color: '#fbbf24', glow: '#fde68a', thick: 3.8 },
+          { name: 'Teevra Ma (F#3)', sargam: 'Ma(T)', freq: 185.00, color: '#38bdf8', glow: '#7dd3fc', thick: 3.4 },
+          { name: 'Pancham (G3)', sargam: 'Pa', freq: 196.00, color: '#818cf8', glow: '#c7d2fe', thick: 3.0 },
+          { name: 'Komal Dha (Ab3)', sargam: 'dha', freq: 207.65, color: '#c084fc', glow: '#e9d5ff', thick: 2.6 },
+          { name: 'Shuddha Ni (B3)', sargam: 'Ni', freq: 246.94, color: '#f472b6', glow: '#fbcfe8', thick: 2.2 }
+        );
+        break;
+
       case 'sitar':
       default:
         stringConfigs.push(
-          { name: 'Kharaj (C3)', sargam: 'Kharaj Sa', ratio: 1.0, color: '#d97706', glow: '#f59e0b', thick: 4.2 },
-          { name: 'Pa (G3)', sargam: 'Pancham', ratio: 1.5, color: '#f59e0b', glow: '#fbbf24', thick: 3.5 },
-          { name: 'Sa (C4)', sargam: 'Madhya Sa', ratio: 2.0, color: '#e2e8f0', glow: '#ffffff', thick: 2.8 },
-          { name: 'Ga (E4)', sargam: 'Gandhara', ratio: 2.5, color: '#4ade80', glow: '#86efac', thick: 2.2 },
-          { name: 'Pa (G4)', sargam: 'Pancham', ratio: 3.0, color: '#38bdf8', glow: '#7dd3fc', thick: 1.8 },
-          { name: 'Dha (A4)', sargam: 'Dhaivata', ratio: 3.375, color: '#a78bfa', glow: '#c4b5fd', thick: 1.4 },
-          { name: 'Taar Sa (C5)', sargam: 'Taar Sa', ratio: 4.0, color: '#ec4899', glow: '#f472b6', thick: 1.0 }
+          { name: 'Kharaj (C3)', sargam: 'Kharaj Sa', freq: rootFreq * 1.0, color: '#d97706', glow: '#f59e0b', thick: 4.2 },
+          { name: 'Pa (G3)', sargam: 'Pancham', freq: rootFreq * 1.5, color: '#f59e0b', glow: '#fbbf24', thick: 3.5 },
+          { name: 'Sa (C4)', sargam: 'Madhya Sa', freq: rootFreq * 2.0, color: '#e2e8f0', glow: '#ffffff', thick: 2.8 },
+          { name: 'Ga (E4)', sargam: 'Gandhara', freq: rootFreq * 2.5, color: '#4ade80', glow: '#86efac', thick: 2.2 },
+          { name: 'Pa (G4)', sargam: 'Pancham', freq: rootFreq * 3.0, color: '#38bdf8', glow: '#7dd3fc', thick: 1.8 },
+          { name: 'Dha (A4)', sargam: 'Dhaivata', freq: rootFreq * 3.375, color: '#a78bfa', glow: '#c4b5fd', thick: 1.4 },
+          { name: 'Taar Sa (C5)', sargam: 'Taar Sa', freq: rootFreq * 4.0, color: '#ec4899', glow: '#f472b6', thick: 1.0 }
         );
         break;
     }
 
+    this.buildStrings(stringConfigs);
+  }
+
+  private buildStrings(stringConfigs: { name: string; sargam: string; freq: number; color: string; glow: string; thick: number }[]): void {
     const count = stringConfigs.length;
     const margin = Math.min(120, this.width * 0.12);
     const availableWidth = this.width - margin * 2;
@@ -128,7 +226,7 @@ export class StringPhysics {
       id: index,
       name: cfg.name,
       sargam: cfg.sargam,
-      baseFreq: Math.round(rootFreq * cfg.ratio * 100) / 100,
+      baseFreq: Math.round(cfg.freq * 100) / 100,
       xPos: Math.round(margin + index * step),
       targetX: Math.round(margin + index * step),
       vibrationAmplitude: 0,
@@ -168,13 +266,11 @@ export class StringPhysics {
     const dt = Math.max(0.001, (now - this.prevPoint.time) / 1000);
     const vx = (x - this.prevPoint.x) / dt;
     const vy = (y - this.prevPoint.y) / dt;
-    const speed = Math.sqrt(vx * vx + vy * vy);
 
     // Test crossing for every string
     for (const string of this.strings) {
       const sX = string.xPos;
 
-      // 1. Intersection test: Did the line segment cross the string plane?
       const wasLeft = this.prevPoint.x < sX;
       const isRight = x >= sX;
       const wasRight = this.prevPoint.x > sX;
@@ -182,11 +278,9 @@ export class StringPhysics {
       const hasCrossed = (wasLeft && isRight) || (wasRight && isLeft);
 
       if (hasCrossed) {
-        // 2. Vertical bound check
         const interpY = this.prevPoint.y + ((sX - this.prevPoint.x) / (x - this.prevPoint.x || 1)) * (y - this.prevPoint.y);
         if (interpY >= this.topY - 20 && interpY <= this.bottomY + 20) {
-          // 3. Debounce refractory period (90ms)
-          if (now - string.lastPluckedTime > 90) {
+          if (now - string.lastPluckedTime > 85) {
             this.triggerPluck(string, interpY, Math.abs(vx), now);
           }
         }
@@ -208,25 +302,25 @@ export class StringPhysics {
     string.lastPluckedTime = now;
     string.pluckY = Math.max(this.topY, Math.min(this.bottomY, contactY));
 
-    // Dynamic Velocity-to-Gain (clamped 0.25 to 1.0)
+    // Dynamic Velocity-to-Gain
     const normalizedVel = Math.min(1.0, Math.max(0.25, (velocityPxSec / 1200) * this.sensitivity));
 
     // Amplitude displacement in pixels
     string.vibrationAmplitude = Math.min(24, Math.max(8, normalizedVel * 20));
     string.vibrationPhase = 0;
 
-    // Pitch Modulation along the Fretboard (P.y relative to string length)
+    // Pitch & Formant Modulation along vertical axis (P.y relative to string length)
+    const stringLength = this.bottomY - this.topY;
+    const normalizedPos = Math.max(0, Math.min(1, (this.bottomY - string.pluckY) / stringLength));
+
     let finalFreq = string.baseFreq;
     if (this.fretModulationEnabled) {
-      const stringLength = this.bottomY - this.topY;
-      const normalizedPos = Math.max(0, Math.min(1, (this.bottomY - string.pluckY) / stringLength));
-      // Continuous microtonal fret stop up to 1 octave higher
       const octaveShift = normalizedPos * 0.75;
       finalFreq = string.baseFreq * Math.pow(2, octaveShift);
     }
 
-    // Synthesize physical Karplus-Strong audio note
-    karplusEngine.pluckString(finalFreq, normalizedVel, 2.8, this.preset);
+    // Synthesize physical acoustic note using instrument-specific synthesis engine
+    karplusEngine.pluckString(finalFreq, normalizedVel, 2.8, this.preset, normalizedPos);
 
     // Spawn visual resonance particle burst
     this.spawnParticles(string.xPos, string.pluckY, string.glowColor, normalizedVel);
@@ -270,10 +364,7 @@ export class StringPhysics {
     this.drawFretboard(ctx);
 
     // 2. Draw Strings with Dynamic Bezier Vibration Curves
-    const timeSec = performance.now() / 1000;
-
     for (const string of this.strings) {
-      // Exponential decay of vibration
       string.vibrationAmplitude *= Math.pow(string.decayRate, dt * 60);
       if (string.vibrationAmplitude < 0.05) string.vibrationAmplitude = 0;
 
@@ -352,7 +443,6 @@ export class StringPhysics {
     const fretCount = 12;
 
     ctx.save();
-    // Neck Wood Subtle Shading
     const margin = Math.min(120, this.width * 0.12) - 20;
     const neckWidth = this.width - margin * 2;
 
@@ -366,7 +456,6 @@ export class StringPhysics {
 
     // Horizontal Brass Frets
     for (let f = 1; f <= fretCount; f++) {
-      // Exponential fret spacing: L_f = L * (1 - 2^(-f/12))
       const fretY = this.topY + stringLength * (1 - Math.pow(2, -f / 12));
 
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
@@ -376,7 +465,6 @@ export class StringPhysics {
       ctx.lineTo(margin + neckWidth, fretY);
       ctx.stroke();
 
-      // Fret Marker Dots at 3rd, 5th, 7th, 9th, 12th frets
       if ([3, 5, 7, 9].includes(f)) {
         ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
         ctx.beginPath();
@@ -400,7 +488,7 @@ export class StringPhysics {
       const p = this.particles[i];
       p.x += p.vx;
       p.y += p.vy;
-      p.vy += 0.08; // subtle gravity
+      p.vy += 0.08;
       p.life++;
       p.alpha = 1.0 - p.life / p.maxLife;
 

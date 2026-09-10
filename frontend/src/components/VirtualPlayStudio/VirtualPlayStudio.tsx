@@ -267,6 +267,7 @@ export const VirtualPlayStudio: React.FC<VirtualPlayStudioProps> = ({
         <InteractiveGestureStringInstrument
           instrument={currentInstrument}
           onNavigate={onNavigate}
+          onSelectInstrument={onSelectInstrument}
         />
       )}
 
