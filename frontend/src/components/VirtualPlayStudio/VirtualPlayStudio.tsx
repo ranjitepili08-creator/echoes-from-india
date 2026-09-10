@@ -11,7 +11,8 @@ import {
   Volume2,
   Gamepad2,
   BookOpen,
-  Brain
+  Brain,
+  Camera
 } from 'lucide-react';
 import { HISTORICAL_INSTRUMENTS } from '../../data/instrumentsData';
 import { Instrument } from '../../types';
@@ -23,6 +24,8 @@ import { AudioVisualizer } from './AudioVisualizer';
 import { audioRecorder } from '../../services/audioRecorder';
 import { ActiveTab } from '../Navbar';
 import { EchoMatchGame } from '../RhythmGame/EchoMatchGame';
+
+import { InteractiveGestureStringInstrument } from './InteractiveGestureStringInstrument';
 
 interface VirtualPlayStudioProps {
   currentInstrument: Instrument;
@@ -39,7 +42,7 @@ export const VirtualPlayStudio: React.FC<VirtualPlayStudioProps> = ({
   isDroneActive,
   onToggleDrone,
 }) => {
-  const [studioMode, setStudioMode] = useState<'play' | 'echo'>('play');
+  const [studioMode, setStudioMode] = useState<'play' | 'gesture' | 'echo'>('play');
   const [isRecording, setIsRecording] = useState(false);
   const [recordingDuration, setRecordingDuration] = useState(0);
   const [recordedAudioUrl, setRecordedAudioUrl] = useState<string | null>(null);
@@ -189,7 +192,7 @@ export const VirtualPlayStudio: React.FC<VirtualPlayStudioProps> = ({
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2 border-t border-white/5">
           
           {/* Studio Mode Selector Pills */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center flex-wrap gap-2">
             <button
               onClick={() => setStudioMode('play')}
               className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
@@ -199,7 +202,19 @@ export const VirtualPlayStudio: React.FC<VirtualPlayStudioProps> = ({
               }`}
             >
               <Music className="w-3.5 h-3.5" />
-              <span>Free Play Studio</span>
+              <span>Tactile Studio</span>
+            </button>
+
+            <button
+              onClick={() => setStudioMode('gesture')}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                studioMode === 'gesture'
+                  ? 'bg-emerald-400 text-black shadow-sm font-black'
+                  : 'bg-white/5 text-[#9da4b0] hover:bg-white/10 hover:text-white border border-white/5'
+              }`}
+            >
+              <Camera className="w-3.5 h-3.5" />
+              <span>AI Hand Tracking</span>
             </button>
 
             <button
@@ -211,7 +226,7 @@ export const VirtualPlayStudio: React.FC<VirtualPlayStudioProps> = ({
               }`}
             >
               <Brain className="w-3.5 h-3.5" />
-              <span>Play Echo Match</span>
+              <span>Echo Match</span>
             </button>
 
             <button
@@ -247,7 +262,15 @@ export const VirtualPlayStudio: React.FC<VirtualPlayStudioProps> = ({
 
       </div>
 
-      {/* Mode 1: Echo Match Memory Game */}
+      {/* Mode 1: AI Webcam Hand Tracking String Instrument */}
+      {studioMode === 'gesture' && (
+        <InteractiveGestureStringInstrument
+          instrument={currentInstrument}
+          onNavigate={onNavigate}
+        />
+      )}
+
+      {/* Mode 2: Echo Match Memory Game */}
       {studioMode === 'echo' && (
         <EchoMatchGame
           currentInstrument={currentInstrument}
@@ -259,7 +282,7 @@ export const VirtualPlayStudio: React.FC<VirtualPlayStudioProps> = ({
         />
       )}
 
-      {/* Mode 2: Specialized Tactile Play Interface based on Organological Type */}
+      {/* Mode 3: Specialized Tactile Play Interface based on Organological Type */}
       {studioMode === 'play' && (
         <>
           {currentInstrument.playInterface.type === 'strings' && (
